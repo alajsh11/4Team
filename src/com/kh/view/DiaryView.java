@@ -1,6 +1,6 @@
 package com.kh.view;
 
-public class DiaryView {
+public class DiaryInformationView {
 	
 	
 	
