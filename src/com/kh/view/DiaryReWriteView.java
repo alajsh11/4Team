@@ -35,21 +35,21 @@ public class DiaryReWriteView extends JFrame {
 	JLabel dateBox = new JLabel(date); // 날짜 창
 	
 	// 사진수정 버튼
-	ImageIcon icPlus = new ImageIcon("Images/seed.png");
+	ImageIcon icPlus = new ImageIcon("Image/seed1.png");
 	Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
 	
 	JButton plus = new JButton(); 
 	
 	
 	// 수정완료 버튼
-	ImageIcon icModify = new ImageIcon("Images/complete.png");
+	ImageIcon icModify = new ImageIcon("Image/complete.png");
 	Image imModify = icModify.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	
 	
 	JButton modify = new JButton(); 
 	
 	// 이전 버튼
-	ImageIcon icPrev =  new ImageIcon("Images/prev.png");
+	ImageIcon icPrev =  new ImageIcon("Image/prev.png");
 	Image imPrev = icPrev.getImage().getScaledInstance(40,35, Image.SCALE_SMOOTH);
 	
 	JButton prev = new JButton(); 

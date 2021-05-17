@@ -38,20 +38,20 @@ public class DiaryWriteView extends JFrame  {
 	JLabel dateBox = new JLabel(date); // 날짜 창
 		
 	// 사진 붙이기 버튼
-	ImageIcon icPlus =  new ImageIcon("Images/seed.png");
+	ImageIcon icPlus =  new ImageIcon("Image/seed1.png");
 	Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
 	
 	JButton plus = new JButton(); 
 	
 	// 저장 버튼
-	ImageIcon icSave =  new ImageIcon("Images/save.png");
+	ImageIcon icSave =  new ImageIcon("Image/save.png");
 	Image imSave = icSave.getImage().getScaledInstance(35,35, Image.SCALE_SMOOTH);
 	
 	JButton save = new JButton(); 
 	
 	
 	// 이전창 버튼
-	ImageIcon icPrev =  new ImageIcon("Images/prev.png");
+	ImageIcon icPrev =  new ImageIcon("Image/prev.png");
 	Image imPrev = icPrev.getImage().getScaledInstance(40,35, Image.SCALE_SMOOTH);
 	
 	JButton prev = new JButton(); // 이전 버튼(작성 > 달력)
