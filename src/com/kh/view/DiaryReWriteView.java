@@ -30,26 +30,27 @@ public class DiaryReWriteView extends JFrame {
 	
 	JLabel image = new JLabel(); // 사진 붙여 넣을 화면
 	
-	String date = "21.04.11"; /*d.getdDate().toString();*/ 
-	// NullPointerException > 객체 생성후 다시! //Diary controller 에서 생성된 객체 가져 와서
+	String date = d.getdDate().toString();
+	// NullPointerException > 객체 생성후 다시! 
+	
 	JLabel dateBox = new JLabel(date); // 날짜 창
 	
 	// 사진수정 버튼
-	ImageIcon icPlus = new ImageIcon("Images/seed.png");
+	ImageIcon icPlus = new ImageIcon("Image/seed1.png");
 	Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
 	
 	JButton plus = new JButton(); 
 	
 	
 	// 수정완료 버튼
-	ImageIcon icModify = new ImageIcon("Images/complete.png");
+	ImageIcon icModify = new ImageIcon("Image/complete.png");
 	Image imModify = icModify.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	
 	
 	JButton modify = new JButton(); 
 	
 	// 이전 버튼
-	ImageIcon icPrev =  new ImageIcon("Images/prev.png");
+	ImageIcon icPrev =  new ImageIcon("Image/prev.png");
 	Image imPrev = icPrev.getImage().getScaledInstance(40,35, Image.SCALE_SMOOTH);
 	
 	JButton prev = new JButton(); 
