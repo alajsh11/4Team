@@ -33,8 +33,9 @@ public class DiaryWriteView extends JFrame  {
 	
 	JLabel image = new JLabel(); // 사진 붙여 넣을 화면
 
-	String date = "21.04.11"; /*d.getdDate().toString();*/ 
-	// NullPointerException > 객체 생성후 다시! //Diary controller 에서 생성된 객체 가져 와서
+	String date = d.getdDate().toString();
+	// NullPointerException > 객체 생성후 다시! 
+	
 	JLabel dateBox = new JLabel(date); // 날짜 창
 		
 	// 사진 붙이기 버튼
@@ -186,6 +187,19 @@ public class DiaryWriteView extends JFrame  {
 		});
 		
 		
+		while (true) {
+
+			String str = write.getText(); // text 필드에서 넣은 값을 담는다.
+
+			if (content.length() + str.length() < 100) { // 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
+
+				content += str;
+				
+
+			} else {
+				break;
+			}
+		}
 		
 		
 		// 저장 버튼
@@ -200,7 +214,11 @@ public class DiaryWriteView extends JFrame  {
 				
 					bw.write(d.getdImgName()); // 이미지 경로 저장
 					
-					bw.write(hashtagcontent()); // 해시태그 내용 저장
+					
+					d.setDhashTag(dc.hashtagTokenizer(content)); //ArrayList를 해쉬태그 리스트에 세팅
+					
+					
+					bw.write(content); // 해시태그 내용 저장
 					
 					JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 
@@ -214,41 +232,5 @@ public class DiaryWriteView extends JFrame  {
 		});
 		
 	}
-
-	public String hashtagcontent() {
-		
-		while (true) {
-
-			String str = write.getText(); // text 필드에서 넣은 값을 담는다.
-
-			if (content.length() + str.length() < 100) { // 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
-
-				content += str;
-				
-
-			} else {
-				break;
-			}
-		}
-		return content; 
-	}
 	
-	
-	// 작성된 내용 따로 빼기
-	public ArrayList<String> hashtagTokenizer(String content) {
-	  
-		ArrayList<String> hashTagList = new ArrayList<String>();
-		 
-		String completeContent = "";
-		
-		StringTokenizer st = new StringTokenizer(content, "#"); // 매개변수로 받은 content를 # 기준으로 분리
-
-		while (st.hasMoreTokens()) {
-			
-			hashTagList.add(st.nextToken()); // #를 기준으로 빼서 정렬한 값을 다시 completeContent에 넣는다.
-		}
-
-		return hashTagList;
-		
-	}
 }
