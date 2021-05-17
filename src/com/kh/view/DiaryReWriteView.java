@@ -30,8 +30,9 @@ public class DiaryReWriteView extends JFrame {
 	
 	JLabel image = new JLabel(); // 사진 붙여 넣을 화면
 	
-	String date = "21.04.11"; /*d.getdDate().toString();*/ 
-	// NullPointerException > 객체 생성후 다시! //Diary controller 에서 생성된 객체 가져 와서
+	String date = d.getdDate().toString();
+	// NullPointerException > 객체 생성후 다시! 
+	
 	JLabel dateBox = new JLabel(date); // 날짜 창
 	
 	// 사진수정 버튼
