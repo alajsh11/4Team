@@ -201,6 +201,7 @@ public class DiaryWriteView extends JFrame  {
 			}
 		}
 		
+		d.setDhashTag(dc.hashtagTokenizer(content)); //ArrayList를 해쉬태그 리스트에 세팅
 		
 		// 저장 버튼
 		save.addActionListener(new ActionListener() {
@@ -213,10 +214,6 @@ public class DiaryWriteView extends JFrame  {
 					
 				
 					bw.write(d.getdImgName()); // 이미지 경로 저장
-					
-					
-					d.setDhashTag(dc.hashtagTokenizer(content)); //ArrayList를 해쉬태그 리스트에 세팅
-					
 					
 					bw.write(content); // 해시태그 내용 저장
 					
