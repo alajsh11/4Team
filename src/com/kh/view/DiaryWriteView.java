@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
@@ -37,20 +38,20 @@ public class DiaryWriteView extends JFrame  {
 	JLabel dateBox = new JLabel(date); // 날짜 창
 		
 	// 사진 붙이기 버튼
-	ImageIcon icPlus =  new ImageIcon("Images/seed.png");
+	ImageIcon icPlus =  new ImageIcon("Image/seed1.png");
 	Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
 	
 	JButton plus = new JButton(); 
 	
 	// 저장 버튼
-	ImageIcon icSave =  new ImageIcon("Images/save.png");
+	ImageIcon icSave =  new ImageIcon("Image/save.png");
 	Image imSave = icSave.getImage().getScaledInstance(35,35, Image.SCALE_SMOOTH);
 	
 	JButton save = new JButton(); 
 	
 	
 	// 이전창 버튼
-	ImageIcon icPrev =  new ImageIcon("Images/prev.png");
+	ImageIcon icPrev =  new ImageIcon("Image/prev.png");
 	Image imPrev = icPrev.getImage().getScaledInstance(40,35, Image.SCALE_SMOOTH);
 	
 	JButton prev = new JButton(); // 이전 버튼(작성 > 달력)
@@ -199,7 +200,7 @@ public class DiaryWriteView extends JFrame  {
 				
 					bw.write(d.getdImgName()); // 이미지 경로 저장
 					
-					bw.write(hashtagTokenizer(content)); // 해시태그 내용 저장
+					bw.write(hashtagcontent()); // 해시태그 내용 저장
 					
 					JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 
@@ -234,18 +235,20 @@ public class DiaryWriteView extends JFrame  {
 	
 	
 	// 작성된 내용 따로 빼기
-	public String hashtagTokenizer(String content) {
-
+	public ArrayList<String> hashtagTokenizer(String content) {
+	  
+		ArrayList<String> hashTagList = new ArrayList<String>();
+		 
 		String completeContent = "";
 		
 		StringTokenizer st = new StringTokenizer(content, "#"); // 매개변수로 받은 content를 # 기준으로 분리
 
 		while (st.hasMoreTokens()) {
 			
-			completeContent = st.nextToken(); // #를 기준으로 빼서 정렬한 값을 다시 completeContent에 넣는다.
+			hashTagList.add(st.nextToken()); // #를 기준으로 빼서 정렬한 값을 다시 completeContent에 넣는다.
 		}
 
-		return completeContent;
-
+		return hashTagList;
+		
 	}
 }
