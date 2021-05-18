@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 
@@ -14,9 +15,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.kh.controller.CalendarController;
 import com.kh.view.CalendarView.BtnActionListner;
 
 public class CalenderPanel extends JPanel {
+	private CalendarController cc = new CalendarController();
 	private int nowYear;
 	private int nowMonth;
 	private int nowDate;
@@ -80,13 +83,12 @@ public class CalenderPanel extends JPanel {
 				date[i].setHorizontalAlignment(JLabel.CENTER);
 				date[i].setText(Integer.toString(i - loW + 2));
 				month[i].addActionListener(new BtnActionListner());
-				month[i].setName("date" + cnt);
 				month[i].add(date[i]);
 			}
 			if (i < loW - 1) { // 앞에 빈 날짜
 				emptyPanel[cnt] = new JPanel();
 				emptyPanel[cnt].setBackground(calendarBack);
-				this.add(emptyPanel[cnt], BorderLayout.EAST);
+				this.add(emptyPanel[cnt]);
 			} else if (i <= lastDate[nowMonth] + loW - 2) { // 말일이 있는 주까지 세팅
 				month[i].setBackground(Color.white);
 
@@ -115,7 +117,8 @@ public class CalenderPanel extends JPanel {
 			for (int i = 0; i < lastDate[gc.get(GregorianCalendar.MONTH)]; i++) {
 				if (e.getSource() == month[i]) {
 					gc.set(nowYear, nowMonth, i - loW + 2);
-					System.out.println(gc.getTime());
+					System.out.println(cc.dateInCalendar(gc.getTime()));
+					
 				}
 			}
 		}
