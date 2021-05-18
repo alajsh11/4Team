@@ -233,7 +233,7 @@ public class DiaryWriteView extends JFrame  {
 
 					BufferedImage saveImage = ImageIO.read(file); 
 
-					ImageIO.write(saveImage, "png", new File(folder+"\\"+date+".dat")); // 다시 저장
+					ImageIO.write(saveImage, "png", new File(folder+"\\"+date+".png")); // 다시 저장
 					
 					JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 
