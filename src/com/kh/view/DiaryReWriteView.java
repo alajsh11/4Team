@@ -31,16 +31,22 @@ import com.kh.model.vo.User;
 
 public class DiaryReWriteView extends JFrame {
 
+	public DiaryReWriteView() {
+		
+	}
+	
+	public DiaryReWriteView(String date, String uId) {
+		
+	super("해씨 일기");
+	
 	Diary d = new Diary();
 	DiaryController dc = new DiaryController();
-	User u = new User();
+	
 
 	JPanel panel = new JPanel();
 	
 	JLabel image = new JLabel(); // 사진 붙여 넣을 화면
 	
-	String date = d.getdDate().toString();
-	// NullPointerException > 객체 생성후 다시! 
 	
 	// 날짜 창
 	JLabel dateBox = new JLabel(date); 
@@ -74,10 +80,7 @@ public class DiaryReWriteView extends JFrame {
 	
 	BufferedReader br = null;
 	
-	public DiaryReWriteView() {
-		
-		
-		super("해씨 일기");
+	
 		
 		//프레임 설정
 		this.setSize(640, 960);//전체 창 사이즈
@@ -196,7 +199,7 @@ public class DiaryReWriteView extends JFrame {
 		d.setDhashTag(dc.hashtagTokenizer(content)); 
 		
 		// 유저 아이디 폴더 생성
-		String Folder = u.getuId();
+		String Folder = uId;
 			
 		File folder = new File(Folder);
 				
