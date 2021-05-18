@@ -1,9 +1,15 @@
 package com.kh.model.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Diary {
+public class Diary implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7031472536350570626L;
+	
 	private Date dDate;
 	private String dImgName;
 	private ArrayList<String> dhashTag;

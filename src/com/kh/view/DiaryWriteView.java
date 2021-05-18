@@ -5,12 +5,15 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.io.ObjectOutputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -23,11 +26,13 @@ import javax.swing.border.BevelBorder;
 
 import com.kh.controller.DiaryController;
 import com.kh.model.vo.Diary;
+import com.kh.model.vo.User;
 
 public class DiaryWriteView extends JFrame  {
 
 	Diary d = new Diary();
 	DiaryController dc = new DiaryController();
+	User u = new User();
 	
 	JPanel panel = new JPanel();
 	
@@ -36,7 +41,8 @@ public class DiaryWriteView extends JFrame  {
 	String date = d.getdDate().toString();
 	// NullPointerException > 객체 생성후 다시! 
 	
-	JLabel dateBox = new JLabel(date); // 날짜 창
+	// 날짜 창
+	JLabel dateBox = new JLabel(date); 
 		
 	// 사진 붙이기 버튼
 	ImageIcon icPlus =  new ImageIcon("Image/seed1.png");
@@ -47,19 +53,18 @@ public class DiaryWriteView extends JFrame  {
 	// 저장 버튼
 	ImageIcon icSave =  new ImageIcon("Image/save.png");
 	Image imSave = icSave.getImage().getScaledInstance(35,35, Image.SCALE_SMOOTH);
-	
 	JButton save = new JButton(); 
-	
 	
 	// 이전창 버튼
 	ImageIcon icPrev =  new ImageIcon("Image/prev.png");
 	Image imPrev = icPrev.getImage().getScaledInstance(40,35, Image.SCALE_SMOOTH);
-	
 	JButton prev = new JButton(); // 이전 버튼(작성 > 달력)
 	
-	JTextArea write = new JTextArea(); // 내용 작성 텍스트 필드
+	// 내용 작성 텍스트 필드
+	JTextArea write = new JTextArea(); 
 
-	JFileChooser chooser = new JFileChooser(); // 파일 오픈창
+	// 파일 오픈창
+	JFileChooser chooser = new JFileChooser(); 
 		
 	String content = "";
 
@@ -167,7 +172,7 @@ public class DiaryWriteView extends JFrame  {
 				if (e.getSource() == plus) {
 					if (chooser.showOpenDialog(image) == JFileChooser.APPROVE_OPTION) {
 						
-						d.setdImgName(chooser.getSelectedFile().getPath());  // 이미지 경로를 diary dImgName에 설정하기
+						d.setdImgName(chooser.getSelectedFile().getPath());  // d 객체에 이미지 경로 set
 						
 						//라벨 이미지 비율 유지 
 						ImageIcon icon =  new ImageIcon(d.getdImgName()); // 이미지를 이미지 아이콘으로 변경
@@ -201,28 +206,44 @@ public class DiaryWriteView extends JFrame  {
 			}
 		}
 		
-		d.setDhashTag(dc.hashtagTokenizer(content)); //ArrayList를 해쉬태그 리스트에 세팅
+		//d 객체에 해쉬태그 리스트에 세팅
+		d.setDhashTag(dc.hashtagTokenizer(content)); 
+		
+		
+		// 유저 아이디 폴더 생성
+		String Folder = u.getuId();
+		
+		File folder = new File(Folder);
+		
+		folder.mkdir();
+		
+		
 		
 		// 저장 버튼
 		save.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// 아이디별 폴더 생성
+				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat"));) {
+					
+					oos.writeObject(d); // 날짜, 이미지경로, 해시태그 diary 객체 저장
+					
+					// 이미지 저장
+					// 해당 경로의 이미지를 불러와서 다시 파일에 저장
+					File file = new File(d.getdImgName());
 
-				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter(date + ".dat")); //해당 날짜의 파일로 저장
-					
-				
-					bw.write(d.getdImgName()); // 이미지 경로 저장
-					
-					bw.write(content); // 해시태그 내용 저장
+					BufferedImage saveImage = ImageIO.read(file); 
+
+					ImageIO.write(saveImage, "png", new File(folder+"\\"+date+".dat")); // 다시 저장
 					
 					JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 
 					
 				} catch (IOException a) {
 					a.printStackTrace();
-				}
+					
+				} 
 				
 			}
 			
