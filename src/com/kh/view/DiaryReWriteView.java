@@ -177,7 +177,6 @@ public class DiaryReWriteView extends JFrame {
 				if (e.getSource() == plus) {
 					if (chooser.showOpenDialog(image) == JFileChooser.APPROVE_OPTION) {
 						
-						d.setdImgName(chooser.getSelectedFile().getPath()); // 이미지 경로 뽑기
 						
 						//라벨 이미지 비율 유지 
 						ImageIcon icon =  new ImageIcon(d.getdImgName()); // 이미지를 이미지 아이콘으로 변경
@@ -213,6 +212,8 @@ public class DiaryReWriteView extends JFrame {
 			public void actionPerformed(ActionEvent e) { // 해당 날짜의 일기 혹은 해시태그 검색으로 들어와서 수정
 
 				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat",true));){
+					
+					d.setdImgName(folder+"\\"+date+".dat");  // d 객체에 이미지 경로 set
 					
 					oos.writeObject(d); // 날짜, 이미지경로, 해시태그 diary 객체 저장
 					
