@@ -5,11 +5,16 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -23,7 +28,7 @@ public class LoginView extends JFrame implements ActionListener {
 	User us = new User();
 
 	public void LoginView() {
-		
+
 		JFrame jf = new JFrame();
 
 		jf.setTitle("해씨일기");
@@ -42,7 +47,7 @@ public class LoginView extends JFrame implements ActionListener {
 		JLabel name = new JLabel("해씨일기");
 		name.setFont(new Font("", Font.BOLD, 45));
 		name.setForeground(Color.white);
-		
+
 		Image hamster = new ImageIcon("images/hamster (3).png").getImage();
 		JLabel ham = new JLabel();
 		ham.setIcon(new ImageIcon(hamster));
@@ -94,28 +99,27 @@ public class LoginView extends JFrame implements ActionListener {
 				new SignUpView();
 			}
 
-
 		});
-		
+	
 		// 로그인 하기
 		login.addActionListener(new ActionListener() {
 			String id = tfId.getText();
 			String pwd = tfPwd.getText();
-						
-				@Override
-				public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-					for(int i = 0; i < us.getuNo().length(); i++) {
-					if(id.equals(uc.user[i].getuId()) && pwd.equals(uc.user[i].getuPwd())) {							
-					new CalendarView();
-					} else {
-						new PopUp().LoginFail();
-					}
-				}
-			}
-		
-		});
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				boolean result = uc.UserLogin(id, pwd);
+						
+				if(result == true) {
+					new PopUp().LoginSuccess();
+				}else {
+					new PopUp().LoginFail();
+				}
+
+			}
+
+		});
 
 		jf.setVisible(true);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,4 +131,3 @@ public class LoginView extends JFrame implements ActionListener {
 
 	}
 }
-
