@@ -39,7 +39,7 @@ public class UserController {
 	}
 
 	// 회원가입 유저 --> dat 파일에 저장
-	public void UserSignUp(String id, String pwd, String hint) {
+	public void userSignUp(String id, String pwd, String hint) {
 
 		BufferedWriter bw = null;
 		
@@ -68,7 +68,7 @@ public class UserController {
 	}
 
 	// 회원가입 시 중복 아이디 비교
-	public boolean UserIdCompare(String id) {
+	public boolean userIdCompare(String id) {
 
 
 		boolean result = false;
@@ -102,7 +102,7 @@ public class UserController {
 
 	
 	// 로그인 성공 
-	public boolean UserLogin(String id, String pwd) {
+	public boolean userLogin(String id, String pwd) {
 		
 		boolean result = false;
 		BufferedReader br = null;

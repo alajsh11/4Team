@@ -27,7 +27,7 @@ public class LoginView extends JFrame implements ActionListener {
 	UserController uc = new UserController();
 	User us = new User();
 
-	public void LoginView() {
+	public void loginView() {
 
 		JFrame jf = new JFrame();
 
@@ -109,12 +109,12 @@ public class LoginView extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				boolean result = uc.UserLogin(id, pwd);
+				boolean result = uc.userLogin(id, pwd);
 						
 				if(result == true) {
-					new PopUp().LoginSuccess();
+					new PopUp().loginSuccess();
 				}else {
-					new PopUp().LoginFail();
+					new PopUp().loginFail();
 				}
 
 			}
