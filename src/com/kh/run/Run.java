@@ -1,10 +1,11 @@
 package com.kh.run;
 
+import com.kh.view.CalendarView;
+
 public class Run {
 
 	public static void main(String[] args) {
-		System.out.println("Hello, World!");
-		System.out.println("코딩 짱싫어");
+		new CalendarView();
 	}
 
 }
