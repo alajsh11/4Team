@@ -5,11 +5,16 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -20,12 +25,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 
+import com.kh.controller.DiaryController;
 import com.kh.model.vo.Diary;
+import com.kh.model.vo.User;
 
 public class DiaryReWriteView extends JFrame {
 
 	Diary d = new Diary();
-	
+	DiaryController dc = new DiaryController();
+	User u = new User();
+
 	JPanel panel = new JPanel();
 	
 	JLabel image = new JLabel(); // 사진 붙여 넣을 화면
@@ -33,31 +42,32 @@ public class DiaryReWriteView extends JFrame {
 	String date = d.getdDate().toString();
 	// NullPointerException > 객체 생성후 다시! 
 	
-	JLabel dateBox = new JLabel(date); // 날짜 창
+	// 날짜 창
+	JLabel dateBox = new JLabel(date); 
 	
 	// 사진수정 버튼
 	ImageIcon icPlus = new ImageIcon("Image/seed1.png");
 	Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
-	
 	JButton plus = new JButton(); 
 	
 	
 	// 수정완료 버튼
 	ImageIcon icModify = new ImageIcon("Image/complete.png");
 	Image imModify = icModify.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-	
-	
 	JButton modify = new JButton(); 
+	
 	
 	// 이전 버튼
 	ImageIcon icPrev =  new ImageIcon("Image/prev.png");
 	Image imPrev = icPrev.getImage().getScaledInstance(40,35, Image.SCALE_SMOOTH);
-	
 	JButton prev = new JButton(); 
 	
-	JTextArea write = new JTextArea(); // 내용 작성 텍스트 필드
+	
+	// 내용 작성 텍스트 필드
+	JTextArea write = new JTextArea(); 
 
-	JFileChooser chooser = new JFileChooser(); // 파일 오픈창
+	// 이미지 파일 선택창
+	JFileChooser chooser = new JFileChooser(); 
 		
 	String content = ""; // 파일 내용 
 	
@@ -182,17 +192,34 @@ public class DiaryReWriteView extends JFrame {
 			}
 		});
 		
+		//d 객체에 해쉬태그 리스트에 세팅
+		d.setDhashTag(dc.hashtagTokenizer(content)); 
+		
+		// 유저 아이디 폴더 생성
+		String Folder = u.getuId();
+			
+		File folder = new File(Folder);
+				
+		folder.mkdir();
 
+		
 		// 파일 수정 버튼
 		modify.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) { // 해당 날짜의 일기 혹은 해시태그 검색으로 들어와서 수정
 
-				try {
+				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat",true));){
+					
+					oos.writeObject(d); // 날짜, 이미지경로, 해시태그 diary 객체 저장
+					
+					// 이미지 저장
+					// 해당 경로의 이미지를 불러와서 다시 파일에 저장
+					File file = new File(d.getdImgName());
 
-					BufferedWriter bw = new BufferedWriter(new FileWriter(date + ".dat", true)); // 기존 파일이 생성되어있다면 수정 후
-																								 // 파일 저장
+					BufferedImage saveImage = ImageIO.read(file); 
+
+					ImageIO.write(saveImage, "png", new File(folder+"\\"+date+".dat")); // 다시 저장
 					
 					JOptionPane.showMessageDialog(null, "일기가 수정되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 
