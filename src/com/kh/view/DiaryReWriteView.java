@@ -194,8 +194,7 @@ public class DiaryReWriteView extends JFrame {
 			}
 		});
 		
-		//d 객체에 해쉬태그 리스트에 세팅
-		d.setDhashTag(dc.hashtagTokenizer(content)); 
+		
 		
 		// 유저 아이디 폴더 생성
 		String Folder = uId;
@@ -214,7 +213,19 @@ public class DiaryReWriteView extends JFrame {
 				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat",true));){
 					
 					d.setdImgName(folder+"\\"+date+".dat");  // d 객체에 이미지 경로 set
-					
+					String content = write.getText(); // text 필드에서 넣은 값을 담는다.
+
+					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
+						
+						//d 객체에 해쉬태그 리스트에 세팅
+						d.setDhashTag(dc.hashtagTokenizer(content)); 
+						
+					}else if (content.length() >= 100) {
+						
+						JOptionPane.showMessageDialog(null, "글자 제한 100자입니다.", "", JOptionPane.WARNING_MESSAGE);
+
+					}
+						
 					oos.writeObject(d); // 날짜, 이미지경로, 해시태그 diary 객체 저장
 					
 					// 이미지 저장

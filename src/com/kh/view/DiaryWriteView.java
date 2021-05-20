@@ -42,8 +42,8 @@ public class DiaryWriteView extends JFrame  {
 		
 		JPanel panel = new JPanel();
 		
-		JLabel image = new JLabel(); // 사진 붙여 넣을 화면
-
+		// 사진 붙여 넣을 화면
+		JLabel image = new JLabel(); 
 
 		// 날짜 창
 		JLabel dateBox = new JLabel(date); 
@@ -51,7 +51,6 @@ public class DiaryWriteView extends JFrame  {
 		// 사진 붙이기 버튼
 		ImageIcon icPlus =  new ImageIcon("Image/seed1.png");
 		Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
-		
 		JButton plus = new JButton(); 
 		
 		// 저장 버튼
@@ -69,8 +68,6 @@ public class DiaryWriteView extends JFrame  {
 
 		// 파일 오픈창
 		JFileChooser chooser = new JFileChooser(); 
-			
-		String content = "";
 		
 		
 		//프레임 설정
@@ -170,8 +167,7 @@ public class DiaryWriteView extends JFrame  {
 				if (e.getSource() == plus) {
 					if (chooser.showOpenDialog(image) == JFileChooser.APPROVE_OPTION) {
 						
-						
-						
+					
 						//라벨 이미지 비율 유지 
 						ImageIcon icon =  new ImageIcon(d.getdImgName()); // 이미지를 이미지 아이콘으로 변경
 						
@@ -188,24 +184,6 @@ public class DiaryWriteView extends JFrame  {
 				}
 			}
 		});
-		
-		
-		while (true) {
-
-			String str = write.getText(); // text 필드에서 넣은 값을 담는다.
-
-			if (content.length() + str.length() < 100) { // 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
-
-				content += str;
-				
-
-			} else {
-				break;
-			}
-		}
-		
-		//d 객체에 해쉬태그 리스트에 세팅
-		d.setDhashTag(dc.hashtagTokenizer(content)); 
 		
 		
 		// 유저 아이디 폴더 생성
@@ -227,6 +205,20 @@ public class DiaryWriteView extends JFrame  {
 					
 					d.setdImgName(folder+"\\"+date+".dat");  // d 객체에 이미지 경로 set
 					
+					String content = write.getText(); // text 필드에서 넣은 값을 담는다.
+
+					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
+						
+						//d 객체에 해쉬태그 리스트에 세팅
+						d.setDhashTag(dc.hashtagTokenizer(content)); 
+						
+					}else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다. 
+						
+						JOptionPane.showMessageDialog(null, "글자 제한 100자입니다.", "", JOptionPane.WARNING_MESSAGE);
+
+					}
+
+						
 					oos.writeObject(d); // 날짜, 이미지경로, 해시태그 diary 객체 저장
 					
 					// 이미지 저장
