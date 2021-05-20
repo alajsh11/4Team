@@ -31,6 +31,11 @@ import com.kh.model.vo.User;
 
 public class DiaryReWriteView extends JFrame {
 
+	Diary d = new Diary();
+	DiaryController dc = new DiaryController();
+	private String absoluteFilePath="";
+
+	
 	public DiaryReWriteView() {
 		
 	}
@@ -39,8 +44,7 @@ public class DiaryReWriteView extends JFrame {
 		
 	super("해씨 일기");
 	
-	Diary d = new Diary();
-	DiaryController dc = new DiaryController();
+
 	
 
 	JPanel panel = new JPanel();
@@ -176,10 +180,20 @@ public class DiaryReWriteView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == plus) {
 					if (chooser.showOpenDialog(image) == JFileChooser.APPROVE_OPTION) {
-						
-						
-						//라벨 이미지 비율 유지 
-						ImageIcon icon =  new ImageIcon(d.getdImgName()); // 이미지를 이미지 아이콘으로 변경
+
+					      File file= chooser.getSelectedFile();
+					      
+					      absoluteFilePath = file.getAbsoluteFile().toString();
+					      
+		                  ImageIcon icon=null;
+		                  try {
+		                     icon = new ImageIcon(ImageIO.read(file));
+		                     
+		                  } catch (IOException e1) {
+		                     // TODO Auto-generated catch block
+		                     e1.printStackTrace();
+		                  } // 이미지를 이미지 아이콘으로 변경      
+		                  
 						
 						Image img = icon.getImage().getScaledInstance(400,300, Image.SCALE_SMOOTH); // 이미지로 사이즈 조정
 						
@@ -210,9 +224,9 @@ public class DiaryReWriteView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) { // 해당 날짜의 일기 혹은 해시태그 검색으로 들어와서 수정
 
-				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat",true));){
+				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat"));){
 					
-					d.setdImgName(folder+"\\"+date+".dat");  // d 객체에 이미지 경로 set
+					d.setdImgName(folder+"\\"+date+".dat");  //d 객체에 이미지 경로 set
 					String content = write.getText(); // text 필드에서 넣은 값을 담는다.
 
 					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
@@ -230,7 +244,7 @@ public class DiaryReWriteView extends JFrame {
 					
 					// 이미지 저장
 					// 해당 경로의 이미지를 불러와서 다시 파일에 저장
-					File file = new File(d.getdImgName());
+					File file = new File(absoluteFilePath);
 
 					BufferedImage saveImage = ImageIO.read(file); 
 
