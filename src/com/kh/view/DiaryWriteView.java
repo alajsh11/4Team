@@ -29,7 +29,11 @@ import com.kh.model.vo.Diary;
 import com.kh.model.vo.User;
 
 public class DiaryWriteView extends JFrame  {
-
+	
+	private Diary d = new Diary();
+	private DiaryController dc = new DiaryController();
+	private String absoluteFilePath="";
+	
 	public DiaryWriteView() {
 		
 	}
@@ -37,8 +41,7 @@ public class DiaryWriteView extends JFrame  {
 	public DiaryWriteView (String date, String uId) {
 		super("해씨 일기");
 		
-		Diary d = new Diary();
-		DiaryController dc = new DiaryController();
+		
 		
 		JPanel panel = new JPanel();
 		
@@ -161,15 +164,27 @@ public class DiaryWriteView extends JFrame  {
 		//사진 선택 버튼
 		plus.addActionListener(new ActionListener() {
 			
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == plus) {
 					if (chooser.showOpenDialog(image) == JFileChooser.APPROVE_OPTION) {
-						
+
+					      File file= chooser.getSelectedFile(); //선택된 파일을 가져온다.
+					      
+					      absoluteFilePath = file.getAbsoluteFile().toString(); // 파일의 경로를 받는 변수 생성
+					      
+					      
+		                  //라벨 이미지 비율 유지 
+		                  ImageIcon icon=null;
+		                  try {
+		                     icon = new ImageIcon(ImageIO.read(file));
+		                     
+		                  } catch (IOException e1) {
+		                     // TODO Auto-generated catch block
+		                     e1.printStackTrace();
+		                  } // 이미지를 이미지 아이콘으로 변경      
+		                  
 					
-						//라벨 이미지 비율 유지 
-						ImageIcon icon =  new ImageIcon(d.getdImgName()); // 이미지를 이미지 아이콘으로 변경
 						
 						Image img = icon.getImage().getScaledInstance(400,300, Image.SCALE_SMOOTH); // 이미지로 사이즈 조정
 						
@@ -184,7 +199,7 @@ public class DiaryWriteView extends JFrame  {
 				}
 			}
 		});
-		
+	
 		
 		// 유저 아이디 폴더 생성
 		String Folder = uId;
@@ -223,7 +238,7 @@ public class DiaryWriteView extends JFrame  {
 					
 					// 이미지 저장
 					// 해당 경로의 이미지를 불러와서 다시 파일에 저장
-					File file = new File(d.getdImgName());
+					File file = new File(absoluteFilePath);
 
 					BufferedImage saveImage = ImageIO.read(file); 
 
