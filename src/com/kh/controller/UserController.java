@@ -71,7 +71,7 @@ public class UserController {
 	public boolean userIdCompare(String id) {
 
 
-		boolean result = false;
+		boolean result = true;
 		BufferedReader br = null;
 		String line = "";
 		String array[];
@@ -82,7 +82,7 @@ public class UserController {
 			while ((line = br.readLine()) != null) {
 				array = line.split("/");
 				if (id.equals(array[1])) {
-					result = true;
+					result = false;
 				}
 			}
 		} catch (Exception e1) {
