@@ -31,16 +31,22 @@ import com.kh.model.vo.User;
 
 public class DiaryReWriteView extends JFrame {
 
+	public DiaryReWriteView() {
+		
+	}
+	
+	public DiaryReWriteView(String date, String uId) {
+		
+	super("해씨 일기");
+	
 	Diary d = new Diary();
 	DiaryController dc = new DiaryController();
-	User u = new User();
+	
 
 	JPanel panel = new JPanel();
 	
 	JLabel image = new JLabel(); // 사진 붙여 넣을 화면
 	
-	String date = d.getdDate().toString();
-	// NullPointerException > 객체 생성후 다시! 
 	
 	// 날짜 창
 	JLabel dateBox = new JLabel(date); 
@@ -74,10 +80,7 @@ public class DiaryReWriteView extends JFrame {
 	
 	BufferedReader br = null;
 	
-	public DiaryReWriteView() {
-		
-		
-		super("해씨 일기");
+	
 		
 		//프레임 설정
 		this.setSize(640, 960);//전체 창 사이즈
@@ -174,7 +177,6 @@ public class DiaryReWriteView extends JFrame {
 				if (e.getSource() == plus) {
 					if (chooser.showOpenDialog(image) == JFileChooser.APPROVE_OPTION) {
 						
-						d.setdImgName(chooser.getSelectedFile().getPath()); // 이미지 경로 뽑기
 						
 						//라벨 이미지 비율 유지 
 						ImageIcon icon =  new ImageIcon(d.getdImgName()); // 이미지를 이미지 아이콘으로 변경
@@ -196,7 +198,7 @@ public class DiaryReWriteView extends JFrame {
 		d.setDhashTag(dc.hashtagTokenizer(content)); 
 		
 		// 유저 아이디 폴더 생성
-		String Folder = u.getuId();
+		String Folder = uId;
 			
 		File folder = new File(Folder);
 				
@@ -211,6 +213,8 @@ public class DiaryReWriteView extends JFrame {
 
 				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat",true));){
 					
+					d.setdImgName(folder+"\\"+date+".dat");  // d 객체에 이미지 경로 set
+					
 					oos.writeObject(d); // 날짜, 이미지경로, 해시태그 diary 객체 저장
 					
 					// 이미지 저장
@@ -219,7 +223,7 @@ public class DiaryReWriteView extends JFrame {
 
 					BufferedImage saveImage = ImageIO.read(file); 
 
-					ImageIO.write(saveImage, "png", new File(folder+"\\"+date+".dat")); // 다시 저장
+					ImageIO.write(saveImage, "png", new File(folder+"\\"+date+".png")); // 다시 저장
 					
 					JOptionPane.showMessageDialog(null, "일기가 수정되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 

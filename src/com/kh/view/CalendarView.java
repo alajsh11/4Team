@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
-public class CalendarView implements MouseListener {
+public class CalendarView {
 	// new Color(0xddc6e6)
 	private JPanel panel;
 
@@ -39,20 +39,23 @@ public class CalendarView implements MouseListener {
 	private HintTextField searchText;
 	private String[] mon = { "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" };
 	private GregorianCalendar gc = new GregorianCalendar();
+	
 	private int nowYear;
 	private int nowMonth;
 	private int nowDate;
+	
 	private JPanel calendar;
 	private JPanel ham;
-
+	private JFrame jf;
+	
 	public CalendarView() {
 		Font font = new Font("맑은 고딕", Font.PLAIN, 18);
-		
-		JFrame jf = new JFrame();
+		jf = new JFrame();
 		jf.setBounds(0, 0, 640, 960);
 		jf.setTitle("해씨 일기");
 		jf.setLayout(null);
-
+		jf.setLocationRelativeTo(null);
+		jf.setResizable(false);
 		Image hamster = new ImageIcon("image/hamster2.PNG").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
 		ham= new JPanel() {
 			@Override
@@ -78,7 +81,7 @@ public class CalendarView implements MouseListener {
 
 		searchBtn = new JButton(icon2);
 		searchBtn.setBounds(100, 100, 50, 50);
-		searchBtn.setBackground(Color.white);
+		searchBtn.setBackground(new Color(0xeeeeee));
 		searchBtn.addActionListener(new BtnActionListner());
 		searchBtn.setName("searchBtn");
 
@@ -197,48 +200,23 @@ public class CalendarView implements MouseListener {
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 	class BtnActionListner implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if (e.getSource() == searchBtn) {
-				System.out.println("검색버튼");
+			if (e.getSource() == searchBtn||e.getSource()==searchText) {
+				if( !(searchText.getText().equals(" #해시태그 검색")|| searchText.getText().equals("") ) ) {
+					System.out.println(searchText.getText());
+					jf.setVisible(false);
+					new SearchHashTagView(searchText.getText());
+				}
 			}
 			if (e.getSource() == infoBtn) {
 				System.out.println("내정보로 이동");
 			}
 		}
 	}
-
 }
