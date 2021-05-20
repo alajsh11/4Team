@@ -29,7 +29,11 @@ import com.kh.model.vo.Diary;
 import com.kh.model.vo.User;
 
 public class DiaryWriteView extends JFrame  {
-
+	
+	private Diary d = new Diary();
+	private DiaryController dc = new DiaryController();
+	private String absoluteFilePath="";
+	
 	public DiaryWriteView() {
 		
 	}
@@ -37,13 +41,12 @@ public class DiaryWriteView extends JFrame  {
 	public DiaryWriteView (String date, String uId) {
 		super("해씨 일기");
 		
-		Diary d = new Diary();
-		DiaryController dc = new DiaryController();
+		
 		
 		JPanel panel = new JPanel();
 		
-		JLabel image = new JLabel(); // 사진 붙여 넣을 화면
-
+		// 사진 붙여 넣을 화면
+		JLabel image = new JLabel(); 
 
 		// 날짜 창
 		JLabel dateBox = new JLabel(date); 
@@ -51,7 +54,6 @@ public class DiaryWriteView extends JFrame  {
 		// 사진 붙이기 버튼
 		ImageIcon icPlus =  new ImageIcon("Image/seed1.png");
 		Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
-		
 		JButton plus = new JButton(); 
 		
 		// 저장 버튼
@@ -69,8 +71,6 @@ public class DiaryWriteView extends JFrame  {
 
 		// 파일 오픈창
 		JFileChooser chooser = new JFileChooser(); 
-			
-		String content = "";
 		
 		
 		//프레임 설정
@@ -164,16 +164,27 @@ public class DiaryWriteView extends JFrame  {
 		//사진 선택 버튼
 		plus.addActionListener(new ActionListener() {
 			
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == plus) {
 					if (chooser.showOpenDialog(image) == JFileChooser.APPROVE_OPTION) {
-						
-						d.setdImgName(chooser.getSelectedFile().getPath());  // d 객체에 이미지 경로 set
-						
-						//라벨 이미지 비율 유지 
-						ImageIcon icon =  new ImageIcon(d.getdImgName()); // 이미지를 이미지 아이콘으로 변경
+
+					      File file= chooser.getSelectedFile(); //선택된 파일을 가져온다.
+					      
+					      absoluteFilePath = file.getAbsoluteFile().toString(); // 파일의 경로를 받는 변수 생성
+					      
+					      
+		                  //라벨 이미지 비율 유지 
+		                  ImageIcon icon=null;
+		                  try {
+		                     icon = new ImageIcon(ImageIO.read(file));
+		                     
+		                  } catch (IOException e1) {
+		                     // TODO Auto-generated catch block
+		                     e1.printStackTrace();
+		                  } // 이미지를 이미지 아이콘으로 변경      
+		                  
+					
 						
 						Image img = icon.getImage().getScaledInstance(400,300, Image.SCALE_SMOOTH); // 이미지로 사이즈 조정
 						
@@ -188,25 +199,7 @@ public class DiaryWriteView extends JFrame  {
 				}
 			}
 		});
-		
-		
-		while (true) {
-
-			String str = write.getText(); // text 필드에서 넣은 값을 담는다.
-
-			if (content.length() + str.length() < 100) { // 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
-
-				content += str;
-				
-
-			} else {
-				break;
-			}
-		}
-		
-		//d 객체에 해쉬태그 리스트에 세팅
-		d.setDhashTag(dc.hashtagTokenizer(content)); 
-		
+	
 		
 		// 유저 아이디 폴더 생성
 		String Folder = uId;
@@ -225,15 +218,31 @@ public class DiaryWriteView extends JFrame  {
 				// 아이디별 폴더 생성
 				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat"));) {
 					
+					d.setdImgName(folder+"\\"+date+".dat");  // d 객체에 이미지 경로 set
+					
+					String content = write.getText(); // text 필드에서 넣은 값을 담는다.
+
+					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
+						
+						//d 객체에 해쉬태그 리스트에 세팅
+						d.setDhashTag(dc.hashtagTokenizer(content)); 
+						
+					}else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다. 
+						
+						JOptionPane.showMessageDialog(null, "글자 제한 100자입니다.", "", JOptionPane.WARNING_MESSAGE);
+
+					}
+
+						
 					oos.writeObject(d); // 날짜, 이미지경로, 해시태그 diary 객체 저장
 					
 					// 이미지 저장
 					// 해당 경로의 이미지를 불러와서 다시 파일에 저장
-					File file = new File(d.getdImgName());
+					File file = new File(absoluteFilePath);
 
 					BufferedImage saveImage = ImageIO.read(file); 
 
-					ImageIO.write(saveImage, "png", new File(folder+"\\"+date+".dat")); // 다시 저장
+					ImageIO.write(saveImage, "png", new File(folder+"\\"+date+".png")); // 다시 저장
 					
 					JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 
