@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import com.kh.controller.CalendarController;
-import com.kh.controller.DiaryInformationController;
+import com.kh.controller.DiaryController;
 import com.kh.view.DiaryWriteView;
 
 
@@ -178,7 +178,7 @@ public class CalendarView {
 	}
 
 	public JPanel createCalendarPanel(int y,int m, int d,String uId) {
-		isLeapYear(y); // 2월 윤년이면 날짜배열 세팅 바꾸기
+		lastDate[1]= cc.isLeapYear(y); // 2월 윤년이면 날짜배열 세팅 바꾸기
 		JPanel calendar = new JPanel();
 		Color calendarBack = new Color(0xeeeeee);
 		month = new JButton[42];
@@ -245,18 +245,6 @@ public class CalendarView {
 		return calendar;
 	}
 
-
-	// 윤년확인 메소드
-	public void isLeapYear(int year) {
-		if ((year % 4 == 0) && (year % 100 != 0) || year % 400 == 0) {
-			lastDate[1]=29;
-		}
-		else {
-			lastDate[1] = 28;
-		}
-
-	}
-	
 	class BtnActionListner implements ActionListener {
 
 		@Override
@@ -275,8 +263,16 @@ public class CalendarView {
 			
 			for (int i = loW - 1; i < lastDate[gc.get(GregorianCalendar.MONTH)]+ (loW - 1); i++) {
 				if (e.getSource() == month[i]) {
+					gc.set(nowYear, nowMonth, i- loW+2 );
+					String today = cc.dateInCalendar(gc.getTime());
+					System.out.println("today"+today);
 					jf.setVisible(false);
-					new DiaryInformationController().diaryRead("01023905227/21.05.18.txt");
+					if(cc.exsitDiary(today, userId)) {
+						new DiaryController().diaryRead(userId,today);
+					}
+					else {
+						new DiaryWriteView(today,userId);
+					}
 				}
 			}
 		}

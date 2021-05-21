@@ -3,7 +3,8 @@ package com.kh.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.io.File;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,18 +14,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 
-import com.kh.controller.DiaryInformationController;
+import com.kh.controller.CalendarController;
+import com.kh.controller.DiaryController;
 import com.kh.model.vo.Diary;
 
-public class DiaryInformationView extends JFrame{
+public class DiaryInformationView {
 
 	public DiaryInformationView() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public DiaryInformationView(Diary d) {
-		super("해씨 일기");
-		DiaryInformationController dic= new DiaryInformationController();
+	public DiaryInformationView(String userId, Diary d) {
+		JFrame jf = new JFrame();
+		jf.setTitle("해씨 일기");
+		DiaryController dc= new DiaryController();
 		
 		JPanel panel = new JPanel();
 		JLabel image = new JLabel(); // 사진 붙여 넣을 화면
@@ -50,12 +53,12 @@ public class DiaryInformationView extends JFrame{
 		JTextArea txtField = new JTextArea(); // 내용 작성 텍스트 필드
 		
 		//프레임 설정
-		this.setSize(640, 960);//전체 창 사이즈
-		this.setLayout(null);
-		this.setLocationRelativeTo(null); // 창 가운데로 켜지게 설정
+		jf.setSize(640, 960);//전체 창 사이즈
+		jf.setLayout(null);
+		jf.setLocationRelativeTo(null); // 창 가운데로 켜지게 설정
 		
 		//패널 설정
-		panel.setSize(getMaximumSize());
+		panel.setSize(jf.getMaximumSize());
 		panel.setLayout(null);
 		panel.setBackground(new Color(0xddc6e6)); // 배경색은 패널에 지정
 		
@@ -82,25 +85,27 @@ public class DiaryInformationView extends JFrame{
 		prevBtn.setContentAreaFilled(false);
 		prevBtn.setLayout(null);
 		prevBtn.setIcon(new ImageIcon(imPrev));
-				
+
 
 		// 수정버튼 아이콘 바꿔서 설정하기 위한 코드
 		modifyBtn.setBorderPainted(false); 
 		modifyBtn.setContentAreaFilled(false);
 		modifyBtn.setLayout(null);
 		modifyBtn.setIcon(new ImageIcon(imModify));
+
 		
 		deleteBtn.setBorderPainted(false); 
 		deleteBtn.setContentAreaFilled(false);
 		deleteBtn.setLayout(null);
 		deleteBtn.setIcon(new ImageIcon(imDelete));
+
 		
 		txtField.setEditable(false);
-		if(d.getDhashTag()==null) {
-			System.out.println("null이다....왜...");
+		if(d.getDhashTag() != null) {
+			txtField.setText(dc.arrayListToText(d.getDhashTag()));
 		}
 		else {
-			txtField.setText(dic.arrayListToText(d.getDhashTag()));
+			System.out.println("해시태그 비어있음");
 		}
 		
 		
@@ -124,9 +129,34 @@ public class DiaryInformationView extends JFrame{
 		panel.add(deleteBtn);
 		
 		
-		this.add(panel);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		jf.add(panel);
+		jf.setVisible(true);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		prevBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				jf.setVisible(false);
+				new CalendarController(userId);
+			}
+		});
+		modifyBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("일기수정");
+			}
+		});
+		deleteBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("일기삭제");
+			}
+		});
 		
 		
 	}

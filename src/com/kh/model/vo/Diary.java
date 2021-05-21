@@ -29,7 +29,7 @@ public class Diary implements Serializable{
 		return dDate;
 	}
 
-	public void setdDate(String date) {
+	public void setdDate(String dDate) {
 		this.dDate = dDate;
 	}
 
