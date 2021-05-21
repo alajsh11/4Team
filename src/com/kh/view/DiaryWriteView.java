@@ -197,7 +197,7 @@ public class DiaryWriteView extends JFrame {
 							new FileOutputStream(folder + "\\" + date + ".dat"));) {
 
 						d.setdImgName(folder + "\\" + date + ".png"); // d 객체에 이미지 경로 set
-						d.setdDate(date.toString()); // d 객체에 date set
+						d.setdDate(date); // d 객체에 date set
 
 						String content = write.getText(); // text 필드에서 넣은 값을 담는다.
 
@@ -222,7 +222,7 @@ public class DiaryWriteView extends JFrame {
 
 						ImageIO.write(saveImage, "png", new File(folder + "\\" + date + ".png")); // 다시 저장
 
-//						int result = JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
+//						JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 						int result = JOptionPane.showConfirmDialog(null, "일기가 저장되었습니다.", "", JOptionPane.OK_OPTION);
 						if(result==JOptionPane.OK_OPTION) {
 							setVisible(false);
