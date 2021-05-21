@@ -38,7 +38,7 @@ public class UserController {
 		BufferedWriter bw = null;
 
 		String s = us.getuNo();
-		int count = Integer.valueOf(s);
+		int count = Integer.valueOf(s); // 다시 확인하기 
 		String uNum = String.valueOf(count);
 
 		try {
@@ -180,11 +180,11 @@ public class UserController {
 		}
 
 	}
-	
-	// 비밀번호 재설정 
-	
+
+	// 비밀번호 재설정
+
 	public boolean userRpwd(String id, String hint, String pwd) {
-		
+
 		boolean result = false;
 		String line = "";
 		String dummy = "";
@@ -207,21 +207,23 @@ public class UserController {
 						} else {
 							bw.write(array[i] + "/");
 						}
-					}				
+					}
 					break;
+				} else {
+					dummy += (line + "\n");
+					bw.write(dummy);
 				}
-				dummy += (line + "\n");
-				bw.write(dummy);
 			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 
 		return result;
 	}
 
+	// 내 정보 조회로 return
 	public Date userSignDate() {
 
 		return date;
