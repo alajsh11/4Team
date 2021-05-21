@@ -12,7 +12,7 @@ import com.kh.view.DiaryInformationView;
 
 public class DiaryController {
 
-	Diary d = new Diary();
+	private Diary d = new Diary();
 
 	public DiaryController() {
 

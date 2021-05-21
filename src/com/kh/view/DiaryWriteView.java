@@ -29,7 +29,7 @@ import com.kh.controller.DiaryController;
 import com.kh.model.vo.Diary;
 import com.kh.model.vo.User;
 
-public class DiaryWriteView extends JFrame {
+public class DiaryWriteView  {
 
 	private Diary d = new Diary();
 	private DiaryController dc = new DiaryController();
@@ -40,8 +40,9 @@ public class DiaryWriteView extends JFrame {
 	}
 
 	public DiaryWriteView(String date, String uId) {
-		super("해씨일기");
+		
 
+		JFrame jf = new JFrame("해씨일기");
 		JPanel panel = new JPanel();
 
 		// 사진 붙여 넣을 화면
@@ -72,12 +73,12 @@ public class DiaryWriteView extends JFrame {
 		JFileChooser chooser = new JFileChooser();
 
 		// 프레임 설정
-		this.setSize(640, 960);// 전체 창 사이즈
-		this.setLayout(null);
-		this.setLocationRelativeTo(null); // 창 가운데로 켜지게 설정
+		jf.setSize(640, 960);// 전체 창 사이즈
+		jf.setLayout(null);
+		jf.setLocationRelativeTo(null); // 창 가운데로 켜지게 설정
 
 		// 패널 설정
-		panel.setSize(getMaximumSize());
+		panel.setSize(jf.getMaximumSize());
 		panel.setLayout(null);
 		panel.setBackground(new Color(0xddc6e6)); // 배경색은 패널에 지정
 
@@ -127,10 +128,10 @@ public class DiaryWriteView extends JFrame {
 		panel.add(write);
 		panel.add(save);
 
-		this.add(panel); // 컴포넌트를 붙인 패널을 프레임에 붙인다.
+		jf.add(panel); // 컴포넌트를 붙인 패널을 프레임에 붙인다.
 
-		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		jf.setVisible(true);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// 이전 버튼 (작성페이지 > 달력페이지)
 		prev.addActionListener(new ActionListener() {
@@ -138,7 +139,7 @@ public class DiaryWriteView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new CalendarView(uId); // 달력페이지로 가고
-				setVisible(false); // 이전페이지로 이동 후 현재 페이지 안보이게 설정
+				jf.setVisible(false); // 이전페이지로 이동 후 현재 페이지 안보이게 설정
 
 			}
 
@@ -225,7 +226,7 @@ public class DiaryWriteView extends JFrame {
 //						JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 						int result = JOptionPane.showConfirmDialog(null, "일기가 저장되었습니다.", "", JOptionPane.OK_OPTION);
 						if(result==JOptionPane.OK_OPTION) {
-							setVisible(false);
+							jf.setVisible(false);
 							new CalendarController(uId);
 						}
 					} catch (IOException a) {
