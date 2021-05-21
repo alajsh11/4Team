@@ -10,7 +10,7 @@ public class Diary implements Serializable{
 	 */
 	private static final long serialVersionUID = -7031472536350570626L;
 	
-	private Date dDate;
+	private String dDate;
 	private String dImgName;
 	private ArrayList<String> dhashTag;
 	
@@ -18,18 +18,18 @@ public class Diary implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Diary(Date dDate, String dImgName, ArrayList<String> dhashTag) {
+	public Diary(String dDate, String dImgName, ArrayList<String> dhashTag) {
 		super();
 		this.dDate = dDate;
 		this.dImgName = dImgName;
 		this.dhashTag = dhashTag;
 	}
 
-	public Date getdDate() {
+	public String getdDate() {
 		return dDate;
 	}
 
-	public void setdDate(Date dDate) {
+	public void setdDate(String date) {
 		this.dDate = dDate;
 	}
 

@@ -39,9 +39,7 @@ public class DiaryWriteView extends JFrame  {
 	}
 	
 	public DiaryWriteView (String date, String uId) {
-		super("해씨 일기");
-		
-		
+		super("해씨일기");
 		
 		JPanel panel = new JPanel();
 		
@@ -173,8 +171,7 @@ public class DiaryWriteView extends JFrame  {
 					      
 					      absoluteFilePath = file.getAbsoluteFile().toString(); // 파일의 경로를 받는 변수 생성
 					      
-					      
-		                  //라벨 이미지 비율 유지 
+		                 
 		                  ImageIcon icon=null;
 		                  try {
 		                     icon = new ImageIcon(ImageIO.read(file));
@@ -184,7 +181,6 @@ public class DiaryWriteView extends JFrame  {
 		                     e1.printStackTrace();
 		                  } // 이미지를 이미지 아이콘으로 변경      
 		                  
-					
 						
 						Image img = icon.getImage().getScaledInstance(400,300, Image.SCALE_SMOOTH); // 이미지로 사이즈 조정
 						
@@ -219,6 +215,8 @@ public class DiaryWriteView extends JFrame  {
 				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat"));) {
 					
 					d.setdImgName(folder+"\\"+date+".dat");  // d 객체에 이미지 경로 set
+					
+				    d.setdDate(date); // d 객체에 date set
 					
 					String content = write.getText(); // text 필드에서 넣은 값을 담는다.
 
