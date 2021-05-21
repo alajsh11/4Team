@@ -42,9 +42,7 @@ public class DiaryReWriteView extends JFrame {
 	
 	public DiaryReWriteView(String date, String uId) {
 		
-	super("해씨 일기");
-	
-
+	super("해씨일기");
 	
 
 	JPanel panel = new JPanel();
@@ -152,6 +150,13 @@ public class DiaryReWriteView extends JFrame {
 		
 		this.add(panel); // 컴포넌트를 붙인 패널을 프레임에 붙인다.
 		
+		try { // 프레임 아이콘 변경
+			this.setIconImage(ImageIO.read(new File("image/iconHamster.jpg")));
+			
+		} catch (IOException e2) {
+			
+			e2.printStackTrace();
+		}
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -227,6 +232,10 @@ public class DiaryReWriteView extends JFrame {
 				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folder+"\\"+date+".dat"));){
 					
 					d.setdImgName(folder+"\\"+date+".dat");  //d 객체에 이미지 경로 set
+					
+				    d.setdDate(date); // d 객체에 date set
+				    
+				    
 					String content = write.getText(); // text 필드에서 넣은 값을 담는다.
 
 					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
