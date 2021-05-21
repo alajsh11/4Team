@@ -29,7 +29,7 @@ import com.kh.controller.DiaryController;
 import com.kh.model.vo.Diary;
 import com.kh.model.vo.User;
 
-public class DiaryReWriteView extends JFrame {
+public class DiaryReWriteView {
 
 	Diary d = new Diary();
 	DiaryController dc = new DiaryController();
@@ -42,7 +42,7 @@ public class DiaryReWriteView extends JFrame {
 	
 	public DiaryReWriteView(String date, String uId) {
 		
-	super("해씨일기");
+	JFrame jf = new JFrame("해씨일기");
 	
 
 	JPanel panel = new JPanel();
@@ -85,12 +85,12 @@ public class DiaryReWriteView extends JFrame {
 	
 		
 		//프레임 설정
-		this.setSize(640, 960);//전체 창 사이즈
-		this.setLayout(null);
-		this.setLocationRelativeTo(null); // 창 가운데로 켜지게 설정
+		jf.setSize(640, 960);// 전체 창 사이즈
+		jf.setLayout(null);
+		jf.setLocationRelativeTo(null); // 창 가운데로 켜지게 설정
 		
 		//패널 설정
-		panel.setSize(getMaximumSize());
+		panel.setSize(jf.getMaximumSize());
 		panel.setLayout(null);
 		panel.setBackground(new Color(0xddc6e6)); // 배경색은 패널에 지정
 		
@@ -148,18 +148,18 @@ public class DiaryReWriteView extends JFrame {
 		panel.add(modify); 
 		
 		
-		this.add(panel); // 컴포넌트를 붙인 패널을 프레임에 붙인다.
+		jf.add(panel); // 컴포넌트를 붙인 패널을 프레임에 붙인다.
 		
 		try { // 프레임 아이콘 변경
-			this.setIconImage(ImageIO.read(new File("image/iconHamster.jpg")));
+			jf.setIconImage(ImageIO.read(new File("image/iconHamster.jpg")));
 			
 		} catch (IOException e2) {
 			
 			e2.printStackTrace();
 		}
 		
-		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		jf.setVisible(true);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 		// 이전 버튼 (일기 조회 > 달력 페이지) > flag 전달받아서 처리
@@ -169,7 +169,7 @@ public class DiaryReWriteView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//new CalendarView();
-				setVisible(false); // 이전페이지로 이동 후 현재 페이지 안보이게 설정
+				jf.setVisible(false); // 이전페이지로 이동 후 현재 페이지 안보이게 설정
 				
 			}
 			
