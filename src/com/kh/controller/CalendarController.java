@@ -15,6 +15,16 @@ public class CalendarController {
 		cv = new CalendarView(uId);
 	}
 	
+	// 윤년확인 메소드
+	public int isLeapYear(int year) {
+		if ((year % 4 == 0) && (year % 100 != 0) || year % 400 == 0) {
+			return 29;
+		}
+		else {
+			return 28;
+		}
+
+	}
 	public String dateInCalendar(Date date) {
 		String day = new SimpleDateFormat("yy.MM.dd").format(date);
 		return day;
@@ -25,7 +35,7 @@ public class CalendarController {
 	}
 	
 	public boolean exsitDiary(String date,String uId) {
-		String path=uId+"\\"+date+".dat";
+		String path=uId+"/"+date+".dat";
 		File diary= new File(path);
 		if(diary.exists()) {
 			return true;
