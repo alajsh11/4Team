@@ -184,7 +184,6 @@ public class SignUpView extends JFrame implements ActionListener {
 				 signHint = hint.getText();
 				 
 				if (signPwd.equals(signRpwd)) {
-					System.out.println(signId + signPwd + signHint);
 					
 					uc.userSignUp(signId, signPwd, signHint);
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
