@@ -34,13 +34,16 @@ public class DiaryWriteView  {
 	private Diary d = new Diary();
 	private DiaryController dc = new DiaryController();
 	private String absoluteFilePath = "";
-
+	private String date;
+	private String uId;
 	public DiaryWriteView() {
 
 	}
 
 	public DiaryWriteView(String date, String uId) {
 		
+		this.date = date;
+		this.uId = uId;
 
 		JFrame jf = new JFrame("해씨일기");
 		JPanel panel = new JPanel();
@@ -179,12 +182,8 @@ public class DiaryWriteView  {
 		});
 
 		// 유저 아이디 폴더 생성
-		String Folder = uId;
-
-		File folder = new File(Folder);
-
-		folder.mkdir();
-
+		dc.createFolder(uId);
+	
 		// 저장 버튼
 		save.addActionListener(new ActionListener() {
 
@@ -192,46 +191,30 @@ public class DiaryWriteView  {
 			public void actionPerformed(ActionEvent e) {
 				if (image.getIcon() == null) {
 					JOptionPane.showMessageDialog(null, "이미지가 선택되지 않았습니다.", "", JOptionPane.WARNING_MESSAGE);
+				
 				} else {
-					// 아이디별 폴더 생성
-					try (ObjectOutputStream oos = new ObjectOutputStream(
-							new FileOutputStream(folder + "\\" + date + ".dat"));) {
+					// 이미지 저장
+					dc.saveImage(uId, date, absoluteFilePath);
+					
+					String content = write.getText(); // text 필드에서 넣은 값을 담는다.
 
-						d.setdImgName(folder + "\\" + date + ".png"); // d 객체에 이미지 경로 set
-						d.setdDate(date); // d 객체에 date set
+					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
 
-						String content = write.getText(); // text 필드에서 넣은 값을 담는다.
+						dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
 
-						if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
+					} else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다.
 
-							// d 객체에 해쉬태그 리스트에 세팅
-							d.setDhashTag(dc.hashtagTokenizer(content));
+						JOptionPane.showMessageDialog(null, "글자 제한 100자입니다.", "", JOptionPane.WARNING_MESSAGE);
 
-						} else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다.
+					}
+					
 
-							JOptionPane.showMessageDialog(null, "글자 제한 100자입니다.", "", JOptionPane.WARNING_MESSAGE);
-
-						}
-
-						oos.writeObject(d); // 날짜, 이미지경로, 해시태그 diary 객체 저장
-
-						// 이미지 저장
-						// 해당 경로의 이미지를 불러와서 다시 파일에 저장
-						File file = new File(absoluteFilePath);
-
-						BufferedImage saveImage = ImageIO.read(file);
-
-						ImageIO.write(saveImage, "png", new File(folder + "\\" + date + ".png")); // 다시 저장
-
-//						JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
-						int result = JOptionPane.showConfirmDialog(null, "일기가 저장되었습니다.", "", JOptionPane.OK_OPTION);
-						if(result==JOptionPane.OK_OPTION) {
-							jf.setVisible(false);
-							new CalendarController(uId);
-						}
-					} catch (IOException a) {
-						a.printStackTrace();
-
+//					JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
+					int result = JOptionPane.showConfirmDialog(null, "일기가 저장되었습니다.", "", JOptionPane.OK_OPTION);
+					
+					if (result == JOptionPane.OK_OPTION) {
+						jf.setVisible(false);
+						new CalendarController(uId);
 					}
 
 				}

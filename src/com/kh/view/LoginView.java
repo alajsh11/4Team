@@ -5,16 +5,11 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -103,22 +98,29 @@ public class LoginView extends JFrame implements ActionListener {
 	
 		// 로그인 하기
 		login.addActionListener(new ActionListener() {
-			String id = tfId.getText();
-			String pwd = tfPwd.getText();
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				boolean result = uc.userLogin(id, pwd);
-						
-				if(result == true) {
-					new PopUp().loginSuccess();
-				}else {
-					new PopUp().loginFail();
-				}
-
+				String id = tfId.getText();
+				String pwd = tfPwd.getText();
+				
+				uc.userLogin(id, pwd);				
+				uc.userId(id);
+				
 			}
 
+		});
+		
+		// 비밀번호 재설정 
+		rPwd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new UserPwdView();
+				jf.setVisible(false);
+				
+			}
 		});
 
 		jf.setVisible(true);
