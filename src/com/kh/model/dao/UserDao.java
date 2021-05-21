@@ -10,10 +10,20 @@ import com.kh.model.vo.User;
 
 public class UserDao {	// User.dat 이용해서 User 객체화
 	
-	ArrayList<User> list = new ArrayList<User>();
+	private ArrayList<User> list = new ArrayList<User>();
 
+	
 	public ArrayList<User> getList() {	//list 반환 (getter)
 		return list;
+	}
+	
+	public void userDelete(String no) {
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getuNo().equals(no)) {
+				list.remove(i);
+			}
+			
+		}
 	}
 
 	
@@ -21,7 +31,8 @@ public class UserDao {	// User.dat 이용해서 User 객체화
 		FileReader fw = null;
 		StringTokenizer st;
 		String a = "";
-
+		list.clear();	// 초기화
+		
 		try {
 			// User.dat 내용 String a에 넣기
 			fw = new FileReader("User.dat");
