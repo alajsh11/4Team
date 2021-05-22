@@ -34,7 +34,7 @@ public class DiaryInformationView {
 		JLabel dateBox = new JLabel(); // 날짜 창
 		
 		//수정
-		ImageIcon icModify = new ImageIcon("Image/complete.png");
+		ImageIcon icModify = new ImageIcon("Image/modify.png");
 		Image imModify = icModify.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		
 		JButton modifyBtn = new JButton(); 

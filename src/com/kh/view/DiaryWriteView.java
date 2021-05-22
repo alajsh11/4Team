@@ -55,7 +55,7 @@ public class DiaryWriteView  {
 		JLabel dateBox = new JLabel(date);
 
 		// 사진 붙이기 버튼
-		ImageIcon icPlus = new ImageIcon("Image/seed1.png");
+		ImageIcon icPlus = new ImageIcon("Image/sunflower seed1.png");
 		Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
 		JButton plus = new JButton();
 
@@ -137,6 +137,15 @@ public class DiaryWriteView  {
 		panel.add(write);
 		panel.add(save);
 
+		// 프레임 아이콘 변경
+		try { 
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.jpg")));
+
+		} catch (IOException e2) {
+
+			e2.printStackTrace();
+		}
+
 		jf.add(panel); // 컴포넌트를 붙인 패널을 프레임에 붙인다.
 
 		jf.setVisible(true);
@@ -217,7 +226,7 @@ public class DiaryWriteView  {
 					
 					if (result == JOptionPane.OK_OPTION) {
 						jf.setVisible(false);
-						new CalendarController(uId);
+						new CalendarView(uId);
 					}
 
 				}

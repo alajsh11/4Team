@@ -34,7 +34,7 @@ public class DiaryController {
 
 		while (st.hasMoreTokens()) {
 
-			hashTagList.add(st.nextToken() + " "); // #를 기준으로 빼서 정렬한 값을 다시 completeContent에 넣는다.
+			hashTagList.add(st.nextToken()); // #를 기준으로 빼서 정렬한 값을 다시 completeContent에 넣는다.
 		}
 
 		return hashTagList;
