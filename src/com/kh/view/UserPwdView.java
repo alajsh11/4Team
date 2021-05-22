@@ -16,7 +16,7 @@ import com.kh.controller.UserController;
 
 public class UserPwdView {
 	
-	UserController uc = new UserController();
+	private UserController uc = new UserController();
 	
 	private String userId;
 	private String userHint;

@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 import com.kh.controller.UserController;
 
-public class SignUpView extends JFrame implements ActionListener {
+public class SignUpView implements ActionListener {
 
 	UserController uc = new UserController();
 	
@@ -25,8 +25,6 @@ public class SignUpView extends JFrame implements ActionListener {
 	private String signHint;
 
 	public SignUpView() {
-
-		super("SignUpView");
 
 		JFrame jf = new JFrame();
 

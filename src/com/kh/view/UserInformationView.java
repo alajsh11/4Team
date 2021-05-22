@@ -18,8 +18,8 @@ import com.kh.model.vo.Diary;
 
 public class UserInformationView  {
 
-	UserController uc = new UserController();
-	Diary dy = new Diary();
+	private UserController uc = new UserController();
+	private Diary dy = new Diary();
 
 	public UserInformationView() {
 

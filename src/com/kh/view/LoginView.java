@@ -19,8 +19,8 @@ import com.kh.model.vo.User;
 
 public class LoginView extends JFrame implements ActionListener {
 
-	UserController uc = new UserController();
-	User us = new User();
+	private UserController uc = new UserController();
+	private User us = new User();
 
 	public LoginView() {
 

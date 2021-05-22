@@ -3,7 +3,6 @@ package com.kh.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +14,7 @@ import javax.swing.JOptionPane;
 import com.kh.model.vo.User;
 import com.kh.view.CalendarView;
 import com.kh.view.LoginView;
-import com.kh.view.MemberCheckView;
+import com.kh.view.MemberInformationView;
 
 public class UserController {
 
@@ -113,7 +112,7 @@ public class UserController {
 				if (id.equals(array[1]) && pwd.equals(array[2])) {
 					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
 					if(array[0].equals("0")){
-						new MemberCheckView();
+						new MemberInformationView();
 						new LoginView().setVisible(false);
 					}
 					new CalendarView();
