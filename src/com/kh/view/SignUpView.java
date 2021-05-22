@@ -19,10 +19,10 @@ public class SignUpView extends JFrame implements ActionListener {
 
 	UserController uc = new UserController();
 	
-	String signId;
-	String signPwd;
-	String signRpwd;
-	String signHint;
+	private String signId;
+	private String signPwd;
+	private String signRpwd;
+	private String signHint;
 
 	public SignUpView() {
 
