@@ -24,7 +24,7 @@ public class DiaryInformationView {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public DiaryInformationView(String userId, Diary d) {
+	public DiaryInformationView(String userId, Diary d,String searchText, int flag) {
 		JFrame jf = new JFrame();
 		jf.setTitle("해씨 일기");
 		DiaryController dc= new DiaryController();
@@ -138,7 +138,12 @@ public class DiaryInformationView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				jf.setVisible(false);
-				new CalendarController(userId);
+				if(flag==0) {
+					new CalendarView(userId);
+				}
+				else if(flag==1) {
+					new SearchHashTagView(userId,searchText,flag);
+				}
 			}
 		});
 		modifyBtn.addActionListener(new ActionListener() {
