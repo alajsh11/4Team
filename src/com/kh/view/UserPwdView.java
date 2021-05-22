@@ -16,7 +16,7 @@ import com.kh.controller.UserController;
 
 public class UserPwdView {
 	
-	UserController uc = new UserController();
+	private UserController uc = new UserController();
 	
 	private String userId;
 	private String userHint;
@@ -110,7 +110,7 @@ public class UserPwdView {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "비밀번호 재설정이 취소되었습니다.");
 				jf.setVisible(false);
-				new LoginView().loginView();
+				new LoginView();
 				
 			}
 		});
