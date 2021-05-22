@@ -3,6 +3,7 @@ package com.kh.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,12 +23,12 @@ public class UserController {
 	private String hint;
 	private String id;
 
-
 	// 회원가입 유저 --> dat 파일에 저장
 	public void userId(String id) {
 		this.id = id;
-		
+
 	}
+
 	public void userSignUp(String id, String pwd, String hint) {
 
 		Date d = new Date();
@@ -37,21 +38,20 @@ public class UserController {
 		BufferedWriter bw = null;
 
 		String s = us.getuNo();
-		int count = Integer.valueOf(s);
+		int count = Integer.valueOf(s); // 다시 확인하기 
 		String uNum = String.valueOf(count);
-		
+
 		try {
 			bw = new BufferedWriter(new FileWriter("User.dat", true));
-			bw.write(uNum.toString() +"/");
+			bw.write(uNum.toString() + "/");
 			bw.write(id.toString() + "/");
 			bw.write(pwd.toString() + "/");
 			bw.write(hint.toString() + "/");
 			bw.write(today + "\n");
-			bw.close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-		}finally {
+		} finally {
 			try {
 				bw.close();
 			} catch (IOException e) {
@@ -89,7 +89,7 @@ public class UserController {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+
 		} else {
 			result = true;
 		}
@@ -117,12 +117,11 @@ public class UserController {
 					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				br.close();
 			} catch (IOException e) {
@@ -132,18 +131,18 @@ public class UserController {
 		}
 
 	}
-	
-	// 유저 정보 return 
+
+	// 유저 정보 return
 	public void userInfo() {
-			
+
 		String line = "";
 		String array[];
-		
+
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
-			while((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null) {
 				array = line.split("/");
-				if(id.equals(array[1])) {
+				if (id.equals(array[1])) {
 					SimpleDateFormat sd = new SimpleDateFormat();
 					date = sd.parse(array[4]);
 					hint = array[3];
@@ -154,47 +153,85 @@ public class UserController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 
 	}
-	// 회원 탈퇴
+
 	public void userDelete() {
-		
+
 		String line = null;
-		String delete = null;
 		String dummy = null;
 		String array[];
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
-			BufferedWriter bw =new BufferedWriter(new FileWriter("User.dat"));
-		
-			while((line = br.readLine())!=null) {
+			BufferedWriter bw = new BufferedWriter(new FileWriter("User.dat"));
+
+			while ((line = br.readLine()) != null) {
 				array = line.split("/");
-				if(!id.equals(array[1])) {
-					dummy += (line +"\n") ;
+				if (!id.equals(array[1])) {
+					dummy += (line + "\n");
 				}
-				
+
 			}
 			bw.write(dummy);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 
+	// 비밀번호 재설정
+
+	public boolean userRpwd(String id, String hint, String pwd) {
+
+		boolean result = false;
+		String line = "";
+		String dummy = "";
+		String array[];
+
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("User.dat"));
+
+			while ((line = br.readLine()) != null) {
+				array = line.split("/");
+				if (id.equals(array[1]) && hint.equals(array[3])) {
+					result = true;
+					for (int i = 0; i < array.length; i++) {
+						if (i == 2) {
+							array[i] = pwd;
+							bw.write(array[i] + "/");
+						} else if (i == 4) {
+							bw.write(array[i] + "\n");
+						} else {
+							bw.write(array[i] + "/");
+						}
+					}
+					break;
+				} else {
+					dummy += (line + "\n");
+					bw.write(dummy);
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	// 내 정보 조회로 return
 	public Date userSignDate() {
 
 		return date;
 	}
 
 	public String userSignHint() {
-		
+
 		return hint;
 	}
-		
-		
-	
 
 }

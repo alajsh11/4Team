@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,14 +16,12 @@ import javax.swing.JPanel;
 import com.kh.controller.UserController;
 import com.kh.model.vo.Diary;
 
-public class UserInformationView extends JFrame {
+public class UserInformationView  {
 
 	UserController uc = new UserController();
 	Diary dy = new Diary();
 
 	public UserInformationView() {
-
-		super("UserInformationView");
 
 		JFrame jf = new JFrame();
 
@@ -39,28 +39,29 @@ public class UserInformationView extends JFrame {
 
 		jf.add(info);
 
-		// JPanel panel = new JPanel();
-		// panel.setBackground(Color.white);
 		JLabel title = new JLabel("내 정보 조회");
 		title.setOpaque(true);
 		title.setBackground(Color.white);
 		title.setFont(new Font("맑은고딕", Font.BOLD, 20));
 		title.setHorizontalAlignment(JLabel.CENTER);
+		
 		JLabel tDate = new JLabel("  회원 가입 날짜");
 		tDate.setOpaque(true);
 		tDate.setBackground(Color.white);
 		tDate.setFont(new Font("맑은고딕", Font.BOLD, 14));
-		// Date date = uc.userSignDate();
-		// SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date date = uc.userSignDate();
+		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
 		JLabel sDate = new JLabel();
 		sDate.setOpaque(true);
 		sDate.setBackground(Color.LIGHT_GRAY);
 		sDate.setFont(new Font("맑은고딕", Font.PLAIN, 14));
 		JLabel hint = new JLabel("  비밀번호 힌트 (졸업한 초등학교 이름)");
+		
 		hint.setOpaque(true);
 		hint.setBackground(Color.white);
 		hint.setFont(new Font("맑은고딕", Font.BOLD, 13));
-		// String s = uc.userSignHint();
+		String s = uc.userSignHint();
 		JLabel school = new JLabel();
 		school.setOpaque(true);
 		school.setBackground(Color.LIGHT_GRAY);
@@ -75,6 +76,7 @@ public class UserInformationView extends JFrame {
 		dCount.setFont(new Font("맑은고딕", Font.PLAIN, 14));
 		JButton logout = new JButton("로그아웃");
 		JButton leave = new JButton("탈퇴");
+		JButton prev = new JButton("< prev");
 
 		// 컴포넌트 위치 및 사이즈
 		title.setBounds(190, 100, 250, 40);
@@ -86,9 +88,11 @@ public class UserInformationView extends JFrame {
 		dCount.setBounds(120, 530, 400, 30);
 		logout.setBounds(220, 650, 90, 30);
 		leave.setBounds(330, 650, 90, 30);
+		prev.setBounds(60, 30, 80, 30);
 
 		// 패널에 붙이기
 		info.setLayout(null);
+		info.add(prev);
 		info.add(title);
 		info.add(tDate);
 		info.add(sDate);
@@ -100,7 +104,19 @@ public class UserInformationView extends JFrame {
 		info.add(leave);
 
 		// 버튼 액션
+		
+		// 뒤로가기
+		prev.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jf.setVisible(false);
+				new CalendarView();
+				
+			}
+		});
 
+		// 로그아웃
 		logout.addActionListener(new ActionListener() {
 
 			@Override
@@ -108,9 +124,9 @@ public class UserInformationView extends JFrame {
 				int result = JOptionPane.showConfirmDialog(null, "로그아웃 하시겠습니까?", "Confirm", JOptionPane.YES_NO_OPTION);
 
 				if (result == JOptionPane.CLOSED_OPTION || result == JOptionPane.NO_OPTION) {
-					dispose();
+					
 				} else if (result == JOptionPane.YES_OPTION) {
-					dispose();
+					
 					jf.setVisible(false);
 					jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					new LoginView().loginView();
@@ -119,6 +135,7 @@ public class UserInformationView extends JFrame {
 			}
 		});
 
+		// 회원탈퇴
 		leave.addActionListener(new ActionListener() {
 
 			@Override
@@ -127,9 +144,9 @@ public class UserInformationView extends JFrame {
 						JOptionPane.YES_NO_OPTION);
 
 				if (result == JOptionPane.CLOSED_OPTION || result == JOptionPane.NO_OPTION) {
-					dispose();
+				
 				} else if (result == JOptionPane.YES_OPTION) {
-					dispose();
+					
 					jf.setVisible(false);
 					uc.userDelete();
 					new LoginView().loginView();
@@ -143,4 +160,3 @@ public class UserInformationView extends JFrame {
 
 	}
 }
-
