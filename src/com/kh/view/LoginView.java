@@ -47,7 +47,7 @@ public class LoginView extends JFrame implements ActionListener {
 		JLabel ham = new JLabel();
 		ham.setIcon(new ImageIcon(hamster));
 
-		Image seeds = new ImageIcon("image/sunflower seed1.png").getImage();
+		Image seeds = new ImageIcon("image/seed (1).png").getImage();
 		JLabel seed = new JLabel();
 		seed.setIcon(new ImageIcon(seeds));
 

@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import com.kh.model.vo.User;
 import com.kh.view.CalendarView;
 import com.kh.view.LoginView;
+import com.kh.view.MemberCheckView;
 
 public class UserController {
 
@@ -111,8 +112,12 @@ public class UserController {
 				array = line.split(",");
 				if (id.equals(array[1]) && pwd.equals(array[2])) {
 					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+					if(array[0].equals("0")){
+						new MemberCheckView();
+						new LoginView().setVisible(false);
+					}
 					new CalendarView();
-					new LoginView().dispose();
+					new LoginView().setVisible(false);;
 
 				} else {
 					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
