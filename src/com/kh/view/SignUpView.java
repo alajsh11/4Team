@@ -15,18 +15,16 @@ import javax.swing.JTextField;
 
 import com.kh.controller.UserController;
 
-public class SignUpView extends JFrame implements ActionListener {
+public class SignUpView implements ActionListener {
 
 	UserController uc = new UserController();
 	
-	String signId;
-	String signPwd;
-	String signRpwd;
-	String signHint;
+	private String signId;
+	private String signPwd;
+	private String signRpwd;
+	private String signHint;
 
 	public SignUpView() {
-
-		super("SignUpView");
 
 		JFrame jf = new JFrame();
 
@@ -146,7 +144,7 @@ public class SignUpView extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jf.setVisible(false);
-				new LoginView().loginView();
+				new LoginView();
 				
 			}
 		});
@@ -188,7 +186,7 @@ public class SignUpView extends JFrame implements ActionListener {
 					uc.userSignUp(signId, signPwd, signHint);
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
 					jf.setVisible(false);
-					new LoginView().loginView();
+					new LoginView();
 										
 				// 비밀번호가 다를 시 
 				} else if(!signPwd.equals(signRpwd)) {

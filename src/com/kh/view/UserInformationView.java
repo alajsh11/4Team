@@ -18,8 +18,8 @@ import com.kh.model.vo.Diary;
 
 public class UserInformationView  {
 
-	UserController uc = new UserController();
-	Diary dy = new Diary();
+	private UserController uc = new UserController();
+	private Diary dy = new Diary();
 
 	public UserInformationView() {
 
@@ -129,7 +129,7 @@ public class UserInformationView  {
 					
 					jf.setVisible(false);
 					jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					new LoginView().loginView();
+					new LoginView();
 				}
 
 			}
@@ -149,7 +149,7 @@ public class UserInformationView  {
 					
 					jf.setVisible(false);
 					uc.userDelete();
-					new LoginView().loginView();
+					new LoginView();
 				}
 
 			}
