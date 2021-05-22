@@ -19,6 +19,7 @@ import com.kh.view.LoginView;
 public class UserController {
 
 	User us = new User();
+	{us.setuNo("0");}
 	private Date date;
 	private String hint;
 	private String id;
@@ -38,15 +39,15 @@ public class UserController {
 		BufferedWriter bw = null;
 
 		String s = us.getuNo();
-		int count = Integer.valueOf(s); // 다시 확인하기 
+		int count = Integer.valueOf(s);
 		String uNum = String.valueOf(count);
 
 		try {
 			bw = new BufferedWriter(new FileWriter("User.dat", true));
-			bw.write(uNum.toString() + "/");
-			bw.write(id.toString() + "/");
-			bw.write(pwd.toString() + "/");
-			bw.write(hint.toString() + "/");
+			bw.write(uNum.toString() + ",");
+			bw.write(id.toString() + ",");
+			bw.write(pwd.toString() + ",");
+			bw.write(hint.toString() + ",");
 			bw.write(today + "\n");
 
 		} catch (IOException e) {
@@ -76,7 +77,7 @@ public class UserController {
 			try {
 				BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 				while ((line = br.readLine()) != null) {
-					array = line.split("/");
+					array = line.split(",");
 					if (!id.equals(array[1])) {
 						result = true;
 						break;
@@ -107,7 +108,7 @@ public class UserController {
 		try {
 			br = new BufferedReader(new FileReader("User.dat"));
 			while ((line = br.readLine()) != null) {
-				array = line.split("/");
+				array = line.split(",");
 				if (id.equals(array[1]) && pwd.equals(array[2])) {
 					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
 					new CalendarView();
@@ -141,7 +142,7 @@ public class UserController {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 			while ((line = br.readLine()) != null) {
-				array = line.split("/");
+				array = line.split(",");
 				if (id.equals(array[1])) {
 					SimpleDateFormat sd = new SimpleDateFormat();
 					date = sd.parse(array[4]);
@@ -157,6 +158,7 @@ public class UserController {
 
 	}
 
+	// 회원 탈퇴
 	public void userDelete() {
 
 		String line = null;
@@ -167,7 +169,7 @@ public class UserController {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("User.dat"));
 
 			while ((line = br.readLine()) != null) {
-				array = line.split("/");
+				array = line.split(",");
 				if (!id.equals(array[1])) {
 					dummy += (line + "\n");
 				}
@@ -182,7 +184,6 @@ public class UserController {
 	}
 
 	// 비밀번호 재설정
-
 	public boolean userRpwd(String id, String hint, String pwd) {
 
 		boolean result = false;
@@ -195,17 +196,17 @@ public class UserController {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("User.dat"));
 
 			while ((line = br.readLine()) != null) {
-				array = line.split("/");
+				array = line.split(",");
 				if (id.equals(array[1]) && hint.equals(array[3])) {
 					result = true;
 					for (int i = 0; i < array.length; i++) {
 						if (i == 2) {
 							array[i] = pwd;
-							bw.write(array[i] + "/");
+							bw.write(array[i] + ",");
 						} else if (i == 4) {
 							bw.write(array[i] + "\n");
 						} else {
-							bw.write(array[i] + "/");
+							bw.write(array[i] + ",");
 						}
 					}
 					break;
@@ -223,7 +224,7 @@ public class UserController {
 		return result;
 	}
 
-	// 내 정보 조회로 return
+	// 내 정보 조회로 값 return
 	public Date userSignDate() {
 
 		return date;

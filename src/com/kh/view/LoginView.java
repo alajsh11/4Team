@@ -22,7 +22,7 @@ public class LoginView extends JFrame implements ActionListener {
 	UserController uc = new UserController();
 	User us = new User();
 
-	public void loginView() {
+	public LoginView() {
 
 		JFrame jf = new JFrame();
 
@@ -43,11 +43,11 @@ public class LoginView extends JFrame implements ActionListener {
 		name.setFont(new Font("", Font.BOLD, 45));
 		name.setForeground(Color.white);
 
-		Image hamster = new ImageIcon("images/hamster (3).png").getImage();
+		Image hamster = new ImageIcon("image/hamster3.png").getImage();
 		JLabel ham = new JLabel();
 		ham.setIcon(new ImageIcon(hamster));
 
-		Image seeds = new ImageIcon("images/seed (1).png").getImage();
+		Image seeds = new ImageIcon("image/sunflower seed1.png").getImage();
 		JLabel seed = new JLabel();
 		seed.setIcon(new ImageIcon(seeds));
 

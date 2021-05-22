@@ -129,7 +129,7 @@ public class UserInformationView  {
 					
 					jf.setVisible(false);
 					jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					new LoginView().loginView();
+					new LoginView();
 				}
 
 			}
@@ -149,7 +149,7 @@ public class UserInformationView  {
 					
 					jf.setVisible(false);
 					uc.userDelete();
-					new LoginView().loginView();
+					new LoginView();
 				}
 
 			}
