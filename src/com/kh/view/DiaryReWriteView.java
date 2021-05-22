@@ -58,7 +58,7 @@ public class DiaryReWriteView {
 		JLabel dateBox = new JLabel(date);
 
 		// 사진수정 버튼
-		ImageIcon icPlus = new ImageIcon("Image/seed1.png");
+		ImageIcon icPlus = new ImageIcon("Image/sunflower seed1.png");
 		Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
 		JButton plus = new JButton();
 
@@ -157,8 +157,9 @@ public class DiaryReWriteView {
 
 		jf.add(panel); // 컴포넌트를 붙인 패널을 프레임에 붙인다.
 
-		try { // 프레임 아이콘 변경
-			jf.setIconImage(ImageIO.read(new File("image/iconHamster.jpg")));
+		// 프레임 아이콘 변경
+		try { 
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.jpg")));
 
 		} catch (IOException e2) {
 
@@ -174,7 +175,7 @@ public class DiaryReWriteView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// new CalendarView();
+				new CalendarView(uId);
 				jf.setVisible(false); // 이전페이지로 이동 후 현재 페이지 안보이게 설정
 
 			}
@@ -227,9 +228,10 @@ public class DiaryReWriteView {
 				// 기존 이미지 그대로 유지하고 변경하지 않는다면? > 덮어쓰기라 유지되나..?
 				// 현재 조회되어 셋팅된 사진이 변경되지 않았는지 비교할 코드
 
-				if (dw.absoluteFilePath == absoluteFilePath) { // 기존파일과 동일한게 선택되었다면 그대로 저장
-
-					dc.saveImage(uId, date, dw.absoluteFilePath);
+				
+				if (absoluteFilePath == null) { // 새롭게 선택된 파일이 없다면, 그대로 유지
+					
+					dc.saveImage(uId, date, d.getdImgName());
 
 				} else { // 없다면 새롭게 선택된 파일 경로로 저장
 
@@ -238,6 +240,7 @@ public class DiaryReWriteView {
 				
 
 				// hashtag > 조회창에 뜬 hashtag 내용을 수정하거나 그대로 저장 가능(덮어쓰기)
+				
 				String content = write.getText(); // text 필드값을 담는다.
 
 				if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
