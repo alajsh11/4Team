@@ -18,12 +18,13 @@ import com.kh.view.DiaryInformationView;
 
 public class DiaryController {
 
-	private Diary d = new Diary();
+	
 
 	public DiaryController() {
 
 	}
 
+	
 	// 작성된 content ArrayList로 생성
 	public ArrayList<String> hashtagTokenizer(String content) {
 
@@ -33,7 +34,7 @@ public class DiaryController {
 
 		while (st.hasMoreTokens()) {
 
-			hashTagList.add(st.nextToken()); // #를 기준으로 빼서 정렬한 값을 다시 completeContent에 넣는다.
+			hashTagList.add(st.nextToken() + " "); // #를 기준으로 빼서 정렬한 값을 다시 completeContent에 넣는다.
 		}
 
 		return hashTagList;
@@ -55,6 +56,8 @@ public class DiaryController {
 	// 해당 유저 폴더에 날짜별 파일 만들기
 	public void saveDiary(String uId, String date, ArrayList<String> content) {
 		
+		 Diary d = new Diary();
+		 
 		try (ObjectOutputStream oos = new ObjectOutputStream(
 				new FileOutputStream(uId + "\\" + date + ".dat"));) {
 				
@@ -75,7 +78,7 @@ public class DiaryController {
 		try {
 			//저장할 원본이 있는 경로를 가져와서 
 			File file = new File(absoluteFilePath);
-//		
+		
 			// 해당 파일을 읽어서 
 			BufferedImage saveImage = ImageIO.read(file); 
 			ImageIO.write(saveImage, "png", new File(uId + "\\" + date + ".png")); //저장
@@ -86,6 +89,7 @@ public class DiaryController {
 		}
 	}
 		
+	
 	
 	
 	public void diaryRead(String userId, String date) {
