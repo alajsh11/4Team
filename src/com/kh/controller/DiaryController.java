@@ -92,10 +92,11 @@ public class DiaryController {
 	
 	
 	
-	public void diaryRead(String userId, String date) {
+	public void diaryRead(String userId, String date,String searchText,int flag) {
 		Diary d = openFile(userId+"/"+date+".dat");
-		new DiaryInformationView(userId,d);
+		new DiaryInformationView(userId,d,searchText,flag);
 	}
+	
 	
 	
 	
