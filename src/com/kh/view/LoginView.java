@@ -105,7 +105,10 @@ public class LoginView extends JFrame implements ActionListener {
 				String id = tfId.getText();
 				String pwd = tfPwd.getText();
 				
-				uc.userLogin(id, pwd);				
+				boolean result = uc.userLogin(id, pwd);	
+				if(result == true) {
+					jf.setVisible(false);
+				}
 				uc.userId(id);
 				
 			}

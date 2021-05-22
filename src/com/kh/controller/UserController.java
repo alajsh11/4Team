@@ -3,9 +3,11 @@ package com.kh.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,13 +15,12 @@ import javax.swing.JOptionPane;
 
 import com.kh.model.vo.User;
 import com.kh.view.CalendarView;
-import com.kh.view.LoginView;
 import com.kh.view.MemberInformationView;
 
 public class UserController {
 
 	User us = new User();
-	{us.setuNo("0");}
+
 	private Date date;
 	private String hint;
 	private String id;
@@ -37,9 +38,30 @@ public class UserController {
 		String today = date.format(d);
 
 		BufferedWriter bw = null;
-
-		String s = us.getuNo();
-		int count = Integer.valueOf(s);
+		String s = "";
+		String line = "";
+		String array[];
+		int count = 0;
+		
+		File file = new File("User.dat");
+		if (file.exists()) {	
+			try {
+				BufferedReader br = new BufferedReader(new FileReader("User.dat"));
+				while ((line = br.readLine()) != null) {
+					array = line.split(",");
+					s = array[0];
+					count = Integer.valueOf(s) + 1 ;
+				}
+				if(file == null) {
+				s = "0";
+				count = Integer.valueOf(s);
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
 		String uNum = String.valueOf(count);
 
 		try {
@@ -60,7 +82,6 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-		count = Integer.valueOf(s) + 1;
 		us.setuNo(String.valueOf(count));
 
 	}
@@ -99,9 +120,10 @@ public class UserController {
 	}
 
 	// 로그인
-	public void userLogin(String id, String pwd) {
+	public boolean userLogin(String id, String pwd) {
 
 		BufferedReader br = null;
+		boolean result = false;
 		String line = "";
 		String array[];
 
@@ -111,14 +133,16 @@ public class UserController {
 				array = line.split(",");
 				if (id.equals(array[1]) && pwd.equals(array[2])) {
 					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
-					if(array[0].equals("0")){
+					if (array[0].equals("0")) {
 						new MemberInformationView();
-						new LoginView().setVisible(false);
-					}
-					new CalendarView();
-					new LoginView().setVisible(false);;
 
-				} else {
+					} else {
+						new CalendarView(id);
+					}
+					result = true;
+
+				} else if (id.equals(array[1]) && !pwd.equals(array[2])
+						|| !id.equals(array[1])&& pwd.equals(array[2]))  {
 					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -134,6 +158,8 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
+
+		return result;
 
 	}
 
