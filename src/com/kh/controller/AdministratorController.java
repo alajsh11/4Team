@@ -23,12 +23,11 @@ public class AdministratorController {
 		
 		idArr = new String[user.getList().size()];
 		noArr = new String[user.getList().size()];
-		
+		System.err.println(user.getList().get(1).getDiaryCount());
 		for(int i = 0; i < tableList.size(); i++ ) {
 			noArr[i] = tableList.get(i).getuNo();
 			idArr[i] = tableList.get(i).getuId();
 		}
-	
 	}
 	
 	//id 불러오기
@@ -39,6 +38,14 @@ public class AdministratorController {
 	//회원 정보 불러오기
 	public String[] getNoArr() {
 		return noArr;
+	}
+
+	public UserDao getUser() {
+		return user;
+	}
+
+	public void userDelete(User user) {
+		this.user.userDelete(user);
 	}
 	
 	

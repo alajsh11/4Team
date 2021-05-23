@@ -1,7 +1,6 @@
 package com.kh.view;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -14,14 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
 
-public class MemberCheckView  {
+import com.kh.controller.AdministratorController;
+import com.kh.model.vo.User;
+
+public class MemberCheckView {
 	private JTextField adminIdField, userMembershipField, userPwdField, uesrTotalDialyField;
 	private JButton prevButton, userDeleteButton;
 	private JFrame jf;
-
-	public MemberCheckView() {
+	private DeleteModal dm;
+	private CheckModal cm;
+	AdministratorController ac = new AdministratorController();
+	
+	public MemberCheckView(User user) {
 		jf = new JFrame();
 		jf.setSize(640, 960);
 		jf.setTitle("회원조회");
@@ -50,7 +54,6 @@ public class MemberCheckView  {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new MemberInformationView();
-
 				jf.setVisible(false);
 			}
 		});
@@ -61,7 +64,7 @@ public class MemberCheckView  {
 		adminImgLabel.setBounds(80, 180, 100, 100);
 
 		// 관리자 아이디 텍스트필드
-		adminIdField = new JTextField("010-5495-3709");
+		adminIdField = new JTextField(user.getuId());
 		adminIdField.setBounds(200, 200, 350, 50);
 		adminIdField.setEditable(false);
 
@@ -75,29 +78,56 @@ public class MemberCheckView  {
 		// 회원가입 날짜 텍스트필드
 		JTextField upField = new JTextField("비밀번호 힌트 (졸업한 초등학교 이름)");
 		upField.setBounds(100, 430, 450, 30);
-		userPwdField = new JTextField("잠실초등학교");
+		userPwdField = new JTextField(user.getuPwdAnswer());
 		userPwdField.setBounds(100, 460, 450, 60);
 		userPwdField.setEditable(false);
 
 		// 회원가입 날짜 텍스트필드
 		JTextField utdField = new JTextField("총 해씨 일기 개수");
 		utdField.setBounds(100, 570, 450, 30);
-		uesrTotalDialyField = new JTextField("1");
+		uesrTotalDialyField = new JTextField(String.valueOf(user.getDiaryCount()));
 		uesrTotalDialyField.setBounds(100, 600, 450, 30);
 		uesrTotalDialyField.setEditable(false);
-
 		// 회원 삭제 버튼
 		userDeleteButton = new JButton("회원삭제");
 		userDeleteButton.setBounds(260, 750, 100, 30);
+		dm = new DeleteModal(jf);
+		
+		// 삭제 버튼 클릭시 팝업창 띄우
 		userDeleteButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DeleteModal m = new DeleteModal(jf);
-				m.setVisible(true);
+				dm.setVisible(true);
 
 			}
 		});
+		
+		dm.getDeleteButton().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 삭제메소드 작업
+				cm = new CheckModal(dm);
+				cm.setVisible(true);
+				dm.setVisible(false);
+				jf.setVisible(false);
+				ac.userDelete(user);
+				ac.memberTableInfo();
+				new MemberInformationView();
+				
+			}
+		});
+		
+		// 팝업 취소 버튼 클릭시 팝업창 닫기
+		dm.getCancelButton().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dm.setVisible(false);
+			}
+		});
+		
 
 		// 패널에 추가
 		panel.add(umsField);
@@ -120,7 +150,14 @@ public class MemberCheckView  {
 
 //삭제하기 버튼 팝업창
 class DeleteModal extends JDialog {
-	JButton deleteButton;
+	private JButton deleteButton, cancelButton;
+
+	public JButton getDeleteButton() {
+		return deleteButton;
+	}
+	public JButton getCancelButton() {
+		return cancelButton;
+	}
 
 	public DeleteModal(Window parent) {
 		super(parent, "삭제", ModalityType.APPLICATION_MODAL);
@@ -135,27 +172,11 @@ class DeleteModal extends JDialog {
 		// 삭제 버튼
 		deleteButton = new JButton("삭제");
 		deleteButton.setBounds(80, 180, 80, 50);
-		deleteButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 삭제메소드 작업
-				CheckModal cm = new CheckModal(DeleteModal.this);
-				cm.setVisible(true);
-				DeleteModal.this.setVisible(false);
-			}
-		});
 
 		// 취소버튼
-		JButton cancelButton = new JButton("취소");
+		cancelButton = new JButton("취소");
 		cancelButton.setBounds(220, 180, 80, 50);
-		cancelButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DeleteModal.this.setVisible(false);
-			}
-		});
+		
 
 		add(cancelButton);
 		add(lb);
@@ -166,6 +187,11 @@ class DeleteModal extends JDialog {
 
 //DeleteModal에서 삭제 버튼 클릭 팝업창
 class CheckModal extends JDialog {
+	private JButton checkButton;
+	
+	public JButton getCheckButton() {
+		return checkButton;
+	}
 
 	public CheckModal(Window parent) {
 		super(parent, "삭제", ModalityType.APPLICATION_MODAL);
@@ -177,16 +203,13 @@ class CheckModal extends JDialog {
 		JLabel lb = new JLabel("삭제 되었습니다.");
 		lb.setBounds(150, 30, 200, 100);
 
-		JButton checkButton = new JButton("확인");
+		checkButton = new JButton("확인");
 		checkButton.setBounds(50, 180, 300, 40);
 		checkButton.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				new MemberInformationView();
 				setVisible(false);
-
 			}
 		});
 
