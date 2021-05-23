@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,13 +13,19 @@ import javax.swing.JPanel;
 
 import com.kh.controller.UserController;
 import com.kh.model.vo.Diary;
+import com.kh.model.vo.User;
 
 public class UserInformationView  {
 
 	private UserController uc = new UserController();
+	private User us = new User();
 	private Diary dy = new Diary();
 
-	public UserInformationView() {
+	public UserInformationView() { 
+		
+	}
+	
+	public UserInformationView(String id) {
 
 		JFrame jf = new JFrame();
 
@@ -50,9 +54,8 @@ public class UserInformationView  {
 		tDate.setBackground(Color.white);
 		tDate.setFont(new Font("맑은고딕", Font.BOLD, 14));
 		
-		Date date = uc.userSignDate();
-		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-		JLabel sDate = new JLabel();
+		String date = uc.userSignDate(id);
+		JLabel sDate = new JLabel(date);
 		sDate.setOpaque(true);
 		sDate.setBackground(Color.LIGHT_GRAY);
 		sDate.setFont(new Font("맑은고딕", Font.PLAIN, 14));
@@ -61,16 +64,17 @@ public class UserInformationView  {
 		hint.setOpaque(true);
 		hint.setBackground(Color.white);
 		hint.setFont(new Font("맑은고딕", Font.BOLD, 13));
-		String s = uc.userSignHint();
-		JLabel school = new JLabel();
+		String s = uc.userSignHint(id);
+		JLabel school = new JLabel(s);
 		school.setOpaque(true);
 		school.setBackground(Color.LIGHT_GRAY);
 		school.setFont(new Font("맑은고딕", Font.PLAIN, 14));
+		
 		JLabel dNo = new JLabel("  총 해씨일기 개수");
 		dNo.setOpaque(true);
 		dNo.setBackground(Color.white);
 		dNo.setFont(new Font("맑은고딕", Font.BOLD, 14));
-		JLabel dCount = new JLabel();
+		JLabel dCount = new JLabel(String.valueOf(us.getDiaryCount()));
 		dCount.setOpaque(true);
 		dCount.setBackground(Color.LIGHT_GRAY);
 		dCount.setFont(new Font("맑은고딕", Font.PLAIN, 14));
@@ -111,7 +115,7 @@ public class UserInformationView  {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jf.setVisible(false);
-				new CalendarView();
+				new CalendarView(id);
 				
 			}
 		});
@@ -148,7 +152,7 @@ public class UserInformationView  {
 				} else if (result == JOptionPane.YES_OPTION) {
 					
 					jf.setVisible(false);
-					uc.userDelete();
+					uc.userDelete(id);
 					new LoginView();
 				}
 

@@ -128,6 +128,8 @@ public class UserPwdView {
 
 				if (result == true) {
 					JOptionPane.showMessageDialog(null, "비밀번호가 재설정되었습니다.");
+					jf.setVisible(false);
+					new LoginView();
 				} else if (result == false) {
 					JOptionPane.showMessageDialog(null, "아이디와 힌트가 맞지 않습니다.");
 				}

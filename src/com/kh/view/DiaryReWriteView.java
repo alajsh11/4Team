@@ -35,7 +35,7 @@ public class DiaryReWriteView {
 	private Diary d = new Diary();
 	private DiaryController dc = new DiaryController();
 	private DiaryWriteView dw = new DiaryWriteView();
-	private String absoluteFilePath = "";
+	private String absoluteFilePath = null;
 	private String uId;
 	private String date;
 	
@@ -81,6 +81,7 @@ public class DiaryReWriteView {
 		String content = ""; // 파일 내용
 
 		// 텍스트 필드 설정
+		write.setFont(new Font("\"Plain\"", Font.BOLD, 18));
 		write.setText(dc.arrayListToText(d.getDhashTag()));
 		
 		// 이미지 라벨 설정
@@ -96,7 +97,7 @@ public class DiaryReWriteView {
 		} 
 		Image img = icon.getImage().getScaledInstance(400, 300, Image.SCALE_SMOOTH); // 이미지로 사이즈 조정
 		image.setIcon(new ImageIcon(img)); // 해당 이미지 라벨에 붙이기
-		absoluteFilePath = dw.absoluteFilePath;
+		
 		
 		// 프레임 설정
 		jf.setSize(640, 960);// 전체 창 사이즈
