@@ -23,15 +23,14 @@ public class UserDao { // User.dat 이용해서 User 객체화
 		return list;
 	}
 
-	public void userDelete(User user) { // 유저 정보 받아서 User.dat 정보 삭제
+	public void userPwdTemp(User user, String pwdTemp) { // 유저 정보 받아서 User.dat 정보 삭제
 		FileInputStream fi = null;
 		FileOutputStream fo = null;
 		BufferedReader br = null;
 		BufferedWriter bw = null;
-		
-		File inputFile = new File("User.dat");				//읽어올 파일
-		File outputFile = new File("User.dat" + ".temp");	//수정할 파일
-		
+
+		File inputFile = new File("User.dat"); // 읽어올 파일
+		File outputFile = new File("User.dat" + ".temp"); // 수정할 파일
 
 		boolean result = false;
 		try {
@@ -40,20 +39,21 @@ public class UserDao { // User.dat 이용해서 User 객체화
 			br = new BufferedReader(new InputStreamReader(fi));
 			bw = new BufferedWriter(new OutputStreamWriter(fo));
 
-			String line = "";		// 바꿀라인
-			String repLine = "";	// 새로운 라인
+			String line = ""; // 바꿀라인
+			String repLine = ""; // 새로운 라인
 
-			String originStr = "null1[User [diaryCount="+ user.getDiaryCount() + ", uNo=" + user.getuNo() 
-			+ ", uId=" + user.getuId() + "/, uPwd=" + user.getuPwd() + "/, uPwdAnswer=" + user.getuPwdAnswer() + "]]";
-			String reStr =  "";
-			
+			String originStr = user.getuNo()+ "/" + user.getuId() + "/" + user.getuPwd() + "/"
+					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + user.getDiaryCount() +"/";
+			String reStr = user.getuNo()+ "/" + user.getuId() + "/" + pwdTemp + "/"
+					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + user.getDiaryCount() +"/";
+
 			while ((line = br.readLine()) != null) {
-				repLine = line.replace(originStr, reStr);	// 기존 문자열(originStr)과 새로운 문자열(reStr)교체
+				repLine = line.replace(originStr, reStr); // 기존 문자열(originStr)과 새로운 문자열(reStr)교체
 				bw.write(repLine, 0, repLine.length());
-				bw.newLine();	// 줄바꿈
+				bw.newLine(); // 줄바꿈
 			}
 			result = true;
-			
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,11 +75,68 @@ public class UserDao { // User.dat 이용해서 User 객체화
 				e.printStackTrace();
 			}
 			if (result) {
-				inputFile.delete();	// 기존 파일 삭제
-				outputFile.renameTo(new File("User.dat"));	// 새로운 파일 이름 교체
+				inputFile.delete(); // 기존 파일 삭제
+				outputFile.renameTo(new File("User.dat")); // 새로운 파일 이름 교체
 			}
 		}
 
+	}
+	
+	public void userDelete(User user) { // 유저 정보 받아서 User.dat 정보 삭제
+		FileInputStream fi = null;
+		FileOutputStream fo = null;
+		BufferedReader br = null;
+		BufferedWriter bw = null;
+
+		File inputFile = new File("User.dat"); // 읽어올 파일
+		File outputFile = new File("User.dat" + ".temp"); // 수정할 파일
+
+		boolean result = false;
+		try {
+			fi = new FileInputStream(inputFile);
+			fo = new FileOutputStream(outputFile);
+			br = new BufferedReader(new InputStreamReader(fi));
+			bw = new BufferedWriter(new OutputStreamWriter(fo));
+
+			String line = ""; // 바꿀라인
+			String repLine = ""; // 새로운 라인
+
+			String originStr = user.getuNo()+ "/" + user.getuId() + "/" + user.getuPwd() + "/"
+					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + user.getDiaryCount() +"/";
+			String reStr = "";
+
+			while ((line = br.readLine()) != null) {
+				repLine = line.replace(originStr, reStr); // 기존 문자열(originStr)과 새로운 문자열(reStr)교체
+				bw.write(repLine, 0, repLine.length());
+				bw.newLine(); // 줄바꿈
+			}
+			result = true;
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			try {
+				bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (result) {
+				inputFile.delete(); // 기존 파일 삭제
+				outputFile.renameTo(new File("User.dat")); // 새로운 파일 이름 교체
+			}
+		}
 
 	}
 
@@ -105,19 +162,21 @@ public class UserDao { // User.dat 이용해서 User 객체화
 			String asd;
 			while (st.hasMoreTokens()) {
 				asd = st.nextToken();
-				if(asd.length() > 5) strList.add(asd);		// 빈칸 무시(삭제한 유저정보 담지않기)
+				if (asd.length() > 5)
+					strList.add(asd); // 빈칸 무시(삭제한 유저정보 담지않기)
 			}
-
 			
+			System.out.println(strList.size());
+
 			// arr[] 배열 길이만큼 반복시켜 list 추가하기
 			for (int listSize = 0; listSize < strList.size(); listSize++) {
 				String id = "";
 				String pwd = "";
 				String pwdAnswer = "";
 				String no = "";
-
+				String date = "";
 				// arr[listSize] 에 , 기준으로 나눈후 strArr[]에 대입
-				st = new StringTokenizer(strList.get(listSize), ",");
+				st = new StringTokenizer(strList.get(listSize), "/");
 				String[] strArr = new String[st.countTokens()];
 				value = 0;
 				while (st.hasMoreTokens()) {
@@ -126,34 +185,36 @@ public class UserDao { // User.dat 이용해서 User 객체화
 				}
 
 				// 유저 번호 값
-				for (int i = 5; i < strArr[1].length(); i++) {
-					no += strArr[1].charAt(i);
+				for (int i = 0; i < strArr[0].length(); i++) {
+					no += strArr[0].charAt(i);
 				}
 
 				// 유저 아이디 값
-				for (int i = 5; i < strArr[2].length() - 1; i++) {
-					id += strArr[2].charAt(i);
+				for (int i = 0; i < strArr[1].length(); i++) {
+					id += strArr[1].charAt(i);
 				}
 
 				// 유저 비밀번호 값
-				for (int i = 6; i < strArr[3].length() - 1; i++) {
-					pwd += strArr[3].charAt(i);
+				for (int i = 0; i < strArr[2].length(); i++) {
+					pwd += strArr[2].charAt(i);
 				}
 
 				// 유저 비밀번호 힌트값
-				for (int i = 12; i < strArr[4].length() - 3; i++) {
-					pwdAnswer += strArr[4].charAt(i);
+				for (int i = 0; i < strArr[3].length(); i++) {
+					pwdAnswer += strArr[3].charAt(i);
 				}
 
+				// 유저 가입 날짜
+				for (int i = 0; i < strArr[4].length(); i++) {
+					date += strArr[4].charAt(i);
+				}
 				// 총 일기 계수 구하기
-				String dc = strArr[0];
-				st = new StringTokenizer(dc, "=");
 
-				dc = "";
-				while (st.hasMoreTokens()) {
+				String dc = "";
 
-					dc = st.nextToken();
-
+				for (int i = 0; i < strArr[5].length(); i++) {
+					dc += strArr[5].charAt(i);
+					System.out.println(dc);
 				}
 				int dCount = Integer.parseInt(dc); // 일기계수 int 형변환
 
@@ -161,6 +222,7 @@ public class UserDao { // User.dat 이용해서 User 객체화
 				User uUser = new User(id, pwd, pwdAnswer);
 				uUser.setDiaryCount(dCount);
 				uUser.setuNo(no);
+				uUser.setuDate(date);
 				list.add(uUser); // 리스트 추가
 			}
 

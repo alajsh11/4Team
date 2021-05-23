@@ -8,7 +8,16 @@ public class User {
 	private String uId;
 	private String uPwd;
 	private String uPwdAnswer;
+	private String uDate;
 	
+	public String getuDate() {
+		return uDate;
+	}
+
+	public void setuDate(String uDate) {
+		this.uDate = uDate;
+	}
+
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
