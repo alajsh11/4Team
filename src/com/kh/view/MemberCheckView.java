@@ -71,7 +71,7 @@ public class MemberCheckView {
 		// 회원가입 날짜 텍스트필드
 		JTextField umsField = new JTextField("회원 가입 날짜");
 		umsField.setBounds(100, 350, 450, 30);
-		userMembershipField = new JTextField("2021-01-01");
+		userMembershipField = new JTextField(user.getuDate());
 		userMembershipField.setBounds(100, 380, 450, 30);
 		userMembershipField.setEditable(false);
 
@@ -93,7 +93,7 @@ public class MemberCheckView {
 		userDeleteButton.setBounds(260, 750, 100, 30);
 		dm = new DeleteModal(jf);
 		
-		// 삭제 버튼 클릭시 팝업창 띄우
+		// 삭제 버튼 클릭시 팝업창 띄우기
 		userDeleteButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -103,6 +103,7 @@ public class MemberCheckView {
 			}
 		});
 		
+		//회원 삭제작업
 		dm.getDeleteButton().addActionListener(new ActionListener() {
 			
 			@Override
@@ -112,9 +113,9 @@ public class MemberCheckView {
 				cm.setVisible(true);
 				dm.setVisible(false);
 				jf.setVisible(false);
-				ac.userDelete(user);
-				ac.memberTableInfo();
-				new MemberInformationView();
+				ac.userDelete(user);		// 회원 삭제
+				ac.memberTableInfo();		// 회원 정보 업데이트 
+				new MemberInformationView();	
 				
 			}
 		});
