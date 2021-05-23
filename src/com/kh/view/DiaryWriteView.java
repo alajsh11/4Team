@@ -33,12 +33,12 @@ public class DiaryWriteView  {
 
 	private Diary d = new Diary();
 	private DiaryController dc = new DiaryController();
-	private String absoluteFilePath = "";
+	public static String absoluteFilePath = "";
 	private String date;
 	private String uId;
-	public DiaryWriteView() {
+	
+	public DiaryWriteView() {}
 
-	}
 
 	public DiaryWriteView(String date, String uId) {
 		
@@ -55,7 +55,7 @@ public class DiaryWriteView  {
 		JLabel dateBox = new JLabel(date);
 
 		// 사진 붙이기 버튼
-		ImageIcon icPlus = new ImageIcon("Image/seed1.png");
+		ImageIcon icPlus = new ImageIcon("Image/sunflower seed1.png");
 		Image imPlus = icPlus.getImage().getScaledInstance(42, 35, Image.SCALE_SMOOTH);
 		JButton plus = new JButton();
 
@@ -68,6 +68,10 @@ public class DiaryWriteView  {
 		ImageIcon icPrev = new ImageIcon("Image/prev.png");
 		Image imPrev = icPrev.getImage().getScaledInstance(40, 35, Image.SCALE_SMOOTH);
 		JButton prev = new JButton(); // 이전 버튼(작성 > 달력)
+
+		//이미지 라벨 배경 변경
+		image.setOpaque(true); //Opaque값을 true로 미리 설정해 주어야 배경색이 적용된다.
+		image.setBackground(Color.WHITE);
 
 		// 내용 작성 텍스트 필드
 		JTextArea write = new JTextArea();
@@ -89,11 +93,13 @@ public class DiaryWriteView  {
 		dateBox.setFont(new Font("serif", Font.BOLD, 20));
 		dateBox.setForeground(Color.BLACK);
 
-		// image label 테두리 설정
+		//image label 테두리, 배경색 설정 
 		BevelBorder border = new BevelBorder(BevelBorder.RAISED);
 		image.setBorder(border);
 		image.setBackground(Color.WHITE);
-
+		image.setOpaque(true); //Opaque값을 true로 미리 설정해 주어야 배경색이 적용된다.
+		image.setBackground(Color.WHITE);
+		
 		// 사진 더하기 아이콘 바꿔서 설정하기 위한 코드
 		plus.setBorderPainted(false);
 		plus.setFocusPainted(false);
@@ -130,6 +136,15 @@ public class DiaryWriteView  {
 		panel.add(image);
 		panel.add(write);
 		panel.add(save);
+
+		// 프레임 아이콘 변경
+		try { 
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.jpg")));
+
+		} catch (IOException e2) {
+
+			e2.printStackTrace();
+		}
 
 		jf.add(panel); // 컴포넌트를 붙인 패널을 프레임에 붙인다.
 
@@ -173,10 +188,7 @@ public class DiaryWriteView  {
 
 						image.setIcon(new ImageIcon(img)); // 해당 이미지 라벨에 붙이기
 
-					} else { // 사진 선택하지 않고 창을 닫으면 사진을 선택하지 않았습니다. 경고창
-						JOptionPane.showMessageDialog(null, "사진을 선택하지 않았습니다.", "", JOptionPane.WARNING_MESSAGE);
-						return;
-					}
+					} 
 				}
 			}
 		});
@@ -214,7 +226,7 @@ public class DiaryWriteView  {
 					
 					if (result == JOptionPane.OK_OPTION) {
 						jf.setVisible(false);
-						new CalendarController(uId);
+						new CalendarView(uId);
 					}
 
 				}
