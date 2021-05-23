@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 
-import com.kh.controller.CalendarController;
 import com.kh.controller.DiaryController;
 import com.kh.model.vo.Diary;
 
@@ -150,8 +149,8 @@ public class DiaryInformationView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("일기수정");
+				jf.setVisible(false);
+				new DiaryReWriteView(userId,d);
 			}
 		});
 		deleteBtn.addActionListener(new ActionListener() {
