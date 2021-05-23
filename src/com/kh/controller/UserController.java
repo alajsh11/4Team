@@ -3,33 +3,23 @@ package com.kh.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
 
 import com.kh.model.vo.User;
-import com.kh.view.CalendarView;
 import com.kh.view.MemberInformationView;
+import com.kh.view.UserInformationView;
 
 public class UserController {
 
 	User us = new User();
 
-	private Date date;
-	private String hint;
-	private String id;
-
 	// 회원가입 유저 --> dat 파일에 저장
-	public void userId(String id) {
-		this.id = id;
-
-	}
 
 	public void userSignUp(String id, String pwd, String hint) {
 
@@ -42,26 +32,26 @@ public class UserController {
 		String line = "";
 		String array[];
 		int count = 0;
-		
+
 		File file = new File("User.dat");
-		if (file.exists()) {	
+		if (file.exists()) {
 			try {
 				BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 				while ((line = br.readLine()) != null) {
 					array = line.split(",");
 					s = array[0];
-					count = Integer.valueOf(s) + 1 ;
+					count = Integer.valueOf(s) + 1;
 				}
-				if(file == null) {
-				s = "0";
-				count = Integer.valueOf(s);
+				if (file == null) {
+					s = "0";
+					count = Integer.valueOf(s);
 				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
+
 		String uNum = String.valueOf(count);
 
 		try {
@@ -137,12 +127,13 @@ public class UserController {
 						new MemberInformationView();
 
 					} else {
-						new CalendarView(id);
+						// new CalendarView(id);
+						new UserInformationView(id);
 					}
 					result = true;
 
 				} else if (id.equals(array[1]) && !pwd.equals(array[2])
-						|| !id.equals(array[1])&& pwd.equals(array[2]))  {
+						|| !id.equals(array[1]) && pwd.equals(array[2])) {
 					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -163,49 +154,27 @@ public class UserController {
 
 	}
 
-	// 유저 정보 return
-	public void userInfo() {
+	// 회원 탈퇴
+	public void userDelete(String id) {
 
 		String line = "";
-		String array[];
-
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
-			while ((line = br.readLine()) != null) {
-				array = line.split(",");
-				if (id.equals(array[1])) {
-					SimpleDateFormat sd = new SimpleDateFormat();
-					date = sd.parse(array[4]);
-					hint = array[3];
-					userSignDate();
-					userSignHint();
-				}
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	// 회원 탈퇴
-	public void userDelete() {
-
-		String line = null;
-		String dummy = null;
+		String dummy = "";
 		String array[];
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
-			BufferedWriter bw = new BufferedWriter(new FileWriter("User.dat"));
 
 			while ((line = br.readLine()) != null) {
 				array = line.split(",");
-				if (!id.equals(array[1])) {
+				if (!(id.equals(array[1]))) {
 					dummy += (line + "\n");
+					break;
 				}
-
 			}
-			bw.write(dummy);
+
+			FileWriter fw = new FileWriter("User.dat");
+			fw.write(dummy);
+			fw.close();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -220,33 +189,46 @@ public class UserController {
 		String line = "";
 		String dummy = "";
 		String array[];
+		String arr[] = new String[5];
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
-			BufferedWriter bw = new BufferedWriter(new FileWriter("User.dat"));
+			// BufferedWriter bw = new BufferedWriter(new FileWriter("User.dat"));
+			
 
 			while ((line = br.readLine()) != null) {
 				array = line.split(",");
 				if (id.equals(array[1]) && hint.equals(array[3])) {
 					result = true;
-					for (int i = 0; i < array.length; i++) {
-						if (i == 2) {
-							array[i] = pwd;
-							bw.write(array[i] + ",");
-						} else if (i == 4) {
-							bw.write(array[i] + "\n");
-						} else {
-							bw.write(array[i] + ",");
+					while ((line = br.readLine()) != null) {
+						arr = line.split(",");
+						if (id.equals(arr[1])) {
+							for (int i = 0; i < arr.length; i++) {
+								if (i == 2) {
+									dummy += (pwd + ",");
+								} else if (i == 4){
+									dummy += (arr[i]) +"\n";																	
+								} else {
+									dummy += (arr[i] + ",");
+								}break;
+							} 
+						} else if(!(id.equals(arr[1]))){
+							dummy += (line + "\n");						
 						}
 					}
 					break;
-				} else {
-					dummy += (line + "\n");
-					bw.write(dummy);
 				}
+				
+			}
+			if(result == true) {
+			FileWriter fw = new FileWriter("User.dat");
+			fw.write(dummy);
+			fw.close();
 			}
 
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -255,12 +237,48 @@ public class UserController {
 	}
 
 	// 내 정보 조회로 값 return
-	public Date userSignDate() {
+	public String userSignDate(String id) {
 
-		return date;
+		String line = "";
+		String array[];
+		String d = "";
+
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
+			while ((line = br.readLine()) != null) {
+				array = line.split(",");
+				if (id.equals(array[1])) {
+					SimpleDateFormat sd = new SimpleDateFormat();
+					d = array[4];
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return d;
 	}
 
-	public String userSignHint() {
+	public String userSignHint(String id) {
+
+		String line = "";
+		String array[];
+		String hint = "";
+
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
+			while ((line = br.readLine()) != null) {
+				array = line.split(",");
+				if (id.equals(array[1])) {
+					hint = array[3];
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return hint;
 	}
