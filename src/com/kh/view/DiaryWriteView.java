@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -60,9 +61,9 @@ public class DiaryWriteView  {
 		JButton plus = new JButton();
 
 		// 저장 버튼
-		ImageIcon icSave = new ImageIcon("Image/save.png");
-		Image imSave = icSave.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-		JButton save = new JButton();
+		//ImageIcon icSave = new ImageIcon("Image/save.png");
+		//Image imSave = icSave.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+		JButton save = new JButton("저장");
 
 		// 이전창 버튼
 		ImageIcon icPrev = new ImageIcon("Image/prev.png");
@@ -75,7 +76,8 @@ public class DiaryWriteView  {
 
 		// 내용 작성 텍스트 필드
 		JTextArea write = new JTextArea();
-
+		write.setFont(new Font("Plain", Font.BOLD, 18));
+		
 		// 파일 오픈창
 		JFileChooser chooser = new JFileChooser();
 
@@ -115,11 +117,14 @@ public class DiaryWriteView  {
 		prev.setIcon(new ImageIcon(imPrev));
 
 		// 저장버튼 아이콘 바꿔서 설정하기 위한 코드
-		save.setBorderPainted(false);
+		//save.setBorderPainted(false);
 		save.setFocusPainted(false);
 		save.setContentAreaFilled(false);
 		save.setLayout(null);
-		save.setIcon(new ImageIcon(imSave));
+		//save.setIcon(new ImageIcon(imSave));
+		save.setFont(new Font("Plain", Font.BOLD, 15));
+		save.setBackground(Color.GRAY);
+		
 
 		// 컴포넌트 사이즈 설정
 		dateBox.setBounds(110, 125, 70, 40);
@@ -127,7 +132,7 @@ public class DiaryWriteView  {
 		write.setBounds(110, 500, 400, 300);
 		image.setBounds(110, 180, 400, 300);
 		plus.setBounds(190, 125, 42, 42); // 280, 260
-		save.setBounds(480, 845, 35, 35);
+		save.setBounds(443, 840, 70, 35);
 
 		// 컴포넌트 패널에 붙이기
 		panel.add(dateBox);
@@ -165,7 +170,7 @@ public class DiaryWriteView  {
 
 		// 사진 선택 버튼
 		plus.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == plus) {
@@ -198,7 +203,8 @@ public class DiaryWriteView  {
 	
 		// 저장 버튼
 		save.addActionListener(new ActionListener() {
-
+			
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (image.getIcon() == null) {
@@ -226,9 +232,8 @@ public class DiaryWriteView  {
 					
 					if (result == JOptionPane.OK_OPTION) {
 						jf.setVisible(false);
-						new CalendarView(uId);
+						new CalendarView(uId);	
 					}
-
 				}
 			}
 		});

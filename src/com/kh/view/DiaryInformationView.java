@@ -5,11 +5,13 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
@@ -160,6 +162,30 @@ public class DiaryInformationView {
 				// TODO Auto-generated method stub
 				System.out.println("일기삭제");
 			}
+			
+			/*	@Override
+			public void actionPerformed(ActionEvent e) { //해당날짜 버튼 클릭
+			    			
+			        File deleteFile = new File(date + ".dat");
+			        
+			        if(deleteFile.exists()) { //만약 파일이 존재한다면
+			            
+			            // 파일을 삭제
+			            deleteFile.delete(); 
+			            
+			            //일기파일 삭제 후 팝업창 
+			            JOptionPane.showMessageDialog(null, "일기가 삭제되었습니다.", "", JOptionPane.WARNING_MESSAGE);
+			            
+			           // new CalendarView(uId); // 삭제 후 달력페이지로 이동
+						jf.setVisible(false);   // 이전페이지로 이동 후 현재 페이지 안보이게 설정
+						
+			        } else { //존재하지 않는다면 삭제할 일기가 없습니다. 팝업창
+			        	JOptionPane.showMessageDialog(null, "삭제할 일기가 없습니다.", "", JOptionPane.WARNING_MESSAGE);
+
+			        }
+			    }
+		});*/
+			
 		});
 		
 		
