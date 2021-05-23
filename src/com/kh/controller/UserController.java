@@ -12,13 +12,13 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 import com.kh.model.vo.User;
+import com.kh.view.CalendarView;
 import com.kh.view.MemberInformationView;
 import com.kh.view.UserInformationView;
 
 public class UserController {
 
 	User us = new User();
-
 
 	// 회원가입 유저 --> dat 파일에 저장
 
@@ -123,19 +123,17 @@ public class UserController {
 			br = new BufferedReader(new FileReader("User.dat"));
 			while ((line = br.readLine()) != null) {
 				array = line.split("/");
-				if (id.equals(array[1]) && pwd.equals(array[2])) {
-					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
-					if (array[0].equals("0000")) {
-						new MemberInformationView();
-
-					} else {
-						// new CalendarView(id);
-						new UserInformationView(id);
-					}
-					result = true;
-
-				} else /*if (id.equals(array[1]) && !pwd.equals(array[2])
-						|| !id.equals(array[1]) && pwd.equals(array[2])) */{
+				if (id.equals(array[1]) && (pwd.equals(array[2]))) {
+						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+						if (array[0].equals("0000")) {
+							new MemberInformationView();
+						} else {
+							new CalendarView(id);
+						}
+						result = true;
+						break;
+					} else if(!(id.equals(array[1])) && (!(pwd.equals(array[2]))) || 
+							(id.equals(array[1])) && (!(pwd.equals(array[2])))) {
 					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -197,35 +195,35 @@ public class UserController {
 				array = line.split("/");
 				if (id.equals(array[1]) && hint.equals(array[3])) {
 					result = true;
-					rUserInfo(id,hint,pwd);
+					rUserInfo(id, hint, pwd);
 					break;
 				}
 			}
-		} catch (
-		Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
 	}
-	// User 파일 재생성 
+
+	// User 파일 재생성
 	public void rUserInfo(String id, String hint, String pwd) {
-		
+
 		String line = "";
 		String array[];
-		String dummy ="";
-	
+		String dummy = "";
+
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
-			
+
 			while ((line = br.readLine()) != null) {
 				array = line.split("/");
 				if (id.equals(array[1]) && hint.equals(array[3])) {
-					for(int  i = 0; i < array.length; i++) {
-						if(i==2) {
-							 dummy += (pwd + "/") ;
+					for (int i = 0; i < array.length; i++) {
+						if (i == 2) {
+							dummy += (pwd + "/");
 						} else if (i == 5) {
-							dummy += (array[i]+"/"+"\n");
+							dummy += (array[i] + "/" + "\n");
 						} else {
 							dummy += (array[i] + "/");
 						}
@@ -241,9 +239,8 @@ public class UserController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 	}
-		
 
 	// 내 정보 조회로 값 return
 	public String userSignDate(String id) {
