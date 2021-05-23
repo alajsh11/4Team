@@ -11,8 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
@@ -264,7 +262,8 @@ public class CalendarView {
 				}
 			}
 			if (e.getSource() == infoBtn) {
-				System.out.println("내정보로 이동");
+				jf.setVisible(false);
+				new UserInformationView(userId);
 			}
 
 			for (int i = loW - 1; i < lastDate[gc.get(GregorianCalendar.MONTH)] + (loW - 1); i++) {
