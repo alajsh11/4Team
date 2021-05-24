@@ -37,6 +37,7 @@ public class DiaryWriteView  {
 	public static String absoluteFilePath = "";
 	private String date;
 	private String uId;
+	public static int diaryCount = 0;
 	
 	public DiaryWriteView() {}
 
@@ -76,7 +77,7 @@ public class DiaryWriteView  {
 
 		// 내용 작성 텍스트 필드
 		JTextArea write = new JTextArea();
-		write.setFont(new Font("Plain", Font.BOLD, 18));
+		write.setFont(new Font("맑은고딕", Font.BOLD, 18));
 		
 		// 파일 오픈창
 		JFileChooser chooser = new JFileChooser();
@@ -122,8 +123,8 @@ public class DiaryWriteView  {
 		save.setContentAreaFilled(false);
 		save.setLayout(null);
 		//save.setIcon(new ImageIcon(imSave));
-		save.setFont(new Font("Plain", Font.BOLD, 15));
-		save.setBackground(Color.GRAY);
+		save.setFont(new Font("맑은고딕", Font.BOLD, 15));
+		
 		
 
 		// 컴포넌트 사이즈 설정
@@ -235,6 +236,9 @@ public class DiaryWriteView  {
 						new CalendarView(uId);	
 					}
 				}
+				
+				diaryCount++;
+				
 			}
 		});
 

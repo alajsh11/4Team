@@ -6,7 +6,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 
 import com.kh.controller.DiaryController;
+import com.kh.model.dao.UserDao;
 import com.kh.model.vo.Diary;
 
 public class DiaryInformationView {
@@ -27,7 +30,7 @@ public class DiaryInformationView {
 	
 	public DiaryInformationView(String userId, Diary d,String searchText, int flag) {
 		JFrame jf = new JFrame();
-		jf.setTitle("해씨 일기");
+		jf.setTitle("해씨일기");
 		DiaryController dc= new DiaryController();
 		
 		JPanel panel = new JPanel();
@@ -35,23 +38,22 @@ public class DiaryInformationView {
 		JLabel dateBox = new JLabel(); // 날짜 창
 		
 		//수정
-		ImageIcon icModify = new ImageIcon("Image/modify.png");
-		Image imModify = icModify.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-		
-		JButton modifyBtn = new JButton(); 
+		//ImageIcon icModify = new ImageIcon("Image/modify.png");
+		//Image imModify = icModify.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		JButton modifyBtn = new JButton("수정"); 
 		
 		//이전
 		ImageIcon icPrev =  new ImageIcon("Image/prev.png");
 		Image imPrev = icPrev.getImage().getScaledInstance(40,35, Image.SCALE_SMOOTH);
+		JButton prevBtn = new JButton(); 
 		
 		//삭제
-		ImageIcon icDelete =  new ImageIcon("Image/delete.png");
-		Image imDelete = icDelete.getImage().getScaledInstance(35,35, Image.SCALE_SMOOTH);
-		
-		JButton prevBtn = new JButton(); 
-		JButton deleteBtn = new JButton(); 
+		//ImageIcon icDelete =  new ImageIcon("Image/delete.png");
+		//Image imDelete = icDelete.getImage().getScaledInstance(35,35, Image.SCALE_SMOOTH);
+		JButton deleteBtn = new JButton("삭제"); 
 
 		JTextArea txtField = new JTextArea(); // 내용 작성 텍스트 필드
+		txtField.setFont(new Font("맑은고딕", Font.BOLD, 18));
 		
 		//프레임 설정
 		jf.setSize(640, 960);//전체 창 사이즈
@@ -88,18 +90,19 @@ public class DiaryInformationView {
 		prevBtn.setIcon(new ImageIcon(imPrev));
 
 
-		// 수정버튼 아이콘 바꿔서 설정하기 위한 코드
-		modifyBtn.setBorderPainted(false); 
+		// 수정버튼
+		modifyBtn.setFocusPainted(false);
 		modifyBtn.setContentAreaFilled(false);
 		modifyBtn.setLayout(null);
-		modifyBtn.setIcon(new ImageIcon(imModify));
-
-		
-		deleteBtn.setBorderPainted(false); 
+		modifyBtn.setFont(new Font("Plain", Font.BOLD, 15));
+		modifyBtn.setBackground(Color.GRAY);
+	
+		// 삭제버튼 
+		deleteBtn.setFocusPainted(false);
 		deleteBtn.setContentAreaFilled(false);
 		deleteBtn.setLayout(null);
-		deleteBtn.setIcon(new ImageIcon(imDelete));
-
+		deleteBtn.setFont(new Font("맑은고딕", Font.BOLD, 15));
+		
 		
 		txtField.setEditable(false);
 		if(d.getDhashTag() != null) {
@@ -115,10 +118,8 @@ public class DiaryInformationView {
 		prevBtn.setBounds(45,85,90,35);
 		txtField.setBounds(110,500,400,300);
 		image.setBounds(110,180,400,300);
-		modifyBtn.setBounds(475,845,40,40);
-		deleteBtn.setBounds(430,845,35,35);
-		
-		
+		modifyBtn.setBounds(355, 840,70,35);
+		deleteBtn.setBounds(443,840,70,35);
 		
 		
 		//컴포넌트 패널에 붙이기 
@@ -129,6 +130,15 @@ public class DiaryInformationView {
 		panel.add(modifyBtn); 
 		panel.add(deleteBtn);
 		
+		
+		// 프레임 아이콘 변경
+		try {
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.jpg")));
+
+		} catch (IOException e2) {
+
+			e2.printStackTrace();
+		}
 		
 		jf.add(panel);
 		jf.setVisible(true);
@@ -181,6 +191,8 @@ public class DiaryInformationView {
 
 			        }
 			        
+			      
+			        new UserDao().userDiaryCountTemp(userId, (DiaryWriteView.diaryCount)--);
 			    }
 		});
 			
