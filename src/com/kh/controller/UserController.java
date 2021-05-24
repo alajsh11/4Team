@@ -230,6 +230,7 @@ public class UserController {
 					}
 				} else {
 					dummy += (line + "\n");
+				
 				}
 			}
 			FileWriter fw = new FileWriter("User.dat");
