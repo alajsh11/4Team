@@ -190,8 +190,8 @@ public class DiaryInformationView {
 			        	JOptionPane.showMessageDialog(null, "삭제할 일기가 없습니다.", "", JOptionPane.WARNING_MESSAGE);
 
 			        }
+			       
 			        
-			      
 			        new UserDao().userDiaryCountTemp(userId, (DiaryWriteView.diaryCount)--);
 			    }
 		});
