@@ -254,7 +254,6 @@ public class UserController {
 			while ((line = br.readLine()) != null) {
 				array = line.split("/");
 				if (id.equals(array[1])) {
-					SimpleDateFormat sd = new SimpleDateFormat();
 					d = array[4];
 					break;
 				}
