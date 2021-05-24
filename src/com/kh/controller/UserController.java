@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import com.kh.model.vo.User;
 import com.kh.view.CalendarView;
 import com.kh.view.MemberInformationView;
-import com.kh.view.UserInformationView;
 
 public class UserController {
 
@@ -55,12 +54,13 @@ public class UserController {
 				e1.printStackTrace();
 			}
 		}
-
-		String uNum = String.valueOf(count);
+		
+		DecimalFormat df = new DecimalFormat("0000");		
+		String uNum = String.valueOf(df.format(count));
 
 		try {
 			bw = new BufferedWriter(new FileWriter("User.dat", true));
-			bw.write("000" + uNum.toString() + "/");
+			bw.write(uNum.toString() + "/");
 			bw.write(id.toString() + "/");
 			bw.write(pwd.toString() + "/");
 			bw.write(hint.toString() + "/");

@@ -22,14 +22,23 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String uNo, String uId, String uPwd, String uPwdAnswer, String uDate, int diaryCount) {
-		super();
-		this.diaryCount = 0;
-		this.uId = uId;
-		this.uPwd = uPwd;
-		this.uPwdAnswer = uPwdAnswer;
-		this.uNo = uNo;
-	}
+	// 회원가입
+	public User(String uId, String uPwd, String uPwdAnswer, String uDate) {
+	      super();
+	      this.diaryCount = 0;
+	      this.uId = uId;
+	      this.uPwd = uPwd;
+	      this.uPwdAnswer = uPwdAnswer;
+	   }
+	// 로그인 
+	 public User(String uNo, String uId, String uPwd, String uPwdAnswer, String uDate, int diaryCount) {
+	      super();
+	      this.uNo=uNo;
+	      this.uId = uId;
+	      this.uPwd = uPwd;
+	      this.uPwdAnswer = uPwdAnswer;
+	      this.diaryCount=diaryCount;
+	   }
 
 	public int getDiaryCount() {
 		return diaryCount;
