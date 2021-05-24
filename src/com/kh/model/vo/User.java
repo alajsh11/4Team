@@ -28,6 +28,7 @@ public class User {
 		this.uId = uId;
 		this.uPwd = uPwd;
 		this.uPwdAnswer = uPwdAnswer;
+		this.uNo = uNo;
 	}
 
 	public int getDiaryCount() {
