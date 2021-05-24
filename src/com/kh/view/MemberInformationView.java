@@ -34,7 +34,6 @@ public class MemberInformationView {
 	private Object[][] data;
 	private AdministratorController ac = new AdministratorController();
 	private JFrame jf;
-	private JLabel hamLabel;
 	public MemberInformationView() {
 		jf = new JFrame();
 		try {
@@ -64,16 +63,16 @@ public class MemberInformationView {
 		Image adminImg = new ImageIcon("image/admin.PNG").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 		JLabel adminImgLabel = new JLabel(new ImageIcon(adminImg));
 		adminImgLabel.setBounds(100, 80, 100, 100);
-//		adminImgLabel.setBackground(new Color(0xddc6e6));
 
 		// 유저 목록 리스트 패널
 		JPanel userListPanel = new JPanel();
 		userListPanel.setLayout(new GridLayout());
 		userListPanel.setBounds(0, 200, 640, 600);
-
-		Image hamImg = new ImageIcon("image/hamser2.PNG").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
-		hamLabel = new JLabel(new ImageIcon(hamImg));
-		hamLabel.setBounds(200,200,100,100);
+		
+		//햄스터 이미지 라벨
+		Image hamImg = new ImageIcon("image/hamster2.PNG").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
+		JLabel hamLabel = new JLabel(new ImageIcon(hamImg));
+		hamLabel.setBounds(500,130,100,100);
 		
 		
 		

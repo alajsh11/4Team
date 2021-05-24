@@ -30,10 +30,10 @@ public class UserDao { // User.dat 이용해서 User 객체화
 		BufferedReader br = null;
 		BufferedWriter bw = null;
 
+		
 		File inputFile = new File("User.dat"); // 읽어올 파일
 		File outputFile = new File("User.dat" + ".temp"); // 수정할 파일
-		String count = String.valueOf(diaryCount);
-		
+		String count = diaryCount + "";
 
 		boolean result = false;
 		try {

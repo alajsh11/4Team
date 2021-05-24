@@ -75,6 +75,7 @@ public class MemberCheckView {
 
 		// 관리자 아이디 텍스트필드
 		adminIdField = new JTextField(user.getuId());
+		adminIdField.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		adminIdField.setBounds(200, 200, 350, 50);
 		adminIdField.setEditable(false);
 
@@ -83,7 +84,7 @@ public class MemberCheckView {
 		umsField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		umsField.setBounds(100, 350, 450, 30);
 		userMembershipField = new JTextField(user.getuDate());
-		userMembershipField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		userMembershipField.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		
 		userMembershipField.setBounds(100, 380, 450, 30);
 		userMembershipField.setEditable(false);
@@ -95,7 +96,7 @@ public class MemberCheckView {
 		userPwdField = new JTextField(user.getuPwdAnswer());
 		userPwdField.setBounds(100, 460, 450, 60);
 		userPwdField.setEditable(false);
-		userPwdField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		userPwdField.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		
 
 		// 회원가입 날짜 텍스트필드
@@ -104,7 +105,7 @@ public class MemberCheckView {
 		utdField.setBounds(100, 570, 450, 30);
 		uesrTotalDialyField = new JTextField(String.valueOf(user.getDiaryCount()));
 		uesrTotalDialyField.setBounds(100, 600, 450, 30);
-		uesrTotalDialyField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		uesrTotalDialyField.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		uesrTotalDialyField.setEditable(false);
 		// 회원 삭제 버튼
 		userDeleteButton = new JButton("회원삭제");
