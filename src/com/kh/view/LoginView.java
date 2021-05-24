@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import com.kh.controller.UserController;
 import com.kh.model.vo.User;
 
-public class LoginView extends JFrame implements ActionListener {
+public class LoginView implements ActionListener {
 
 	private UserController uc = new UserController();
 	private User us = new User();
@@ -40,7 +40,7 @@ public class LoginView extends JFrame implements ActionListener {
 		jf.add(bGround);
 
 		JLabel name = new JLabel("해씨일기");
-		name.setFont(new Font("", Font.BOLD, 45));
+		name.setFont(new Font("맑은고딕", Font.BOLD, 45));
 		name.setForeground(Color.white);
 
 		Image hamster = new ImageIcon("image/hamster3.png").getImage();
@@ -52,24 +52,31 @@ public class LoginView extends JFrame implements ActionListener {
 		seed.setIcon(new ImageIcon(seeds));
 
 		JLabel lbId = new JLabel("아이디");
+		lbId.setFont(new Font("맑은고딕",Font.PLAIN,17));
 		JLabel lbPwd = new JLabel("비밀번호");
+		lbPwd.setFont(new Font("맑은고딕",Font.PLAIN,17));
 		JTextField tfId = new JTextField();
+		tfId.setFont(new Font("맑은고딕",Font.PLAIN,17));
 		JPasswordField tfPwd = new JPasswordField();
+		tfPwd.setFont(new Font("맑은고딕",Font.PLAIN,17));
 		JButton login = new JButton("로그인");
+		login.setFont(new Font("맑은고딕",Font.PLAIN,15));
 		JButton signUp = new JButton("회원가입");
+		signUp.setFont(new Font("맑은고딕",Font.PLAIN,15));
 		JButton rPwd = new JButton("비밀번호 재설정");
+		rPwd.setFont(new Font("맑은고딕",Font.PLAIN,15));
 
 		// 컴포넌트 위치 및 사이즈
 		name.setBounds(225, 100, 200, 60);
-		ham.setBounds(320, 170, 130, 130);
-		seed.setBounds(180, 170, 130, 130);
-		lbId.setBounds(240, 340, 50, 25);
-		tfId.setBounds(300, 340, 100, 25);
-		lbPwd.setBounds(230, 380, 50, 25);
-		tfPwd.setBounds(300, 380, 100, 25);
-		login.setBounds(280, 500, 80, 25);
-		signUp.setBounds(270, 550, 100, 25);
-		rPwd.setBounds(255, 600, 130, 25);
+		ham.setBounds(320, 200, 130, 130);
+		seed.setBounds(180, 200, 130, 130);
+		lbId.setBounds(240, 430, 50, 30);
+		tfId.setBounds(300, 430, 120, 30);
+		lbPwd.setBounds(220, 480, 70, 30);
+		tfPwd.setBounds(300, 480, 120, 30);
+		login.setBounds(280, 600, 80, 30);
+		signUp.setBounds(270, 650, 100, 30);
+		rPwd.setBounds(245, 700, 150, 30);
 
 		// 컴포넌트 패널에 추가
 		bGround.setLayout(null);
