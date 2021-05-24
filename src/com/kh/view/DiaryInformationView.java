@@ -185,8 +185,9 @@ public class DiaryInformationView {
 			            JOptionPane.showMessageDialog(null, "일기가 삭제되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 			            
 			            user.setDiaryCount(user.getDiaryCount()-1);
-			            
-						jf.setVisible(false);   // 이전페이지로 이동 후 현재 페이지 안보이게 설정
+			            new UserDao().userDiaryCountTemp(user, user.getDiaryCount()-1);
+						
+			            jf.setVisible(false);   // 이전페이지로 이동 후 현재 페이지 안보이게 설정
 			            new CalendarView(user); // 삭제 후 달력페이지로 이동
 						
 			        } else { //존재하지 않는다면 삭제할 일기가 없습니다. 팝업창
