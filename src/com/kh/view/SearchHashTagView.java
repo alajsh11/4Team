@@ -65,7 +65,7 @@ public class SearchHashTagView {
 		jf.setLocationRelativeTo(null);
 		jf.setResizable(false);
 		try {
-			jf.setIconImage(ImageIO.read(new File("image/IconHamster.PNG")));
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.jpg")));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
