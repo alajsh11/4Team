@@ -1,11 +1,10 @@
 package com.kh.controller;
 
 import java.io.File;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
+import com.kh.model.vo.User;
 import com.kh.view.CalendarView;
 
 public class CalendarController {
@@ -14,8 +13,8 @@ public class CalendarController {
 	public CalendarController() {
 	}
 
-	public CalendarController(String uId) {
-		cv = new CalendarView(uId);
+	public CalendarController(User user) {
+		cv = new CalendarView(user);
 	}
 
 	// 윤년확인 메소드
@@ -33,9 +32,7 @@ public class CalendarController {
 		return day;
 	}
 
-	public void startCalendar(String uId) {
-		new CalendarView(uId);
-	}
+
 
 	public boolean exsitDiary(String date, String uId) {
 		String path = uId + "/" + date + ".dat";

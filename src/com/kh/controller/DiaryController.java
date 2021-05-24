@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
 import javax.imageio.ImageIO;
 
 import com.kh.model.vo.Diary;
+import com.kh.model.vo.User;
 import com.kh.view.DiaryInformationView;
 
 public class DiaryController {
@@ -92,9 +93,9 @@ public class DiaryController {
 	
 	
 	
-	public void diaryRead(String userId, String date,String searchText,int flag) {
-		Diary d = openFile(userId+"/"+date+".dat");
-		new DiaryInformationView(userId,d,searchText,flag);
+	public void diaryRead(User user, String date,String searchText,int flag) {
+		Diary d = openFile(user.getuId()+"/"+date+".dat");
+		new DiaryInformationView(user,d,searchText,flag);
 	}
 	
 	
