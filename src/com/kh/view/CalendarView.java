@@ -74,7 +74,7 @@ public class CalendarView {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Image hamster = new ImageIcon("image/hamster2.PNG").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+		Image hamster = new ImageIcon("image/hamster2-half.PNG").getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH);
 		ham = new JPanel() {
 			@Override
 			public void paint(Graphics g) {
@@ -171,13 +171,13 @@ public class CalendarView {
 			}
 		});
 
+		jf.add(ham);
 		jf.add(searchBtn);
 		jf.add(searchText, BorderLayout.SOUTH);
 		jf.add(calendar, BorderLayout.CENTER);
 		jf.add(monCombo);
 		jf.add(yearCombo);
 		jf.add(infoBtn);
-		jf.add(ham);
 		jf.add(panel);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
