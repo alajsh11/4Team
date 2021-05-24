@@ -134,9 +134,12 @@ public class UserController {
 						break;
 					} else if(!(id.equals(array[1])) && (!(pwd.equals(array[2]))) || 
 							(id.equals(array[1])) && (!(pwd.equals(array[2])))) {
-					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
-					break;
+							result = false;			
+					}
 				}
+			
+			if(result == false) {
+				JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (Exception e1) {
