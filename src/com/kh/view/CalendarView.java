@@ -273,7 +273,7 @@ public class CalendarView {
 			}
 			if (e.getSource() == infoBtn) {
 				jf.setVisible(false);
-				new UserInformationView(user.getuId());
+				new UserInformationView(user);
 			}
 
 			for (int i = loW - 1; i < lastDate[gc.get(GregorianCalendar.MONTH)] + (loW - 1); i++) {
