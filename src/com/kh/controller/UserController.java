@@ -12,6 +12,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 import com.kh.model.vo.User;
+import com.kh.view.CalendarView;
 import com.kh.view.MemberInformationView;
 import com.kh.view.UserInformationView;
 
@@ -24,7 +25,7 @@ public class UserController {
 	public void userSignUp(String id, String pwd, String hint) {
 
 		Date d = new Date();
-		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
 		String today = date.format(d);
 
 		BufferedWriter bw = null;
@@ -38,7 +39,7 @@ public class UserController {
 			try {
 				BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 				while ((line = br.readLine()) != null) {
-					array = line.split(",");
+					array = line.split("/");
 					s = array[0];
 					count = Integer.valueOf(s) + 1;
 				}
@@ -56,11 +57,12 @@ public class UserController {
 
 		try {
 			bw = new BufferedWriter(new FileWriter("User.dat", true));
-			bw.write(uNum.toString() + ",");
-			bw.write(id.toString() + ",");
-			bw.write(pwd.toString() + ",");
-			bw.write(hint.toString() + ",");
-			bw.write(today + "\n");
+			bw.write("000" + uNum.toString() + "/");
+			bw.write(id.toString() + "/");
+			bw.write(pwd.toString() + "/");
+			bw.write(hint.toString() + "/");
+			bw.write(today + "/");
+			bw.write(String.valueOf(us.getDiaryCount()) + "/" + "\n");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -88,7 +90,7 @@ public class UserController {
 			try {
 				BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 				while ((line = br.readLine()) != null) {
-					array = line.split(",");
+					array = line.split("/");
 					if (!id.equals(array[1])) {
 						result = true;
 						break;
@@ -120,20 +122,18 @@ public class UserController {
 		try {
 			br = new BufferedReader(new FileReader("User.dat"));
 			while ((line = br.readLine()) != null) {
-				array = line.split(",");
-				if (id.equals(array[1]) && pwd.equals(array[2])) {
-					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
-					if (array[0].equals("0")) {
-						new MemberInformationView();
-
-					} else {
-						// new CalendarView(id);
-						new UserInformationView(id);
-					}
-					result = true;
-
-				} else if (id.equals(array[1]) && !pwd.equals(array[2])
-						|| !id.equals(array[1]) && pwd.equals(array[2])) {
+				array = line.split("/");
+				if (id.equals(array[1]) && (pwd.equals(array[2]))) {
+						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+						if (array[0].equals("0000")) {
+							new MemberInformationView();
+						} else {
+							new CalendarView(id);
+						}
+						result = true;
+						break;
+					} else if(!(id.equals(array[1])) && (!(pwd.equals(array[2]))) || 
+							(id.equals(array[1])) && (!(pwd.equals(array[2])))) {
 					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -164,10 +164,9 @@ public class UserController {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 
 			while ((line = br.readLine()) != null) {
-				array = line.split(",");
+				array = line.split("/");
 				if (!(id.equals(array[1]))) {
 					dummy += (line + "\n");
-					break;
 				}
 			}
 
@@ -187,53 +186,60 @@ public class UserController {
 
 		boolean result = false;
 		String line = "";
-		String dummy = "";
 		String array[];
-		String arr[] = new String[5];
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
-			// BufferedWriter bw = new BufferedWriter(new FileWriter("User.dat"));
-			
 
 			while ((line = br.readLine()) != null) {
-				array = line.split(",");
+				array = line.split("/");
 				if (id.equals(array[1]) && hint.equals(array[3])) {
 					result = true;
-					while ((line = br.readLine()) != null) {
-						arr = line.split(",");
-						if (id.equals(arr[1])) {
-							for (int i = 0; i < arr.length; i++) {
-								if (i == 2) {
-									dummy += (pwd + ",");
-								} else if (i == 4){
-									dummy += (arr[i]) +"\n";																	
-								} else {
-									dummy += (arr[i] + ",");
-								}break;
-							} 
-						} else if(!(id.equals(arr[1]))){
-							dummy += (line + "\n");						
-						}
-					}
+					rUserInfo(id, hint, pwd);
 					break;
 				}
-				
 			}
-			if(result == true) {
-			FileWriter fw = new FileWriter("User.dat");
-			fw.write(dummy);
-			fw.close();
-			}
-
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return result;
+	}
+
+	// User 파일 재생성
+	public void rUserInfo(String id, String hint, String pwd) {
+
+		String line = "";
+		String array[];
+		String dummy = "";
+
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
+
+			while ((line = br.readLine()) != null) {
+				array = line.split("/");
+				if (id.equals(array[1]) && hint.equals(array[3])) {
+					for (int i = 0; i < array.length; i++) {
+						if (i == 2) {
+							dummy += (pwd + "/");
+						} else if (i == 5) {
+							dummy += (array[i] + "/" + "\n");
+						} else {
+							dummy += (array[i] + "/");
+						}
+					}
+				} else {
+					dummy += (line + "\n");
+				}
+			}
+			FileWriter fw = new FileWriter("User.dat");
+			fw.write(dummy);
+			fw.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	// 내 정보 조회로 값 return
@@ -246,9 +252,8 @@ public class UserController {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 			while ((line = br.readLine()) != null) {
-				array = line.split(",");
+				array = line.split("/");
 				if (id.equals(array[1])) {
-					SimpleDateFormat sd = new SimpleDateFormat();
 					d = array[4];
 					break;
 				}
@@ -270,7 +275,7 @@ public class UserController {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 			while ((line = br.readLine()) != null) {
-				array = line.split(",");
+				array = line.split("/");
 				if (id.equals(array[1])) {
 					hint = array[3];
 				}
