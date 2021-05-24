@@ -21,6 +21,7 @@ import javax.swing.border.BevelBorder;
 import com.kh.controller.DiaryController;
 import com.kh.model.dao.UserDao;
 import com.kh.model.vo.Diary;
+import com.kh.model.vo.User;
 
 public class DiaryInformationView {
 
@@ -28,7 +29,7 @@ public class DiaryInformationView {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public DiaryInformationView(String userId, Diary d,String searchText, int flag) {
+	public DiaryInformationView(User user, Diary d,String searchText, int flag) {
 		JFrame jf = new JFrame();
 		jf.setTitle("해씨일기");
 		DiaryController dc= new DiaryController();
@@ -150,10 +151,10 @@ public class DiaryInformationView {
 				// TODO Auto-generated method stub
 				jf.setVisible(false);
 				if(flag==0) {
-					new CalendarView(userId);
+					new CalendarView(user);
 				}
 				else if(flag==1) {
-					new SearchHashTagView(userId,searchText,flag);
+					new SearchHashTagView(user,searchText,flag);
 				}
 			}
 		});
@@ -162,7 +163,7 @@ public class DiaryInformationView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jf.setVisible(false);
-				new DiaryReWriteView(userId,d);
+				new DiaryReWriteView(user,d);
 			}
 		});
 		deleteBtn.addActionListener(new ActionListener() {
@@ -170,8 +171,8 @@ public class DiaryInformationView {
 				@Override
 			public void actionPerformed(ActionEvent e) { //해당날짜 버튼 클릭
 			    			
-			        File deleteFile = new File(userId+"/"+ d.getdDate() + ".dat");
-			        File deleteImgFile= new File(userId+"/"+ d.getdDate() + ".png");
+			        File deleteFile = new File(user.getuId()+"/"+ d.getdDate() + ".dat");
+			        File deleteImgFile= new File(user.getuId()+"/"+ d.getdDate() + ".png");
 			        if(deleteImgFile.exists()) {
 			        	deleteImgFile.delete();
 			        }
@@ -183,8 +184,10 @@ public class DiaryInformationView {
 			            //일기파일 삭제 후 팝업창 
 			            JOptionPane.showMessageDialog(null, "일기가 삭제되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 			            
+			            user.setDiaryCount(user.getDiaryCount()-1);
+			            
 						jf.setVisible(false);   // 이전페이지로 이동 후 현재 페이지 안보이게 설정
-			            new CalendarView(userId); // 삭제 후 달력페이지로 이동
+			            new CalendarView(user); // 삭제 후 달력페이지로 이동
 						
 			        } else { //존재하지 않는다면 삭제할 일기가 없습니다. 팝업창
 			        	JOptionPane.showMessageDialog(null, "삭제할 일기가 없습니다.", "", JOptionPane.WARNING_MESSAGE);
@@ -192,7 +195,7 @@ public class DiaryInformationView {
 			        }
 			       
 			        
-			        new UserDao().userDiaryCountTemp(userId, (DiaryWriteView.diaryCount)--);
+			       
 			    }
 		});
 			

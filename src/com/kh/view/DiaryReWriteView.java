@@ -43,9 +43,11 @@ public class DiaryReWriteView {
 
 	}
 
-	public DiaryReWriteView(String uId, Diary d) {
+	public DiaryReWriteView(User user, Diary d) {
 
-		this.uId = uId;
+		
+		this.uId = user.getuId();
+		
 		this.date = d.getdDate();
 		
 		JFrame jf = new JFrame("해씨일기");
@@ -176,7 +178,7 @@ public class DiaryReWriteView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new CalendarView(uId);
+				new CalendarView(user);
 				jf.setVisible(false); // 이전페이지로 이동 후 현재 페이지 안보이게 설정
 
 			}
@@ -258,7 +260,7 @@ public class DiaryReWriteView {
 
 				if (result == JOptionPane.OK_OPTION) {
 					jf.setVisible(false);
-					new CalendarController(uId);
+					new CalendarController(user);
 				}
 
 			}
