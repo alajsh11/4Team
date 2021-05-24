@@ -28,7 +28,7 @@ import com.kh.model.vo.User;
 
 public class CalendarView {
 	private JPanel panel;
-
+	
 	private JButton searchBtn;
 	private JButton infoBtn;
 	private JComboBox monCombo;
@@ -45,7 +45,7 @@ public class CalendarView {
 	private JPanel ham;
 	private JFrame jf;
 
-	private String userId;
+	private User user;
 
 	private CalendarController cc = new CalendarController();
 	private JButton[] month;
@@ -57,7 +57,7 @@ public class CalendarView {
 	}
 
 	public CalendarView(User user) {
-		userId = uId;
+		this.user= user;
 		Font font = new Font("맑은 고딕", Font.PLAIN, 18);
 		jf = new JFrame();
 		jf.setBounds(0, 0, 640, 960);
@@ -83,7 +83,7 @@ public class CalendarView {
 		nowYear = gc.get(GregorianCalendar.YEAR);
 		nowMonth = gc.get(GregorianCalendar.MONTH);
 		nowDate = gc.get(GregorianCalendar.DATE);
-		calendar = createCalendarPanel(nowYear, nowMonth, nowDate, userId);
+		calendar = createCalendarPanel(nowYear, nowMonth, nowDate, user.getuId());
 
 		// 검색 버튼 및 엔터 시
 		ImageIcon icon2 = new ImageIcon("image/search.PNG");
@@ -129,7 +129,7 @@ public class CalendarView {
 				String selectedYear = selected.substring(0, 4);
 				nowYear = Integer.parseInt(selectedYear);
 				jf.remove(calendar);
-				calendar = createCalendarPanel(nowYear, nowMonth, nowDate, userId);
+				calendar = createCalendarPanel(nowYear, nowMonth, nowDate, user.getuId());
 
 				jf.add(calendar, BorderLayout.CENTER);
 				jf.add(ham);
@@ -153,7 +153,7 @@ public class CalendarView {
 				int selectedIndex = monCombo.getSelectedIndex();
 				nowMonth = selectedIndex;
 				jf.remove(calendar);
-				calendar = createCalendarPanel(nowYear, nowMonth, nowDate, userId);
+				calendar = createCalendarPanel(nowYear, nowMonth, nowDate, user.getuId());
 				jf.add(calendar, BorderLayout.CENTER);
 				jf.add(ham);
 				jf.add(panel);
@@ -259,12 +259,12 @@ public class CalendarView {
 			if (e.getSource() == searchBtn || e.getSource() == searchText) {
 				if (!(searchText.getText().equals(" #해시태그 검색") || searchText.getText().equals(""))) {
 					jf.setVisible(false);
-					new SearchHashTagView(userId,searchText.getText(),1); //캘린더 -> 검색
+					new SearchHashTagView(user,searchText.getText(),1); //캘린더 -> 검색
 				}
 			}
 			if (e.getSource() == infoBtn) {
 				jf.setVisible(false);
-				new UserInformationView(userId);
+				new UserInformationView(user.getuId());
 			}
 
 			for (int i = loW - 1; i < lastDate[gc.get(GregorianCalendar.MONTH)] + (loW - 1); i++) {
@@ -273,10 +273,10 @@ public class CalendarView {
 					String today = cc.dateInCalendar(gc.getTime());
 					System.out.println("today" + today);
 					jf.setVisible(false);
-					if (cc.exsitDiary(today, userId)) { //해당날짜에 일기가 존재하는지 확인
-						new DiaryController().diaryRead(userId, today,null,0); //캘린더 -> 일기 flag=0
+					if (cc.exsitDiary(today, user.getuId())) { //해당날짜에 일기가 존재하는지 확인
+						new DiaryController().diaryRead(user.getuId(), today,null,0); //캘린더 -> 일기 flag=0
 					} else { //없을 시 작성창으로
-						new DiaryWriteView(today, userId);
+						new DiaryWriteView(today, user);
 					}
 				}
 			}

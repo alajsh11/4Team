@@ -22,12 +22,13 @@ import com.kh.controller.CalendarController;
 import com.kh.controller.DiaryController;
 import com.kh.controller.SearchController;
 import com.kh.model.vo.Diary;
+import com.kh.model.vo.User;
 
 //일기창 -> 검색 flag =1
 //캘린더-> 검색 flag=0;
 public class SearchHashTagView {
 	private static final int MAX = 8;
-	private String userId;
+	private User user;
 	private JPanel panel;
 	private JButton searchBtn;
 	private JButton prevBtn;
@@ -46,9 +47,9 @@ public class SearchHashTagView {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SearchHashTagView(String uId, String searchedText,int flag) {
+	public SearchHashTagView(User user, String searchedText,int flag) {
 		this.flag=flag;
-		userId=uId;
+		this.user=user;
 		JPanel board = new JPanel();
 		searched = searchedText;
 		Color grayColor = new Color(0xeeeeee);
@@ -85,7 +86,7 @@ public class SearchHashTagView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				jf.setVisible(false);
-				new CalendarController(userId);
+				new CalendarController(user);
 			}
 		});
 
@@ -149,7 +150,7 @@ public class SearchHashTagView {
 		Image temp = new ImageIcon("image/arrow.PNG").getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
 		ImageIcon arrow = new ImageIcon(temp);
 
-		diary= sc.searchDiary(uId, searchedText);
+		diary= sc.searchDiary(user.getuId(), searchedText);
 		String hashTagText="";
 		
 		
@@ -224,7 +225,7 @@ public class SearchHashTagView {
 			if (e.getSource() == searchBtn || e.getSource() == searched) {
 				if (!searchTextField.getText().equals(searched)) { // 검색해서 들어온 검색어에는 반응하지 않게
 					jf.setVisible(false);
-					new SearchHashTagView(userId, searchTextField.getText(),1);
+					new SearchHashTagView(user, searchTextField.getText(),1);
 				}
 
 			}
@@ -234,7 +235,7 @@ public class SearchHashTagView {
 				//캘린더-> 검색 flag=0;
 				if(e.getSource()==boardInfoBtn[i]) {
 					jf.setVisible(false);
-					new DiaryController().diaryRead(userId, diary.get(i).getdDate(), searched,flag );
+					new DiaryController().diaryRead(user.getuId(), diary.get(i).getdDate(), searched,flag );
 
 				}
 			}
