@@ -5,7 +5,10 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,6 +33,13 @@ public class UserInformationView  {
 	public UserInformationView(User user) {
 
 		JFrame jf = new JFrame();
+		
+		try {
+	         jf.setIconImage(ImageIO.read(new File("image/IconHamster.jpg")));
+	      } catch (IOException e1) {
+	         // TODO Auto-generated catch block
+	         e1.printStackTrace();
+	      }
 
 		jf.setTitle("내정보조회");
 		jf.setSize(640, 960);
