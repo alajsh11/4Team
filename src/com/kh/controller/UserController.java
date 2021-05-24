@@ -76,7 +76,7 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-		us.setuNo(String.valueOf(count));
+		us.setuNo(String.valueOf(count));	
 
 	}
 
@@ -126,11 +126,12 @@ public class UserController {
 			while ((line = br.readLine()) != null) {
 				array = line.split("/");
 				if (id.equals(array[1]) && (pwd.equals(array[2]))) {
-						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");				
+						User user = new User(id, pwd, array[3], Integer.valueOf(array[5]));
 						if (array[0].equals("0000")) {
 							new MemberInformationView();
 						} else {
-							new CalendarView(id);
+							new CalendarView(user);
 						}
 						result = true;
 						break;
@@ -155,6 +156,7 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
+		
 
 		return result;
 
