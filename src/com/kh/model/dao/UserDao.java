@@ -24,7 +24,7 @@ public class UserDao { // User.dat 이용해서 User 객체화
 	}
 
 	//다이어리 개수 수정
-	public void userDiaryCountTemp(User user, int diaryCount) { // 유저 정보 받아서 User.dat 정보 삭제
+	public void userDiaryCountTemp(String id, int diaryCount) { // 유저 정보 받아서 User.dat 정보 삭제
 		FileInputStream fi = null;
 		FileOutputStream fo = null;
 		BufferedReader br = null;
@@ -33,6 +33,15 @@ public class UserDao { // User.dat 이용해서 User 객체화
 		File inputFile = new File("User.dat"); // 읽어올 파일
 		File outputFile = new File("User.dat" + ".temp"); // 수정할 파일
 		String count = String.valueOf(diaryCount);
+		User user = null;
+		
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getuId().equals(id)) {
+				user = list.get(i);
+				break;
+			}
+			
+		}
 
 		boolean result = false;
 		try {
