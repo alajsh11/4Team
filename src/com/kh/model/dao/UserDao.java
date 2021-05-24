@@ -237,7 +237,6 @@ public class UserDao { // User.dat 이용해서 User 객체화
 					strList.add(asd); // 빈칸 무시(삭제한 유저정보 담지않기)
 			}
 			
-			System.out.println(strList.size());
 
 			// arr[] 배열 길이만큼 반복시켜 list 추가하기
 			for (int listSize = 0; listSize < strList.size(); listSize++) {
@@ -285,13 +284,11 @@ public class UserDao { // User.dat 이용해서 User 객체화
 
 				for (int i = 0; i < strArr[5].length(); i++) {
 					dc += strArr[5].charAt(i);
-					System.out.println(dc);
 				}
 				int dCount = Integer.parseInt(dc); // 일기계수 int 형변환
 
 				// 위 값을 이용해 list에 넣을 uUser 생성
-				User uUser = new User(id, pwd, pwdAnswer);
-				uUser.setDiaryCount(dCount);
+				User uUser = new User(id, pwd, pwdAnswer,dCount);
 				uUser.setuNo(no);
 				uUser.setuDate(date);
 				list.add(uUser); // 리스트 추가
