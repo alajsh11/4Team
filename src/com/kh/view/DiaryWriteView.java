@@ -38,15 +38,14 @@ public class DiaryWriteView  {
 	public static String absoluteFilePath = "";
 	private String date;
 	private String uId;
-	public static int diaryCount = 0;
 	
 	public DiaryWriteView() {}
 
 
-	public DiaryWriteView(String date, String uId) {
+	public DiaryWriteView(String date, User user) {
 		
 		this.date = date;
-		this.uId = uId;
+		this.uId = user.getuId();
 
 		JFrame jf = new JFrame("해씨일기");
 		JPanel panel = new JPanel();
@@ -163,7 +162,7 @@ public class DiaryWriteView  {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new CalendarView(uId); // 달력페이지로 가고
+				new CalendarView(user); // 달력페이지로 가고
 				jf.setVisible(false); // 이전페이지로 이동 후 현재 페이지 안보이게 설정
 
 			}
@@ -221,6 +220,8 @@ public class DiaryWriteView  {
 					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
 
 						dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
+						
+						user.setDiaryCount(user.getDiaryCount()+1);
 
 					} else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다.
 
@@ -234,12 +235,9 @@ public class DiaryWriteView  {
 					
 					if (result == JOptionPane.OK_OPTION) {
 						jf.setVisible(false);
-						new CalendarView(uId);	
+						new CalendarView(user);	
 					}
 				}
-				
-				 new UserDao().userDiaryCountTemp(uId, diaryCount++);
-				
 				
 			}
 		});
