@@ -43,13 +43,15 @@ public class LoginView implements ActionListener {
 		name.setFont(new Font("맑은고딕", Font.BOLD, 45));
 		name.setForeground(Color.white);
 
-		Image hamster = new ImageIcon("image/hamster3.png").getImage();
+		Image hamster = new ImageIcon("image/hamster3.png").getImage().getScaledInstance(130, 130, Image.SCALE_DEFAULT);
 		JLabel ham = new JLabel();
 		ham.setIcon(new ImageIcon(hamster));
 
-		Image seeds = new ImageIcon("image/login_seed.png").getImage();
+		Image seeds = new ImageIcon("image/login_seed.png").getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT);
 		JLabel seed = new JLabel();
 		seed.setIcon(new ImageIcon(seeds));
+		JLabel seed2 = new JLabel();
+		seed2.setIcon(new ImageIcon(seeds));
 
 		JLabel lbId = new JLabel("아이디");
 		lbId.setFont(new Font("맑은고딕",Font.PLAIN,17));
@@ -68,8 +70,9 @@ public class LoginView implements ActionListener {
 
 		// 컴포넌트 위치 및 사이즈
 		name.setBounds(225, 100, 200, 60);
-		ham.setBounds(320, 200, 130, 130);
-		seed.setBounds(180, 200, 130, 130);
+		ham.setBounds(250, 200, 130, 130);
+		seed.setBounds(160, 240, 70, 70);
+		seed2.setBounds(400,240,70,70);
 		lbId.setBounds(240, 430, 50, 30);
 		tfId.setBounds(300, 430, 120, 30);
 		lbPwd.setBounds(220, 480, 70, 30);
@@ -82,6 +85,7 @@ public class LoginView implements ActionListener {
 		bGround.setLayout(null);
 		bGround.add(name);
 		bGround.add(ham);
+		bGround.add(seed2);
 		bGround.add(seed);
 		bGround.add(lbId);
 		bGround.add(lbPwd);
@@ -90,6 +94,7 @@ public class LoginView implements ActionListener {
 		bGround.add(login);
 		bGround.add(signUp);
 		bGround.add(rPwd);
+
 
 		// 회원가입창으로 넘어가기
 		signUp.addActionListener(new ActionListener() {
