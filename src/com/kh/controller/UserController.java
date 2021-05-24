@@ -128,7 +128,7 @@ public class UserController {
 				array = line.split("/");
 				if (id.equals(array[1]) && (pwd.equals(array[2]))) {
 						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");				
-						User user = new User(id, pwd, array[3], Integer.valueOf(array[5]));
+						User user = new User(array[0],id, pwd, array[3],array[4], Integer.valueOf(array[5]));
 						if (array[0].equals("0000")) {
 							new MemberInformationView();
 						} else {

@@ -195,7 +195,9 @@ public class SignUpView implements ActionListener {
 				 signRpwd = rpwd.getText();
 				 signHint = hint.getText();
 				 
-				if (signPwd.equals(signRpwd)) {
+				 boolean result = uc.userIdCompare(signId);
+				 
+				if (signPwd.equals(signRpwd) && result == true) {
 					
 					uc.userSignUp(signId, signPwd, signHint);
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
@@ -206,6 +208,10 @@ public class SignUpView implements ActionListener {
 				} else if(!signPwd.equals(signRpwd)) {
 					JOptionPane.showMessageDialog(null, "비밀번호가 다릅니다." + "\n" + "다시 입력해주세요","Message",
 							JOptionPane.ERROR_MESSAGE);
+				} else if(result == false) {
+					JOptionPane.showMessageDialog(null, "중복된 아이디 입니다." + "\n" + "다시 입력해주세요","Message",
+							JOptionPane.ERROR_MESSAGE);
+					
 				}
 			}
 		});
