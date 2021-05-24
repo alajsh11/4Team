@@ -2,9 +2,11 @@ package com.kh.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,41 +48,54 @@ public class UserInformationView  {
 		JLabel title = new JLabel("내 정보 조회");
 		title.setOpaque(true);
 		title.setBackground(Color.white);
-		title.setFont(new Font("맑은고딕", Font.BOLD, 20));
+		title.setFont(new Font("맑은고딕", Font.BOLD, 25));
 		title.setHorizontalAlignment(JLabel.CENTER);
 		
 		JLabel tDate = new JLabel("  회원 가입 날짜");
 		tDate.setOpaque(true);
 		tDate.setBackground(Color.white);
-		tDate.setFont(new Font("맑은고딕", Font.BOLD, 14));
-		
+		tDate.setFont(new Font("맑은고딕", Font.BOLD, 17));		
 		String date = uc.userSignDate(id);
 		JLabel sDate = new JLabel(date);
 		sDate.setOpaque(true);
 		sDate.setBackground(Color.LIGHT_GRAY);
-		sDate.setFont(new Font("맑은고딕", Font.PLAIN, 14));
+		sDate.setFont(new Font("맑은고딕", Font.PLAIN, 15));
 		JLabel hint = new JLabel("  비밀번호 힌트 (졸업한 초등학교 이름)");
 		
 		hint.setOpaque(true);
 		hint.setBackground(Color.white);
-		hint.setFont(new Font("맑은고딕", Font.BOLD, 13));
+		hint.setFont(new Font("맑은고딕", Font.BOLD, 17));
 		String s = uc.userSignHint(id);
 		JLabel school = new JLabel(s);
 		school.setOpaque(true);
 		school.setBackground(Color.LIGHT_GRAY);
-		school.setFont(new Font("맑은고딕", Font.PLAIN, 14));
+		school.setFont(new Font("맑은고딕", Font.PLAIN, 15));
 		
 		JLabel dNo = new JLabel("  총 해씨일기 개수");
 		dNo.setOpaque(true);
 		dNo.setBackground(Color.white);
-		dNo.setFont(new Font("맑은고딕", Font.BOLD, 14));
-		JLabel dCount = new JLabel(String.valueOf(us.getDiaryCount()));
+		dNo.setFont(new Font("맑은고딕", Font.BOLD, 17));	
+		int count = uc.retunrCount();
+		JLabel dCount = new JLabel(" " + String.valueOf(count));
 		dCount.setOpaque(true);
 		dCount.setBackground(Color.LIGHT_GRAY);
-		dCount.setFont(new Font("맑은고딕", Font.PLAIN, 14));
+		dCount.setFont(new Font("맑은고딕", Font.PLAIN, 15));
+		
 		JButton logout = new JButton("로그아웃");
-		JButton leave = new JButton("탈퇴");
-		JButton prev = new JButton("< prev");
+		logout.setFont(new Font("맑은고딕",Font.PLAIN,15));
+		
+		JButton leave = new JButton("탈퇴");		
+		leave.setFont(new Font("맑은고딕",Font.PLAIN,15));
+		
+		ImageIcon icPrev = new ImageIcon("Image/prev.png");
+	    Image imPrev = icPrev.getImage().getScaledInstance(40, 35, Image.SCALE_SMOOTH);
+	    JButton prev = new JButton();
+	    // 이전버튼 아이콘 바꿔서 설정하기 위한 코드
+	    prev.setBorderPainted(false);
+	    prev.setFocusPainted(false);
+	    prev.setContentAreaFilled(false);
+	    prev.setLayout(null);
+	    prev.setIcon(new ImageIcon(imPrev));
 
 		// 컴포넌트 위치 및 사이즈
 		title.setBounds(190, 100, 250, 40);
@@ -90,9 +105,9 @@ public class UserInformationView  {
 		school.setBounds(120, 400, 400, 30);
 		dNo.setBounds(120, 500, 400, 30);
 		dCount.setBounds(120, 530, 400, 30);
-		logout.setBounds(220, 650, 90, 30);
-		leave.setBounds(330, 650, 90, 30);
-		prev.setBounds(60, 30, 80, 30);
+		logout.setBounds(220, 700, 90, 30);
+		leave.setBounds(330, 700, 90, 30);
+		prev.setBounds(60, 100, 80, 30);
 
 		// 패널에 붙이기
 		info.setLayout(null);

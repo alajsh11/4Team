@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
@@ -14,11 +15,11 @@ import javax.swing.JOptionPane;
 import com.kh.model.vo.User;
 import com.kh.view.CalendarView;
 import com.kh.view.MemberInformationView;
-import com.kh.view.UserInformationView;
 
 public class UserController {
 
 	User us = new User();
+	private int count;
 
 	// 회원가입 유저 --> dat 파일에 저장
 
@@ -32,6 +33,7 @@ public class UserController {
 		String s = "";
 		String line = "";
 		String array[];
+		
 		int count = 0;
 
 		File file = new File("User.dat");
@@ -62,7 +64,7 @@ public class UserController {
 			bw.write(pwd.toString() + "/");
 			bw.write(hint.toString() + "/");
 			bw.write(today + "/");
-			bw.write(String.valueOf(us.getDiaryCount()) + "/" + "\n");
+			bw.write(String.valueOf(0) + "/" + "\n");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -74,7 +76,7 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-		us.setuNo(String.valueOf(count));
+		us.setuNo(String.valueOf(count));	
 
 	}
 
@@ -124,11 +126,12 @@ public class UserController {
 			while ((line = br.readLine()) != null) {
 				array = line.split("/");
 				if (id.equals(array[1]) && (pwd.equals(array[2]))) {
-						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");				
+						User user = new User(id, pwd, array[3], Integer.valueOf(array[5]));
 						if (array[0].equals("0000")) {
 							new MemberInformationView();
 						} else {
-							new CalendarView(id);
+							new CalendarView(user);
 						}
 						result = true;
 						break;
@@ -153,6 +156,7 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
+		
 
 		return result;
 
@@ -293,4 +297,13 @@ public class UserController {
 		return hint;
 	}
 
+	public void diaryCount(int count) {
+		
+		this.count = count;
+	}
+	
+	public int retunrCount() {
+	
+	return count;
+	}
 }

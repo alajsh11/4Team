@@ -24,6 +24,7 @@ import javax.swing.KeyStroke;
 
 import com.kh.controller.CalendarController;
 import com.kh.controller.DiaryController;
+import com.kh.model.vo.User;
 
 public class CalendarView {
 	private JPanel panel;
@@ -55,7 +56,7 @@ public class CalendarView {
 	public CalendarView() {
 	}
 
-	public CalendarView(String uId) {
+	public CalendarView(User user) {
 		userId = uId;
 		Font font = new Font("맑은 고딕", Font.PLAIN, 18);
 		jf = new JFrame();

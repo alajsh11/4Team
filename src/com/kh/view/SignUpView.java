@@ -47,7 +47,7 @@ public class SignUpView implements ActionListener {
 		
 		// 타이틀 라벨
 		JLabel title = new JLabel("회원가입");
-		title.setFont(new Font("", Font.BOLD, 20));
+		title.setFont(new Font("맑은고딕", Font.BOLD, 25));
 		title.setForeground(Color.darkGray);
 		//title.setBounds(225, 80, 250, 50);
 
@@ -57,21 +57,22 @@ public class SignUpView implements ActionListener {
 
 		// 아이디
 		JLabel lbId = new JLabel("아이디를 입력해주세요");
-		lbId.setFont(new Font("맑은고딕", Font.PLAIN, 15));
+		lbId.setFont(new Font("맑은고딕", Font.PLAIN, 17));
 		lbId.setForeground(Color.DARK_GRAY);
 		JLabel phone = new JLabel("( -를 제외한 휴대폰 번호 )");
-		phone.setFont(new Font("맑은고딕", Font.PLAIN, 13));
+		phone.setFont(new Font("맑은고딕", Font.PLAIN, 15));
 		phone.setForeground(Color.DARK_GRAY);
 		
 		JTextField id = new JTextField();
 			
 		JButton overlap = new JButton("중복확인");
+		overlap.setFont(new Font("맑은고딕",Font.PLAIN,15));
 		
 		
 		
 		// 비밀번호
 		JLabel lbPwd = new JLabel("비밀번호를 입력해주세요");
-		lbPwd.setFont(new Font("맑은고딕", Font.PLAIN, 15));
+		lbPwd.setFont(new Font("맑은고딕", Font.PLAIN, 17));
 		lbPwd.setForeground(Color.DARK_GRAY);
 		
 		JPasswordField pwd = new JPasswordField();
@@ -80,7 +81,7 @@ public class SignUpView implements ActionListener {
 
 		// 비밀번호 재입력
 		JLabel lbRpwd = new JLabel("비밀번호를 한 번 더 입력해주세요");
-		lbRpwd.setFont(new Font("맑은고딕", Font.PLAIN, 15));
+		lbRpwd.setFont(new Font("맑은고딕", Font.PLAIN, 17));
 		lbRpwd.setForeground(Color.DARK_GRAY);
 		
 		JPasswordField rpwd = new JPasswordField();
@@ -88,11 +89,11 @@ public class SignUpView implements ActionListener {
 		
 		// 비밀번호 힌트 입력 
 		JLabel lbHint1 = new JLabel("당신의 출신 초등학교는?");
-		lbHint1.setFont(new Font("맑은고딕", Font.PLAIN, 15));
+		lbHint1.setFont(new Font("맑은고딕", Font.PLAIN, 17));
 		lbHint1.setForeground(Color.DARK_GRAY);
 					
 		JLabel lbHint2 = new JLabel("(비밀번호 재설정시 사용될 내용입니다.)");
-		lbHint2.setFont(new Font("맑은고딕", Font.PLAIN, 13));
+		lbHint2.setFont(new Font("맑은고딕", Font.PLAIN, 15));
 		lbHint2.setForeground(Color.DARK_GRAY);
 				
 		JTextField hint = new JTextField();
@@ -101,23 +102,25 @@ public class SignUpView implements ActionListener {
 		// 회원가입, 취소
 		JButton cancel = new JButton("취소");
 		JButton ok = new JButton("회원가입");
+		cancel.setFont(new Font("맑은고딕",Font.PLAIN,15));
+		ok.setFont(new Font("맑은고딕",Font.PLAIN,15));
 		
 		
 		// 컴포넌트 위치 및 사이즈
-		titleBack.setBounds(210, 80, 200, 40);
-		lbId.setBounds(120, 160, 300, 20);
-		phone.setBounds(280, 160, 300, 20);
-		id.setBounds(120, 190, 370, 30);
-		overlap.setBounds(500, 190, 90, 30);
-		lbPwd.setBounds(120, 250, 300, 20);		
-		pwd.setBounds(120, 280, 370, 30);
-		lbRpwd.setBounds(120, 340, 300, 20);
-		rpwd.setBounds(120,370,370,30);
-		lbHint1.setBounds(120, 430, 300, 20);
-		lbHint2.setBounds(280, 430, 300, 20);
-		hint.setBounds(120, 460, 370, 30);
-		cancel.setBounds(220, 540, 90, 30);
-		ok.setBounds(330, 540, 90, 30);
+		titleBack.setBounds(210, 80, 200, 50);
+		lbId.setBounds(120, 210, 300, 20);
+		phone.setBounds(300, 210, 300, 20);
+		id.setBounds(120, 240, 370, 40);
+		overlap.setBounds(500, 240, 90, 40);
+		lbPwd.setBounds(120, 320, 300, 20);		
+		pwd.setBounds(120, 350, 370, 40);
+		lbRpwd.setBounds(120, 430, 300, 20);
+		rpwd.setBounds(120,460,370,40);
+		lbHint1.setBounds(120, 540, 300, 20);
+		lbHint2.setBounds(300, 540, 300, 20);
+		hint.setBounds(120, 570, 370, 40);
+		cancel.setBounds(220, 700, 90, 30);
+		ok.setBounds(330, 700, 90, 30);
 		
 		// 컴포넌트 패널에 추가 
 		signUp.setLayout(null);
