@@ -38,7 +38,7 @@ public class UserPwdView {
 	         e1.printStackTrace();
 	      }
 		
-		jf.setTitle("비밀번호 재설정");
+		jf.setTitle("해씨일기");
 		jf.setSize(640, 960);
 		jf.setLayout(null);
 		jf.getContentPane().setLayout(null);
