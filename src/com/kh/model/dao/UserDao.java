@@ -25,16 +25,18 @@ public class UserDao { // User.dat 이용해서 User 객체화
 
 	//다이어리 개수 수정
 	public void userDiaryCountTemp(User user, int diaryCount) { // 유저 정보와 일기 개수 받아서 수정하기
+
+		
 		FileInputStream fi = null;
 		FileOutputStream fo = null;
 		BufferedReader br = null;
 		BufferedWriter bw = null;
-
+		
+		System.out.println("user!!"+user);
 		
 		File inputFile = new File("User.dat"); // 읽어올 파일
 		File outputFile = new File("User.dat" + ".temp"); // 수정할 파일
 		String count = diaryCount + "";
-
 		boolean result = false;
 		try {
 			fi = new FileInputStream(inputFile);
@@ -50,6 +52,8 @@ public class UserDao { // User.dat 이용해서 User 객체화
 			String reStr = user.getuNo()+ "/" + user.getuId() + "/" + user.getuPwd() + "/"
 					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + count +"/";
 
+			System.out.println(originStr+"  "+reStr);
+			user.setDiaryCount(diaryCount);
 			while ((line = br.readLine()) != null) {
 				repLine = line.replace(originStr, reStr); // 기존 문자열(originStr)과 새로운 문자열(reStr)교체
 				bw.write(repLine, 0, repLine.length());
@@ -114,8 +118,10 @@ public class UserDao { // User.dat 이용해서 User 객체화
 				repLine = line.replace(originStr, reStr); // 기존 문자열(originStr)과 새로운 문자열(reStr)교체
 				bw.write(repLine, 0, repLine.length());
 				bw.newLine(); // 줄바꿈
+				if(line.equals(reStr)) {
+					result = true;
+				}
 			}
-			result = true;
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
