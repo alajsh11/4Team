@@ -6,7 +6,10 @@ import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,8 +31,14 @@ public class MemberCheckView {
 	
 	public MemberCheckView(User user) {
 		jf = new JFrame();
+		try {
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.jpg")));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		jf.setSize(640, 960);
-		jf.setTitle("회원조회");
+		jf.setTitle("해씨일기");
 		jf.setLayout(null);
 		jf.setResizable(false);
 		jf.setLocationRelativeTo(null);
