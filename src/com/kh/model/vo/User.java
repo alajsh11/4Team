@@ -22,7 +22,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String uId, String uPwd, String uPwdAnswer, int diaryCount) {
+	public User(String uNo, String uId, String uPwd, String uPwdAnswer, String uDate, int diaryCount) {
 		super();
 		this.diaryCount = 0;
 		this.uId = uId;
