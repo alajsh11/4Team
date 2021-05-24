@@ -41,7 +41,7 @@ public class UserInformationView  {
 	         e1.printStackTrace();
 	      }
 
-		jf.setTitle("내정보조회");
+		jf.setTitle("해씨일기");
 		jf.setSize(640, 960);
 		jf.setLayout(null);
 		jf.getContentPane().setLayout(null);
@@ -85,7 +85,7 @@ public class UserInformationView  {
 		dNo.setOpaque(true);
 		dNo.setBackground(Color.white);
 		dNo.setFont(new Font("맑은고딕", Font.BOLD, 17));	
-		JLabel dCount = new JLabel(" " + String.valueOf(user.getDiaryCount()));
+		JLabel dCount = new JLabel(String.valueOf(user.getDiaryCount()));
 		dCount.setOpaque(true);
 		dCount.setBackground(Color.LIGHT_GRAY);
 		dCount.setFont(new Font("맑은고딕", Font.PLAIN, 15));
