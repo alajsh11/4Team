@@ -220,8 +220,7 @@ public class DiaryWriteView  {
 					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
 
 						dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
-						
-						user.setDiaryCount(user.getDiaryCount()+1);
+					
 						new UserDao().userDiaryCountTemp(user, user.getDiaryCount()+1);
 						
 					} else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다.

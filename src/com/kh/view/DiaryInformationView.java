@@ -184,7 +184,6 @@ public class DiaryInformationView {
 			            //일기파일 삭제 후 팝업창 
 			            JOptionPane.showMessageDialog(null, "일기가 삭제되었습니다.", "", JOptionPane.WARNING_MESSAGE);
 			            
-			            user.setDiaryCount(user.getDiaryCount()-1);
 			            new UserDao().userDiaryCountTemp(user, user.getDiaryCount()-1);
 						
 			            jf.setVisible(false);   // 이전페이지로 이동 후 현재 페이지 안보이게 설정
