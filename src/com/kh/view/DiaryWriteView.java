@@ -222,7 +222,8 @@ public class DiaryWriteView  {
 						dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
 						
 						user.setDiaryCount(user.getDiaryCount()+1);
-
+						new UserDao().userDiaryCountTemp(user, user.getDiaryCount()+1);
+						
 					} else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다.
 
 						JOptionPane.showMessageDialog(null, "글자 제한 100자입니다.", "", JOptionPane.WARNING_MESSAGE);
