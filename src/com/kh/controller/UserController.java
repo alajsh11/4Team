@@ -94,12 +94,13 @@ public class UserController {
 				BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 				while ((line = br.readLine()) != null) {
 					array = line.split("/");
-					if (!id.equals(array[1])) {
-						result = true;
-						break;
-					} else {
-						result = false;
-					}
+					  if (id.equals(array[1])) {
+		                  result = false;
+		                  break;
+		               }
+		               else {
+		                  result=true;
+		               }
 				}
 
 			} catch (Exception e1) {
