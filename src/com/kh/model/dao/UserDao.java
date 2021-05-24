@@ -280,9 +280,8 @@ public class UserDao { // User.dat 이용해서 User 객체화
 				int dCount = Integer.parseInt(dc); // 일기계수 int 형변환
 
 				// 위 값을 이용해 list에 넣을 uUser 생성
-				User uUser = new User(id, pwd, pwdAnswer,dCount);
-				uUser.setuNo(no);
-				uUser.setuDate(date);
+				User uUser = new User(no, id, pwd, pwdAnswer, date, dCount);
+
 				list.add(uUser); // 리스트 추가
 			}
 
