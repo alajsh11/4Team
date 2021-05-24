@@ -11,8 +11,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.GregorianCalendar;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -65,6 +68,12 @@ public class CalendarView {
 		jf.setLayout(null);
 		jf.setLocationRelativeTo(null);
 		jf.setResizable(false);
+		try {
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.PNG")));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Image hamster = new ImageIcon("image/hamster2.PNG").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
 		ham = new JPanel() {
 			@Override
@@ -274,7 +283,7 @@ public class CalendarView {
 					System.out.println("today" + today);
 					jf.setVisible(false);
 					if (cc.exsitDiary(today, user.getuId())) { //해당날짜에 일기가 존재하는지 확인
-						new DiaryController().diaryRead(user.getuId(), today,null,0); //캘린더 -> 일기 flag=0
+						new DiaryController().diaryRead(user, today,null,0); //캘린더 -> 일기 flag=0
 					} else { //없을 시 작성창으로
 						new DiaryWriteView(today, user);
 					}

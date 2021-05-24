@@ -8,8 +8,11 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -61,7 +64,12 @@ public class SearchHashTagView {
 		jf.setLayout(null);
 		jf.setLocationRelativeTo(null);
 		jf.setResizable(false);
-		
+		try {
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.PNG")));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		panel = new JPanel();
 		panel.setBackground(new Color(0xddc6e6));
 		panel.setSize(jf.getMaximumSize());
@@ -235,7 +243,7 @@ public class SearchHashTagView {
 				//캘린더-> 검색 flag=0;
 				if(e.getSource()==boardInfoBtn[i]) {
 					jf.setVisible(false);
-					new DiaryController().diaryRead(user.getuId(), diary.get(i).getdDate(), searched,flag );
+					new DiaryController().diaryRead(user, diary.get(i).getdDate(), searched,flag );
 
 				}
 			}
