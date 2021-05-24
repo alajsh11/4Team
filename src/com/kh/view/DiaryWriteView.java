@@ -27,6 +27,7 @@ import javax.swing.border.BevelBorder;
 
 import com.kh.controller.CalendarController;
 import com.kh.controller.DiaryController;
+import com.kh.model.dao.UserDao;
 import com.kh.model.vo.Diary;
 import com.kh.model.vo.User;
 
@@ -237,7 +238,8 @@ public class DiaryWriteView  {
 					}
 				}
 				
-				diaryCount++;
+				 new UserDao().userDiaryCountTemp(uId, diaryCount++);
+				
 				
 			}
 		});
