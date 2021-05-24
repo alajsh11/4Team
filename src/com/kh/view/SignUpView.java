@@ -74,7 +74,8 @@ public class SignUpView implements ActionListener {
 		lbPwd.setFont(new Font("맑은고딕", Font.PLAIN, 15));
 		lbPwd.setForeground(Color.DARK_GRAY);
 		
-		JTextField pwd = new JTextField();
+		JPasswordField pwd = new JPasswordField();
+
 		
 
 		// 비밀번호 재입력
@@ -82,7 +83,7 @@ public class SignUpView implements ActionListener {
 		lbRpwd.setFont(new Font("맑은고딕", Font.PLAIN, 15));
 		lbRpwd.setForeground(Color.DARK_GRAY);
 		
-		JTextField rpwd = new JTextField();
+		JPasswordField rpwd = new JPasswordField();
 		
 		
 		// 비밀번호 힌트 입력 
