@@ -3,6 +3,7 @@ package com.kh.view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -47,6 +48,7 @@ public class MemberInformationView {
 
 		// 회원조회 패널
 		userListField = new JTextField("회원조회");
+		userListField.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		userListField.setBounds(200, 100, 300, 30);
 		userListField.setEditable(false);
 
@@ -97,8 +99,10 @@ public class MemberInformationView {
 		userListTable.setPreferredScrollableViewportSize(new Dimension(640, 600)); // 테이블 사이즈
 		userListTable.setFillsViewportHeight(true);
 		userListTable.setRowHeight(50);
-		userListPanel.add(new JScrollPane(userListTable));
+		userListTable.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		
+		userListPanel.add(new JScrollPane(userListTable));
+	
 		
 		
 		
@@ -128,13 +132,14 @@ public class MemberInformationView {
 
 		// 로그아웃 버튼
 		JButton logOutButton = new JButton("로그아웃");
+		logOutButton.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		logOutButton.setBounds(250, 850, 100, 50);
 		// 로그아웃 버튼 클릭시 loginView화면으로 이동
 		logOutButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new LoginView().setVisible(true);
+				new LoginView();
 				jf.setVisible(false);
 			}
 		});
@@ -162,7 +167,7 @@ class TableCell extends AbstractCellEditor implements TableCellEditor, TableCell
 
 	public TableCell() {
 
-		Image memberInfoImg = new ImageIcon("Image/memberInfo.png").getImage().getScaledInstance(40, 35,
+		Image memberInfoImg = new ImageIcon("Image/arrow.png").getImage().getScaledInstance(40, 35,
 				Image.SCALE_SMOOTH);
 		jb = new JButton();
 		jb.setBorderPainted(false);

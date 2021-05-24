@@ -23,7 +23,6 @@ public class AdministratorController {
 		
 		idArr = new String[user.getList().size()];
 		noArr = new String[user.getList().size()];
-		System.err.println(user.getList().get(1).getDiaryCount());
 		for(int i = 0; i < tableList.size(); i++ ) {
 			noArr[i] = tableList.get(i).getuNo();
 			idArr[i] = tableList.get(i).getuId();

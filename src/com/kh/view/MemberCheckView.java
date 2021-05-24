@@ -1,6 +1,7 @@
 package com.kh.view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -70,23 +71,31 @@ public class MemberCheckView {
 
 		// 회원가입 날짜 텍스트필드
 		JTextField umsField = new JTextField("회원 가입 날짜");
+		umsField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		umsField.setBounds(100, 350, 450, 30);
 		userMembershipField = new JTextField(user.getuDate());
+		userMembershipField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		
 		userMembershipField.setBounds(100, 380, 450, 30);
 		userMembershipField.setEditable(false);
 
 		// 회원가입 날짜 텍스트필드
 		JTextField upField = new JTextField("비밀번호 힌트 (졸업한 초등학교 이름)");
+		upField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		upField.setBounds(100, 430, 450, 30);
 		userPwdField = new JTextField(user.getuPwdAnswer());
 		userPwdField.setBounds(100, 460, 450, 60);
 		userPwdField.setEditable(false);
+		userPwdField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		
 
 		// 회원가입 날짜 텍스트필드
 		JTextField utdField = new JTextField("총 해씨 일기 개수");
+		utdField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		utdField.setBounds(100, 570, 450, 30);
 		uesrTotalDialyField = new JTextField(String.valueOf(user.getDiaryCount()));
 		uesrTotalDialyField.setBounds(100, 600, 450, 30);
+		uesrTotalDialyField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		uesrTotalDialyField.setEditable(false);
 		// 회원 삭제 버튼
 		userDeleteButton = new JButton("회원삭제");
