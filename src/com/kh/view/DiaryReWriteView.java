@@ -63,9 +63,9 @@ public class DiaryReWriteView {
 		JButton plus = new JButton();
 
 		// 수정완료 버튼
-		ImageIcon icModify = new ImageIcon("Image/complete.png");
-		Image imModify = icModify.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-		JButton modify = new JButton();
+		//ImageIcon icModify = new ImageIcon("Image/complete.png");
+		//Image imModify = icModify.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		JButton modify = new JButton("수정완료");
 
 		// 이전 버튼
 		ImageIcon icPrev = new ImageIcon("Image/prev.png");
@@ -81,7 +81,7 @@ public class DiaryReWriteView {
 		String content = ""; // 파일 내용
 
 		// 텍스트 필드 설정
-		write.setFont(new Font("\"Plain\"", Font.BOLD, 18));
+		write.setFont(new Font("맑은고딕", Font.BOLD, 18));
 		write.setText(dc.arrayListToText(d.getDhashTag()));
 		
 		// 이미지 라벨 설정
@@ -133,19 +133,19 @@ public class DiaryReWriteView {
 		prev.setIcon(new ImageIcon(imPrev));
 
 		// 수정버튼 아이콘 바꿔서 설정하기 위한 코드
-		modify.setBorderPainted(false);
 		modify.setFocusPainted(false);
 		modify.setContentAreaFilled(false);
 		modify.setLayout(null);
-		modify.setIcon(new ImageIcon(imModify));
-
+		modify.setFont(new Font("맑은고딕", Font.BOLD, 15));
+		
+		
 		// 컴포넌트 사이즈 설정
 		dateBox.setBounds(110, 125, 70, 40);
 		prev.setBounds(45, 85, 90, 35);
 		write.setBounds(110, 500, 400, 300);
 		image.setBounds(110, 180, 400, 300);
 		plus.setBounds(190, 125, 42, 42); // 280, 260
-		modify.setBounds(475, 845, 40, 40);
+		modify.setBounds(415, 845, 100, 35);
 		
 
 		// 컴포넌트 패널에 붙이기
@@ -254,7 +254,7 @@ public class DiaryReWriteView {
 
 				}
 
-				int result = JOptionPane.showConfirmDialog(null, "일기가 수정되었습니다.", "", JOptionPane.OK_OPTION);
+				int result = JOptionPane.showConfirmDialog(null, "일기를 수정하시겠습니까?", "", JOptionPane.OK_OPTION);
 
 				if (result == JOptionPane.OK_OPTION) {
 					jf.setVisible(false);

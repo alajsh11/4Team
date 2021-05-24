@@ -124,7 +124,7 @@ public class DiaryController {
 	public String arrayListToText(ArrayList<String> hash) {
 		String content = "";
 		for (String h : hash) {
-			content += ("#" + h + " ");
+			content += ("#" + h );
 		}
 		return content;
 
