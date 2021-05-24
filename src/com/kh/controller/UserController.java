@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import com.kh.model.vo.User;
 import com.kh.view.CalendarView;
 import com.kh.view.MemberInformationView;
+import com.kh.view.UserInformationView;
 
 public class UserController {
 

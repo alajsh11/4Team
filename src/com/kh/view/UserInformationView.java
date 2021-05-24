@@ -27,7 +27,7 @@ public class UserInformationView  {
 		
 	}
 	
-	public UserInformationView(String id) {
+	public UserInformationView(User user) {
 
 		JFrame jf = new JFrame();
 
@@ -55,7 +55,7 @@ public class UserInformationView  {
 		tDate.setOpaque(true);
 		tDate.setBackground(Color.white);
 		tDate.setFont(new Font("맑은고딕", Font.BOLD, 17));		
-		String date = uc.userSignDate(id);
+		String date = uc.userSignDate(user.getuId());
 		JLabel sDate = new JLabel(date);
 		sDate.setOpaque(true);
 		sDate.setBackground(Color.LIGHT_GRAY);
@@ -65,7 +65,7 @@ public class UserInformationView  {
 		hint.setOpaque(true);
 		hint.setBackground(Color.white);
 		hint.setFont(new Font("맑은고딕", Font.BOLD, 17));
-		String s = uc.userSignHint(id);
+		String s = uc.userSignHint(user.getuId());
 		JLabel school = new JLabel(s);
 		school.setOpaque(true);
 		school.setBackground(Color.LIGHT_GRAY);
@@ -75,8 +75,7 @@ public class UserInformationView  {
 		dNo.setOpaque(true);
 		dNo.setBackground(Color.white);
 		dNo.setFont(new Font("맑은고딕", Font.BOLD, 17));	
-		int count = uc.retunrCount();
-		JLabel dCount = new JLabel(" " + String.valueOf(count));
+		JLabel dCount = new JLabel(" " + String.valueOf(user.getDiaryCount()));
 		dCount.setOpaque(true);
 		dCount.setBackground(Color.LIGHT_GRAY);
 		dCount.setFont(new Font("맑은고딕", Font.PLAIN, 15));
@@ -130,7 +129,7 @@ public class UserInformationView  {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jf.setVisible(false);
-				new CalendarView(id);
+				new CalendarView(user);
 				
 			}
 		});
@@ -167,7 +166,7 @@ public class UserInformationView  {
 				} else if (result == JOptionPane.YES_OPTION) {
 					
 					jf.setVisible(false);
-					uc.userDelete(id);
+					uc.userDelete(user.getuId());
 					new LoginView();
 				}
 

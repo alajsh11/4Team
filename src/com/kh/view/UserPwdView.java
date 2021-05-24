@@ -2,9 +2,11 @@ package com.kh.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,55 +42,62 @@ public class UserPwdView {
 
 		jf.add(rPwd);
 		
-		JLabel title = new JLabel(" 비밀번호 재설정");
+		Image hamster = new ImageIcon("image/hamster3.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);;
+		JLabel ham = new JLabel();
+		ham.setIcon(new ImageIcon(hamster));
+		
+		JLabel title = new JLabel(" 비밀번호 재설정입니다.");
 		title.setOpaque(true);
 		title.setBackground(Color.white);
-		title.setFont(new Font("맑은고딕", Font.BOLD, 15));
+		title.setFont(new Font("맑은고딕", Font.BOLD, 17));
 		title.setForeground(Color.gray);
 		
 		JLabel id = new JLabel(" 아이디( - 를 제외한 핸드폰 번호)");
 		id.setOpaque(true);
 		id.setBackground(Color.white);
-		id.setFont(new Font("맑은고딕", Font.BOLD, 14));
+		id.setFont(new Font("맑은고딕", Font.BOLD, 15));
 		
 		JTextField tx = new JTextField();
 		tx.setOpaque(true);
 		tx.setBackground(Color.LIGHT_GRAY);
-		tx.setFont(new Font("맑은고딕", Font.PLAIN, 14));
+		tx.setFont(new Font("맑은고딕", Font.PLAIN, 15));
 		
 		JLabel hint = new JLabel(" 비밀번호 힌트 (졸업한 초등학교 이름)");
 		hint.setOpaque(true);
 		hint.setBackground(Color.white);
-		hint.setFont(new Font("맑은고딕",Font.BOLD,14));
+		hint.setFont(new Font("맑은고딕",Font.BOLD,15));
 		
 		JTextField hi = new JTextField();
 		hi.setOpaque(true);
 		hi.setBackground(Color.LIGHT_GRAY);
-		hi.setFont(new Font("맑은고딕",Font.PLAIN,14));
+		hi.setFont(new Font("맑은고딕",Font.PLAIN,15));
 		
 		JLabel r = new JLabel(" 새로운 비밀번호");
 		r.setOpaque(true);
 		r.setBackground(Color.white);
-		r.setFont(new Font("맑은고딕", Font.BOLD, 14));
+		r.setFont(new Font("맑은고딕", Font.BOLD, 15));
 		
 		JTextField rp = new JTextField();
 		rp.setOpaque(true);
 		rp.setBackground(Color.LIGHT_GRAY);
-		rp.setFont(new Font("맑은고딕", Font.PLAIN, 14));
+		rp.setFont(new Font("맑은고딕", Font.PLAIN, 15));
 		
 		JButton cancel = new JButton("취소");
+		cancel.setFont(new Font("맑은고딕",Font.PLAIN,15));
 		JButton ok = new JButton("확인");
+		ok.setFont(new Font("맑은고딕",Font.PLAIN,15));
 		
 		// 컴포넌트 위치 및 사이즈  
+		ham.setBounds(110,80,100,100);
 		title.setBounds(220, 120, 300, 40);
-		id.setBounds(120, 220, 400, 30);
-		tx.setBounds(120, 250, 400, 30);
-		hint.setBounds(120, 350, 400, 30);
-		hi.setBounds(120, 380, 400, 30);
-		r.setBounds(120, 480, 400, 30);
-		rp.setBounds(120, 510, 400, 30);
-		cancel.setBounds(220, 680, 80, 30);
-		ok.setBounds(330, 680, 80, 30);
+		id.setBounds(120, 240, 400, 30);
+		tx.setBounds(120, 270, 400, 30);
+		hint.setBounds(120, 390, 400, 30);
+		hi.setBounds(120, 420, 400, 30);
+		r.setBounds(120, 540, 400, 30);
+		rp.setBounds(120, 570, 400, 30);
+		cancel.setBounds(220, 700, 80, 30);
+		ok.setBounds(330, 700, 80, 30);
 		
 		// 패널에 추가
 		rPwd.setLayout(null);
@@ -101,6 +110,7 @@ public class UserPwdView {
 		rPwd.add(rp);
 		rPwd.add(cancel);
 		rPwd.add(ok);
+		rPwd.add(ham);
 		
 		
 		// 버튼 액션
