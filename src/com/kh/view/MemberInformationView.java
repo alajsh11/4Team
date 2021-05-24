@@ -8,7 +8,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -32,11 +34,17 @@ public class MemberInformationView {
 	private Object[][] data;
 	private AdministratorController ac = new AdministratorController();
 	private JFrame jf;
-
+	private JLabel hamLabel;
 	public MemberInformationView() {
 		jf = new JFrame();
+		try {
+			jf.setIconImage(ImageIO.read(new File("image/IconHamster.jpg")));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		jf.setSize(640, 960);
-		jf.setTitle("회원조회");
+		jf.setTitle("해씨일기");
 		jf.setLayout(null);
 		jf.setResizable(false);
 		jf.setLocationRelativeTo(null);
@@ -63,6 +71,10 @@ public class MemberInformationView {
 		userListPanel.setLayout(new GridLayout());
 		userListPanel.setBounds(0, 200, 640, 600);
 
+		Image hamImg = new ImageIcon("image/hamser2.PNG").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
+		hamLabel = new JLabel(new ImageIcon(hamImg));
+		hamLabel.setBounds(200,200,100,100);
+		
 		
 		
 		// 유저 목록 리스트 테이블
@@ -99,7 +111,7 @@ public class MemberInformationView {
 		userListTable.setPreferredScrollableViewportSize(new Dimension(640, 600)); // 테이블 사이즈
 		userListTable.setFillsViewportHeight(true);
 		userListTable.setRowHeight(50);
-		userListTable.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		userListTable.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		
 		userListPanel.add(new JScrollPane(userListTable));
 	
@@ -150,6 +162,7 @@ public class MemberInformationView {
 		panel.add(userListField);
 		panel.setVisible(true);
 		panel.add(logOutButton);
+		panel.add(hamLabel);
 
 		// 화면에 추가
 		jf.add(panel);
