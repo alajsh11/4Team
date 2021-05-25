@@ -154,7 +154,7 @@ public class DiaryInformationView {
 					new CalendarView(user);
 				}
 				else if(flag==1) {
-					new SearchHashTagView(user,searchText,flag);
+					new SearchHashTagView(user,searchText,0,flag);
 				}
 			}
 		});
