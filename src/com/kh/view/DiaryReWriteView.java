@@ -226,29 +226,30 @@ public class DiaryReWriteView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) { // 해당 날짜의 일기 혹은 해시태그 검색으로 들어와서 수정
-
-				// 이미지 저장
-				// 기존 이미지 그대로 유지하고 변경하지 않는다면? > 덮어쓰기라 유지되나..?
-				// 현재 조회되어 셋팅된 사진이 변경되지 않았는지 비교할 코드
-
-				
-				if (absoluteFilePath == null) { // 새롭게 선택된 파일이 없다면, 그대로 유지
-					
-					dc.saveImage(uId, date, d.getdImgName());
-
-				} else { // 없다면 새롭게 선택된 파일 경로로 저장
-
-					dc.saveImage(uId, date, absoluteFilePath);
-				}
-				
-
-				// hashtag > 조회창에 뜬 hashtag 내용을 수정하거나 그대로 저장 가능(덮어쓰기)
 				
 				String content = write.getText(); // text 필드값을 담는다.
 
 				if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
 
-					dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
+					int result = JOptionPane.showConfirmDialog(null, "일기를 수정하시겠습니까?", "", JOptionPane.OK_OPTION);
+					// 이미지 저장
+					if (result == JOptionPane.OK_OPTION) {
+						
+						if (absoluteFilePath == null) { // 새롭게 선택된 파일이 없다면, 그대로 유지
+							
+							dc.saveImage(uId, date, d.getdImgName());
+
+						} else { // 없다면 새롭게 선택된 파일 경로로 저장
+
+							dc.saveImage(uId, date, absoluteFilePath);
+						}
+						
+						dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
+						jf.setVisible(false);
+						new CalendarController(user);
+					}
+
+					
 
 				} else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다.
 
@@ -256,13 +257,7 @@ public class DiaryReWriteView {
 
 				}
 
-				int result = JOptionPane.showConfirmDialog(null, "일기를 수정하시겠습니까?", "", JOptionPane.OK_OPTION);
-
-				if (result == JOptionPane.OK_OPTION) {
-					jf.setVisible(false);
-					new CalendarController(user);
-				}
-
+				
 			}
 
 		});
