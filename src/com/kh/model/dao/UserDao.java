@@ -175,9 +175,11 @@ public class UserDao { // User.dat 이용해서 User 객체화
 			String reStr = "";
 
 			while ((line = br.readLine()) != null) {
-				repLine = line.replace(originStr, reStr); // 기존 문자열(originStr)과 새로운 문자열(reStr)교체
-				bw.write(repLine, 0, repLine.length());
+			
+				if(!(originStr.equals(line))) {
+				bw.write(line);
 				bw.newLine(); // 줄바꿈
+				}
 			}
 			result = true;
 
