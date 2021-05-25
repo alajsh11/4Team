@@ -166,7 +166,6 @@ public class MemberCheckView {
 		jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 
 	}
-}
 
 //삭제하기 버튼 팝업창
 class DeleteModal extends JDialog {
@@ -187,15 +186,19 @@ class DeleteModal extends JDialog {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		JLabel lb = new JLabel("정말로 삭제 하시겠습니까?");
-		lb.setBounds(120, 30, 200, 100);
+		lb.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb.setBounds(70, 30, 250, 100);
 
 		// 삭제 버튼
 		deleteButton = new JButton("삭제");
+		deleteButton.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		deleteButton.setBounds(80, 180, 80, 50);
 
 		// 취소버튼
 		cancelButton = new JButton("취소");
+		cancelButton.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		cancelButton.setBounds(220, 180, 80, 50);
+		
 		
 
 		add(cancelButton);
@@ -220,11 +223,13 @@ class CheckModal extends JDialog {
 		setLayout(null);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		JLabel lb = new JLabel("삭제 되었습니다.");
-		lb.setBounds(150, 30, 200, 100);
+		JLabel lb = new JLabel("삭제 되었습니다");
+		lb.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb.setBounds(120, 60, 200, 70);
 
 		checkButton = new JButton("확인");
-		checkButton.setBounds(50, 180, 300, 40);
+		checkButton.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		checkButton.setBounds(40, 180, 300, 50);
 		checkButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -237,4 +242,5 @@ class CheckModal extends JDialog {
 		add(lb);
 
 	}
+}
 }

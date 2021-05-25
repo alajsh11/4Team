@@ -174,8 +174,8 @@ public class MemberInformationView {
 
 class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
-	JButton jb;
-	UserDao a = new UserDao();
+	private JButton jb;
+	private UserDao a = new UserDao();
 
 	public TableCell() {
 

@@ -120,14 +120,15 @@ public class UserDao { // User.dat 이용해서 User 객체화
 
 			File folder = new File(user.getuId());
 
-			File[] folderList = folder.listFiles();
+			if (folder.exists()) {
 
-			for (int i = 0; i < folderList.length; i++) {
-				folderList[i].delete();
-			}
+				File[] folderList = folder.listFiles();
 
-			if (folderList.length == 0 && folder.isDirectory()) {
-				folder.delete();
+				for (int i = 0; i < folderList.length; i++) {
+					folderList[i].delete();
+				}
+
+					folder.delete();
 			}
 
 		} catch (FileNotFoundException e) {
