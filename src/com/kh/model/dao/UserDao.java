@@ -23,17 +23,16 @@ public class UserDao { // User.dat 이용해서 User 객체화
 		return list;
 	}
 
-	//다이어리 개수 수정
+	// 다이어리 개수 수정
 	public void userDiaryCountTemp(User user, int diaryCount) { // 유저 정보와 일기 개수 받아서 수정하기
 
-		
 		FileInputStream fi = null;
 		FileOutputStream fo = null;
 		BufferedReader br = null;
 		BufferedWriter bw = null;
-		
-		System.out.println("user!!"+user);
-		
+
+		System.out.println("user!!" + user);
+
 		File inputFile = new File("User.dat"); // 읽어올 파일
 		File outputFile = new File("User.dat" + ".temp"); // 수정할 파일
 		String count = diaryCount + "";
@@ -47,12 +46,12 @@ public class UserDao { // User.dat 이용해서 User 객체화
 			String line = ""; // 바꿀라인
 			String repLine = ""; // 새로운 라인
 
-			String originStr = user.getuNo()+ "/" + user.getuId() + "/" + user.getuPwd() + "/"
-					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + user.getDiaryCount() +"/";
-			String reStr = user.getuNo()+ "/" + user.getuId() + "/" + user.getuPwd() + "/"
-					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + count +"/";
+			String originStr = user.getuNo() + "/" + user.getuId() + "/" + user.getuPwd() + "/" + user.getuPwdAnswer()
+					+ "/" + user.getuDate() + "/" + user.getDiaryCount() + "/";
+			String reStr = user.getuNo() + "/" + user.getuId() + "/" + user.getuPwd() + "/" + user.getuPwdAnswer() + "/"
+					+ user.getuDate() + "/" + count + "/";
 
-			System.out.println(originStr+"  "+reStr);
+			System.out.println(originStr + "  " + reStr);
 			user.setDiaryCount(diaryCount);
 			while ((line = br.readLine()) != null) {
 				repLine = line.replace(originStr, reStr); // 기존 문자열(originStr)과 새로운 문자열(reStr)교체
@@ -88,69 +87,7 @@ public class UserDao { // User.dat 이용해서 User 객체화
 		}
 
 	}
-	
-	
-	public void userPwdTemp(User user, String pwdTemp) { // 유저 정보 받아서 User.dat 정보 삭제
-		FileInputStream fi = null;
-		FileOutputStream fo = null;
-		BufferedReader br = null;
-		BufferedWriter bw = null;
 
-		File inputFile = new File("User.dat"); // 읽어올 파일
-		File outputFile = new File("User.dat" + ".temp"); // 수정할 파일
-
-		boolean result = false;
-		try {
-			fi = new FileInputStream(inputFile);
-			fo = new FileOutputStream(outputFile);
-			br = new BufferedReader(new InputStreamReader(fi));
-			bw = new BufferedWriter(new OutputStreamWriter(fo));
-
-			String line = ""; // 바꿀라인
-			String repLine = ""; // 새로운 라인
-
-			String originStr = user.getuNo()+ "/" + user.getuId() + "/" + user.getuPwd() + "/"
-					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + user.getDiaryCount() +"/";
-			String reStr = user.getuNo()+ "/" + user.getuId() + "/" + pwdTemp + "/"
-					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + user.getDiaryCount() +"/";
-
-			while ((line = br.readLine()) != null) {
-				repLine = line.replace(originStr, reStr); // 기존 문자열(originStr)과 새로운 문자열(reStr)교체
-				bw.write(repLine, 0, repLine.length());
-				bw.newLine(); // 줄바꿈
-				if(line.equals(reStr)) {
-					result = true;
-				}
-			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				br.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			try {
-				bw.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (result) {
-				inputFile.delete(); // 기존 파일 삭제
-				outputFile.renameTo(new File("User.dat")); // 새로운 파일 이름 교체
-			}
-		}
-
-	}
-	
 	public void userDelete(User user) { // 유저 정보 받아서 User.dat 정보 삭제
 		FileInputStream fi = null;
 		FileOutputStream fo = null;
@@ -168,20 +105,30 @@ public class UserDao { // User.dat 이용해서 User 객체화
 			bw = new BufferedWriter(new OutputStreamWriter(fo));
 
 			String line = ""; // 바꿀라인
-			String repLine = ""; // 새로운 라인
 
-			String originStr = user.getuNo()+ "/" + user.getuId() + "/" + user.getuPwd() + "/"
-					+ user.getuPwdAnswer() + "/" + user.getuDate() + "/" + user.getDiaryCount() +"/";
-			String reStr = "";
+			String originStr = user.getuNo() + "/" + user.getuId() + "/" + user.getuPwd() + "/" + user.getuPwdAnswer()
+					+ "/" + user.getuDate() + "/" + user.getDiaryCount() + "/";
 
 			while ((line = br.readLine()) != null) {
-			
-				if(!(originStr.equals(line))) {
-				bw.write(line);
-				bw.newLine(); // 줄바꿈
+
+				if (!(originStr.equals(line))) {
+					bw.write(line);
+					bw.newLine(); // 줄바꿈
 				}
 			}
 			result = true;
+
+			File folder = new File(user.getuId());
+
+			File[] folderList = folder.listFiles();
+
+			for (int i = 0; i < folderList.length; i++) {
+				folderList[i].delete();
+			}
+
+			if (folderList.length == 0 && folder.isDirectory()) {
+				folder.delete();
+			}
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -236,7 +183,6 @@ public class UserDao { // User.dat 이용해서 User 객체화
 				if (asd.length() > 5)
 					strList.add(asd); // 빈칸 무시(삭제한 유저정보 담지않기)
 			}
-			
 
 			// arr[] 배열 길이만큼 반복시켜 list 추가하기
 			for (int listSize = 0; listSize < strList.size(); listSize++) {
