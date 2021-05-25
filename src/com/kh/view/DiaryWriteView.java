@@ -205,7 +205,6 @@ public class DiaryWriteView  {
 		// 저장 버튼
 		save.addActionListener(new ActionListener() {
 			
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (image.getIcon() == null) {
@@ -222,21 +221,21 @@ public class DiaryWriteView  {
 						dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
 
 						new UserDao().userDiaryCountTemp(user, user.getDiaryCount()+1);
-						
+
+//						JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
+						int result = JOptionPane.showConfirmDialog(null, "일기가 저장되었습니다.", "", JOptionPane.OK_OPTION);
+
+						if (result == JOptionPane.OK_OPTION) {
+							jf.setVisible(false);
+							new CalendarView(user);
+						}
+
 					} else if (content.length() >= 100) { // 100자 이상이되면 팝업창이 뜬다.
 
 						JOptionPane.showMessageDialog(null, "글자 제한 100자입니다.", "", JOptionPane.WARNING_MESSAGE);
 
 					}
-					
 
-//					JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
-					int result = JOptionPane.showConfirmDialog(null, "일기가 저장되었습니다.", "", JOptionPane.OK_OPTION);
-					
-					if (result == JOptionPane.OK_OPTION) {
-						jf.setVisible(false);
-						new CalendarView(user);	
-					}
 				}
 				
 			}
