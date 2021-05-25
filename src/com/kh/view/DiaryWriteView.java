@@ -211,21 +211,21 @@ public class DiaryWriteView  {
 					JOptionPane.showMessageDialog(null, "이미지가 선택되지 않았습니다.", "", JOptionPane.WARNING_MESSAGE);
 				
 				} else {
-					// 이미지 저장
-					dc.saveImage(uId, date, absoluteFilePath);
-					
 					String content = write.getText(); // text 필드에서 넣은 값을 담는다.
 
 					if (content.length() < 100) {// 내용은 100자 제한이므로 100자 이하일때만 content에 담긴다.
 
-						dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
-
-						new UserDao().userDiaryCountTemp(user, user.getDiaryCount()+1);
-
 //						JOptionPane.showMessageDialog(null, "일기가 저장되었습니다.", "", JOptionPane.WARNING_MESSAGE);
-						int result = JOptionPane.showConfirmDialog(null, "일기가 저장되었습니다.", "", JOptionPane.OK_OPTION);
+						int result = JOptionPane.showConfirmDialog(null, "일기를 저장하시겠습니까?", "", JOptionPane.OK_OPTION);
 
 						if (result == JOptionPane.OK_OPTION) {
+
+							// 이미지 저장
+							dc.saveImage(uId, date, absoluteFilePath);
+							
+							dc.saveDiary(uId, date, dc.hashtagTokenizer(content));
+							new UserDao().userDiaryCountTemp(user, user.getDiaryCount()+1);
+							
 							jf.setVisible(false);
 							new CalendarView(user);
 						}
