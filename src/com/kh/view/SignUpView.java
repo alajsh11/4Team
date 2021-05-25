@@ -20,7 +20,7 @@ import com.kh.controller.UserController;
 
 public class SignUpView implements ActionListener {
 
-	UserController uc = new UserController();
+	private UserController uc = new UserController();
 	
 	private String signId;
 	private String signPwd;

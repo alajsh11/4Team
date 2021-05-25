@@ -23,8 +23,6 @@ import com.kh.model.vo.User;
 public class UserInformationView  {
 
 	private UserController uc = new UserController();
-	private User us = new User();
-	private Diary dy = new Diary();
 
 	public UserInformationView() { 
 		
@@ -65,18 +63,16 @@ public class UserInformationView  {
 		tDate.setOpaque(true);
 		tDate.setBackground(Color.white);
 		tDate.setFont(new Font("맑은고딕", Font.BOLD, 17));		
-		String date = uc.userSignDate(user.getuId());
-		JLabel sDate = new JLabel(date);
+		JLabel sDate = new JLabel(user.getuDate());
 		sDate.setOpaque(true);
 		sDate.setBackground(Color.LIGHT_GRAY);
 		sDate.setFont(new Font("맑은고딕", Font.PLAIN, 15));
-		JLabel hint = new JLabel("  비밀번호 힌트 (졸업한 초등학교 이름)");
 		
+		JLabel hint = new JLabel("  비밀번호 힌트 (졸업한 초등학교 이름)");	
 		hint.setOpaque(true);
 		hint.setBackground(Color.white);
 		hint.setFont(new Font("맑은고딕", Font.BOLD, 17));
-		String s = uc.userSignHint(user.getuId());
-		JLabel school = new JLabel(s);
+		JLabel school = new JLabel(user.getuPwdAnswer());
 		school.setOpaque(true);
 		school.setBackground(Color.LIGHT_GRAY);
 		school.setFont(new Font("맑은고딕", Font.PLAIN, 15));
