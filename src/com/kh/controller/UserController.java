@@ -19,7 +19,6 @@ import com.kh.view.MemberInformationView;
 public class UserController {
 
 	User us = new User();
-	private int count;
 
 	// 회원가입 유저 --> dat 파일에 저장
 
@@ -299,13 +298,4 @@ public class UserController {
 		return hint;
 	}
 
-	public void diaryCount(int count) {
-		
-		this.count = count;
-	}
-	
-	public int retunrCount() {
-	
-	return count;
-	}
 }
