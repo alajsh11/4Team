@@ -27,7 +27,7 @@ public class MemberCheckView {
 	private JFrame jf;
 	private DeleteModal dm;
 	private CheckModal cm;
-	AdministratorController ac = new AdministratorController();
+	private AdministratorController ac = new AdministratorController();
 	
 	public MemberCheckView(User user) {
 		jf = new JFrame();
