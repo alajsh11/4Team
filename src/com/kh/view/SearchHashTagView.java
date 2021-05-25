@@ -38,25 +38,28 @@ public class SearchHashTagView {
 	private HintTextField searchTextField;
 	private JFrame jf;
 	private JPanel[] listBoard = new JPanel[MAX];
-	private JButton[] boardInfoBtn= new JButton[MAX];
+	private JButton[] boardInfoBtn = new JButton[MAX];
 	private JLabel[] listText = new JLabel[MAX];
 	private static String searched;
 
+	private int page = 0;
 
 	private ArrayList<Diary> diary;
 	private SearchController sc = new SearchController();
 	private int flag;
+
 	public SearchHashTagView() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SearchHashTagView(User user, String searchedText,int flag) {
-		this.flag=flag;
-		this.user=user;
+	public SearchHashTagView(User user, String searchedText, int p, int flag) {
+		page=p;
+		this.flag = flag;
+		this.user = user;
 		JPanel board = new JPanel();
 		searched = searchedText;
 		Color grayColor = new Color(0xeeeeee);
-		Font font = new Font("serif", Font.PLAIN, 18);
+		Font font = new Font("맑은 고딕", Font.PLAIN, 18);
 
 		jf = new JFrame();
 		jf.setBounds(0, 0, 640, 960);
@@ -75,21 +78,20 @@ public class SearchHashTagView {
 		panel.setSize(jf.getMaximumSize());
 		panel.setLayout(new BorderLayout());
 		panel.setFocusable(true);
-		
-		
-		//이전
-		ImageIcon icPrev =  new ImageIcon("Image/prev.png");
-		Image imPrev = icPrev.getImage().getScaledInstance(40,35, Image.SCALE_SMOOTH);
-		
-		prevBtn = new JButton(); 
-		prevBtn.setBorderPainted(false); 
-		prevBtn.setFocusPainted(false); 
+
+		// 이전
+		ImageIcon icPrev = new ImageIcon("Image/prev.png");
+		Image imPrev = icPrev.getImage().getScaledInstance(40, 35, Image.SCALE_SMOOTH);
+
+		prevBtn = new JButton();
+		prevBtn.setBorderPainted(false);
+		prevBtn.setFocusPainted(false);
 		prevBtn.setContentAreaFilled(false);
 		prevBtn.setLayout(null);
 		prevBtn.setIcon(new ImageIcon(imPrev));
-		prevBtn.setBounds(20,110,90,35);
+		prevBtn.setBounds(20, 110, 90, 35);
 		prevBtn.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -136,16 +138,14 @@ public class SearchHashTagView {
 			panels[i].add(titles[i]);
 
 		}
-		
-		
-		panels[0].setBounds(0,0,(int)(title.getWidth()*0.2),title.getHeight());
-		panels[1].setBounds((int)(title.getWidth()*0.2),0,(int)(title.getWidth()*0.7),title.getHeight());
-		panels[2].setBounds((int)(title.getWidth()*0.9),0,(int)(title.getWidth()*0.1),title.getHeight());
 
-		
+		panels[0].setBounds(0, 0, (int) (title.getWidth() * 0.2), title.getHeight());
+		panels[1].setBounds((int) (title.getWidth() * 0.2), 0, (int) (title.getWidth() * 0.7), title.getHeight());
+		panels[2].setBounds((int) (title.getWidth() * 0.9), 0, (int) (title.getWidth() * 0.1), title.getHeight());
+
 		title.add(panels[0]);
-		title.add(panels[1]); //, BorderLayout.CENTER
-		title.add(panels[2]); //, BorderLayout.EAST
+		title.add(panels[1]); // , BorderLayout.CENTER
+		title.add(panels[2]); // , BorderLayout.EAST
 
 		// 일기목록 내용
 		JPanel dateBoard[] = new JPanel[MAX]; // 날짜 패널
@@ -154,71 +154,110 @@ public class SearchHashTagView {
 		JLabel dateList[] = new JLabel[MAX];
 		JLabel hashList[] = new JLabel[MAX];
 
-		
 		Image temp = new ImageIcon("image/arrow.PNG").getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
 		ImageIcon arrow = new ImageIcon(temp);
 
-		diary= sc.searchDiary(user.getuId(), searchedText);
-		String hashTagText="";
+		diary = sc.searchDiary(user.getuId(), searchedText);
+		String hashTagText = "";
+
+		if (page > 0) {
+			JButton beforeBtn = new JButton();
+			beforeBtn.setBorderPainted(false);
+			beforeBtn.setFocusPainted(false);
+			beforeBtn.setContentAreaFilled(false);
+			beforeBtn.setLayout(null);
+			beforeBtn.setText("◀");
+			beforeBtn.setFont(new Font("맑은고딕", Font.PLAIN, 30));
+			beforeBtn.setBounds(200, 830, 100, 100);
+			beforeBtn.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					page -= 1;
+					jf.setVisible(false);
+					new SearchHashTagView(user, searchTextField.getText(), page, 1);
+				}
+			});
+			jf.add(beforeBtn);
+		}
 		
-		
+		if (page < (diary.size() / 8)) {
+			JButton AfterBtn = new JButton();
+			AfterBtn.setBorderPainted(false);
+			AfterBtn.setFocusPainted(false);
+			AfterBtn.setContentAreaFilled(false);
+			AfterBtn.setLayout(null);
+			AfterBtn.setText("▶");
+			AfterBtn.setFont(new Font("맑은고딕", Font.PLAIN, 30));
+			AfterBtn.setBounds(300, 830, 100, 100);
+			AfterBtn.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					page += 1;
+					jf.setVisible(false);
+					new SearchHashTagView(user, searchTextField.getText(), page, 1);
+				}
+			});
+			jf.add(AfterBtn);
+		}
+
 		for (int i = 0; i < MAX; i++) {
 			listBoard[i] = new JPanel();
 			listBoard[i].setLayout(null);
-			listBoard[i].setSize(board.getWidth(), (int)((board.getHeight()-title.getHeight())*0.125) );
+			listBoard[i].setSize(board.getWidth(), (int) ((board.getHeight() - title.getHeight()) * 0.125));
 
-			//날짜 라벨
+			// 날짜 라벨
 			dateList[i] = new JLabel();
 			dateList[i].setFont(font);
-			
-			//해시태그 라벨
+
+			// 해시태그 라벨
 			hashList[i] = new JLabel();
 			hashList[i].setFont(font);
 
-			boardInfoBtn[i] = new JButton(arrow); //버튼
-			dateBoard[i] = new JPanel(); //날짜 라벨 붙인 패널
-			hashBoard[i] = new JPanel(); //해시태그 라벨 붙인 패널
-			
-			boardInfoBtn[i].setBackground(Color.WHITE);
-			boardInfoBtn[i].setBorderPainted(false);  
-			boardInfoBtn[i].setFocusPainted(false); 
-			boardInfoBtn[i].setBounds( (int)(listBoard[i].getWidth()*0.9) ,0,(int)(listBoard[i].getWidth()*0.1),listBoard[i].getHeight() );
+			boardInfoBtn[i] = new JButton(arrow); // 버튼
+			dateBoard[i] = new JPanel(); // 날짜 라벨 붙인 패널
+			hashBoard[i] = new JPanel(); // 해시태그 라벨 붙인 패널
 
-			
-			if(i<diary.size()){ //다이어리 객체수만큼만 실행함
-				hashTagText = sc.searchHashText(diary.get(i), searchedText); //검색어가 포함된 해시태그를 가진 객체를 받아서 그 객체에 검색어가 포함된 해시태그 스트링을 저장
-				hashList[i].setText(hashTagText); //해시태그 스트링 세팅
-				dateList[i].setText(diary.get(i).getdDate()); //날짜 스트링 세팅
-				boardInfoBtn[i].addActionListener(new BtnActionListner()); //버튼 이벤트 추가해주기
-				
-				
-			}else {
-				boardInfoBtn[i].setIcon(null); 
-				boardInfoBtn[i].setEnabled(false); //다이어리 객체수 이외의 버튼들은 비활성화 -> 빈줄에 버튼 안뜨게
+			boardInfoBtn[i].setBackground(Color.WHITE);
+			boardInfoBtn[i].setBorderPainted(false);
+			boardInfoBtn[i].setFocusPainted(false);
+			boardInfoBtn[i].setBounds((int) (listBoard[i].getWidth() * 0.9), 0, (int) (listBoard[i].getWidth() * 0.1),
+					listBoard[i].getHeight());
+
+			if (i+(page*8) < diary.size()) { // 다이어리 객체수만큼만 실행함
+				hashTagText = sc.searchHashText(diary.get(i + (page * 8)), searchedText); // 검색어가 포함된 해시태그를 가진 객체를 받아서 그
+																							// 객체에 검색어가 포함된 해시태그 스트링을 저장
+				hashList[i].setText(hashTagText); // 해시태그 스트링 세팅
+				dateList[i].setText(diary.get(i + (page * 8)).getdDate()); // 날짜 스트링 세팅
+				boardInfoBtn[i].addActionListener(new BtnActionListner()); // 버튼 이벤트 추가해주기
+
+			} else {
+				boardInfoBtn[i].setIcon(null);
+				boardInfoBtn[i].setEnabled(false); // 다이어리 객체수 이외의 버튼들은 비활성화 -> 빈줄에 버튼 안뜨게
 			}
-			
-			dateBoard[i].setBounds( 0,0,(int)(listBoard[i].getWidth()*0.2),listBoard[i].getHeight() );
+
+			dateBoard[i].setBounds(0, 0, (int) (listBoard[i].getWidth() * 0.2), listBoard[i].getHeight());
 			dateBoard[i].setBackground(Color.white);
 
-			hashBoard[i].setBounds((int)(listBoard[i].getWidth()*0.2) ,0,(int)(listBoard[i].getWidth()*0.7),listBoard[i].getHeight() );
+			hashBoard[i].setBounds((int) (listBoard[i].getWidth() * 0.2), 0, (int) (listBoard[i].getWidth() * 0.7),
+					listBoard[i].getHeight());
 			hashBoard[i].setBackground(Color.white);
 
-			
-
-		
 			dateBoard[i].add(dateList[i]);
 			hashBoard[i].add(hashList[i]);
 			listBoard[i].add(dateBoard[i]);
 			listBoard[i].add(hashBoard[i]);
 			listBoard[i].add(boardInfoBtn[i]);
-			
+
 			board.add(listBoard[i]);
 		}
-	
-		//패널에 붙이기
+
+		// 패널에 붙이기
 		jf.add(prevBtn);
 		jf.add(searchBtn);
 		jf.add(searchTextField);
+
 		jf.add(board);
 		jf.add(panel);
 		jf.setVisible(true);
@@ -233,21 +272,21 @@ public class SearchHashTagView {
 			if (e.getSource() == searchBtn || e.getSource() == searched) {
 				if (!searchTextField.getText().equals(searched)) { // 검색해서 들어온 검색어에는 반응하지 않게
 					jf.setVisible(false);
-					new SearchHashTagView(user, searchTextField.getText(),1);
+					new SearchHashTagView(user, searchTextField.getText(), 0, 1);
 				}
 
 			}
-			
-			for(int i=0; i<boardInfoBtn.length;i++) {
-				//일기창 -> 검색 flag =1
-				//캘린더-> 검색 flag=0;
-				if(e.getSource()==boardInfoBtn[i]) {
+
+			for (int i = 0; i < boardInfoBtn.length; i++) {
+				// 일기창 -> 검색 flag =1
+				// 캘린더-> 검색 flag=0;
+				if (e.getSource() == boardInfoBtn[i]) {
 					jf.setVisible(false);
-					new DiaryController().diaryRead(user, diary.get(i).getdDate(), searched,flag );
+					new DiaryController().diaryRead(user, diary.get(i+(page * 8)).getdDate(), searched, flag);
 
 				}
 			}
-			
+
 		}
 	}
 

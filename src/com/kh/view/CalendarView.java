@@ -268,7 +268,7 @@ public class CalendarView {
 			if (e.getSource() == searchBtn || e.getSource() == searchText) {
 				if (!(searchText.getText().equals(" #해시태그 검색") || searchText.getText().equals(""))) {
 					jf.setVisible(false);
-					new SearchHashTagView(user,searchText.getText(),1); //캘린더 -> 검색
+					new SearchHashTagView(user,searchText.getText(),0,1); //캘린더 -> 검색
 				}
 			}
 			if (e.getSource() == infoBtn) {
