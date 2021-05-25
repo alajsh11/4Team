@@ -168,7 +168,7 @@ public class SearchHashTagView {
 			beforeBtn.setLayout(null);
 			beforeBtn.setText("◀");
 			beforeBtn.setFont(new Font("맑은고딕", Font.PLAIN, 30));
-			beforeBtn.setBounds(200, 830, 100, 100);
+			beforeBtn.setBounds(150, 830, 100, 100);
 			beforeBtn.addActionListener(new ActionListener() {
 
 				@Override
@@ -181,7 +181,7 @@ public class SearchHashTagView {
 			jf.add(beforeBtn);
 		}
 		
-		if (page < (diary.size() / 8)) {
+		if ( ((diary.size() % MAX)==0 && page < (diary.size() / MAX)-1) || ((diary.size() % MAX)!=0 && page < (diary.size() / MAX))) {
 			JButton AfterBtn = new JButton();
 			AfterBtn.setBorderPainted(false);
 			AfterBtn.setFocusPainted(false);
@@ -189,7 +189,7 @@ public class SearchHashTagView {
 			AfterBtn.setLayout(null);
 			AfterBtn.setText("▶");
 			AfterBtn.setFont(new Font("맑은고딕", Font.PLAIN, 30));
-			AfterBtn.setBounds(300, 830, 100, 100);
+			AfterBtn.setBounds(400, 830, 100, 100);
 			AfterBtn.addActionListener(new ActionListener() {
 
 				@Override
@@ -226,10 +226,10 @@ public class SearchHashTagView {
 					listBoard[i].getHeight());
 
 			if (i+(page*8) < diary.size()) { // 다이어리 객체수만큼만 실행함
-				hashTagText = sc.searchHashText(diary.get(i + (page * 8)), searchedText); // 검색어가 포함된 해시태그를 가진 객체를 받아서 그
+				hashTagText = sc.searchHashText(diary.get(i + (page * MAX)), searchedText); // 검색어가 포함된 해시태그를 가진 객체를 받아서 그
 																							// 객체에 검색어가 포함된 해시태그 스트링을 저장
 				hashList[i].setText(hashTagText); // 해시태그 스트링 세팅
-				dateList[i].setText(diary.get(i + (page * 8)).getdDate()); // 날짜 스트링 세팅
+				dateList[i].setText(diary.get(i + (page * MAX)).getdDate()); // 날짜 스트링 세팅
 				boardInfoBtn[i].addActionListener(new BtnActionListner()); // 버튼 이벤트 추가해주기
 
 			} else {
@@ -282,7 +282,7 @@ public class SearchHashTagView {
 				// 캘린더-> 검색 flag=0;
 				if (e.getSource() == boardInfoBtn[i]) {
 					jf.setVisible(false);
-					new DiaryController().diaryRead(user, diary.get(i+(page * 8)).getdDate(), searched, flag);
+					new DiaryController().diaryRead(user, diary.get(i+(page * MAX)).getdDate(), searched, flag);
 
 				}
 			}
