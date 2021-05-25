@@ -32,7 +32,7 @@ public class UserController {
 		String s = "";
 		String line = "";
 		String array[];
-		
+
 		int count = 0;
 
 		File file = new File("User.dat");
@@ -53,8 +53,8 @@ public class UserController {
 				e1.printStackTrace();
 			}
 		}
-		
-		DecimalFormat df = new DecimalFormat("0000");		
+
+		DecimalFormat df = new DecimalFormat("0000");
 		String uNum = String.valueOf(df.format(count));
 
 		try {
@@ -76,7 +76,7 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-		us.setuNo(String.valueOf(count));	
+		us.setuNo(String.valueOf(count));
 
 	}
 
@@ -93,13 +93,12 @@ public class UserController {
 				BufferedReader br = new BufferedReader(new FileReader("User.dat"));
 				while ((line = br.readLine()) != null) {
 					array = line.split("/");
-					  if (id.equals(array[1])) {
-		                  result = false;
-		                  break;
-		               }
-		               else {
-		                  result=true;
-		               }
+					if (id.equals(array[1])) {
+						result = false;
+						break;
+					} else {
+						result = true;
+					}
 				}
 
 			} catch (Exception e1) {
@@ -127,22 +126,22 @@ public class UserController {
 			while ((line = br.readLine()) != null) {
 				array = line.split("/");
 				if (id.equals(array[1]) && (pwd.equals(array[2]))) {
-						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");				
-						User user = new User(array[0],id, pwd, array[3],array[4], Integer.valueOf(array[5]));
-						if (array[0].equals("0000")) {
-							new MemberInformationView();
-						} else {
-							new CalendarView(user);
-						}
-						result = true;
-						break;
-					} else if(!(id.equals(array[1])) && (!(pwd.equals(array[2]))) || 
-							(id.equals(array[1])) && (!(pwd.equals(array[2])))) {
-							result = false;			
+					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+					User user = new User(array[0], id, pwd, array[3], array[4], Integer.valueOf(array[5]));
+					if (array[0].equals("0000")) {
+						new MemberInformationView();
+					} else {
+						new CalendarView(user);
 					}
+					result = true;
+					break;
+				} else if (!(id.equals(array[1])) && (!(pwd.equals(array[2])))
+						|| (id.equals(array[1])) && (!(pwd.equals(array[2])))) {
+					result = false;
 				}
-			
-			if(result == false) {
+			}
+
+			if (result == false) {
 				JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못되었습니다.", "Message", JOptionPane.ERROR_MESSAGE);
 			}
 
@@ -157,7 +156,6 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-		
 
 		return result;
 
@@ -187,7 +185,28 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		diaryDelete(id);
+	
+	}
 
+	// 해당 유저 일기 영구 삭제
+	public void diaryDelete(String id) {
+		
+		String path = id;
+		File folder = new File(path);
+		
+			while (folder.exists()) {
+				File[] folderList = folder.listFiles();
+
+				for (int i = 0; i < folderList.length; i++) {
+					folderList[i].delete(); // 폴더 내부 파일 삭제
+				}
+
+				if (folderList.length == 0 && folder.isDirectory()) {
+					folder.delete(); // 대상폴더 삭제
+				}
+			}
 	}
 
 	// 비밀번호 재설정
@@ -239,7 +258,7 @@ public class UserController {
 					}
 				} else {
 					dummy += (line + "\n");
-				
+
 				}
 			}
 			FileWriter fw = new FileWriter("User.dat");
