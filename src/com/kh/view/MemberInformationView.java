@@ -34,6 +34,7 @@ public class MemberInformationView {
 	private Object[][] data;
 	private AdministratorController ac = new AdministratorController();
 	private JFrame jf;
+
 	public MemberInformationView() {
 		jf = new JFrame();
 		try {
@@ -68,14 +69,12 @@ public class MemberInformationView {
 		JPanel userListPanel = new JPanel();
 		userListPanel.setLayout(new GridLayout());
 		userListPanel.setBounds(0, 200, 640, 600);
-		
-		//햄스터 이미지 라벨
+
+		// 햄스터 이미지 라벨
 		Image hamImg = new ImageIcon("image/hamster2.PNG").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 		JLabel hamLabel = new JLabel(new ImageIcon(hamImg));
-		hamLabel.setBounds(500,130,100,100);
-		
-		
-		
+		hamLabel.setBounds(500, 130, 100, 100);
+
 		// 유저 목록 리스트 테이블
 		// 테이블 clounm
 		headings = new String[] { "회원번호", "회원아이디", "" };
@@ -97,13 +96,10 @@ public class MemberInformationView {
 				}
 			}
 		}
-		
-		
 
-		
 //		// 테이블 생성
 		TableCell btnTable = new TableCell();
-		
+
 		JTable userListTable = new JTable(data, headings);
 		userListTable.getColumnModel().getColumn(2).setCellRenderer(btnTable);
 		userListTable.getColumnModel().getColumn(2).setCellEditor(btnTable);
@@ -111,40 +107,31 @@ public class MemberInformationView {
 		userListTable.setFillsViewportHeight(true);
 		userListTable.setRowHeight(50);
 		userListTable.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-		
-		userListPanel.add(new JScrollPane(userListTable));
-	
-		
-		
-		
-		
-		
-		//
+
+		userListPanel.add(new JScrollPane(userListTable)); // 패널에 추가
+
+		// 버튼 클릭 이벤트
 		btnTable.getJb().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				jf.setVisible(false);
 				String value;
-				value = (String)userListTable.getValueAt(userListTable.getSelectedRow(), 0);
-				
-				for(int i = 0; i < ac.getNoArr().length; i++) {
-					if(ac.getNoArr()[i].equals(value)) {
+				value = (String) userListTable.getValueAt(userListTable.getSelectedRow(), 0);
+
+				for (int i = 0; i < ac.getNoArr().length; i++) {
+					if (ac.getNoArr()[i].equals(value)) {
 						new MemberCheckView(ac.getUser().getList().get(i));
 						jf.setVisible(false);
 					}
 				}
 			}
 		});
-		
-		
-		
-		
 
 		// 로그아웃 버튼
 		JButton logOutButton = new JButton("로그아웃");
 		logOutButton.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		logOutButton.setBounds(250, 850, 100, 50);
+		logOutButton.setContentAreaFilled(false);
 		// 로그아웃 버튼 클릭시 loginView화면으로 이동
 		logOutButton.addActionListener(new ActionListener() {
 
@@ -168,54 +155,42 @@ public class MemberInformationView {
 		jf.setVisible(true);
 	}
 
-	
-	
-	
+	class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
-class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+		private JButton jb;
+		private UserDao a = new UserDao();
 
-	private JButton jb;
-	private UserDao a = new UserDao();
+		public TableCell() {
+			Image memberInfoImg = new ImageIcon("Image/arrow.png").getImage().getScaledInstance(40, 35,
+					Image.SCALE_SMOOTH);
+			jb = new JButton();
+			jb.setBorderPainted(false);
+			jb.setContentAreaFilled(false);
+			jb.setIcon(new ImageIcon(memberInfoImg));
+		}
 
-	public TableCell() {
+		public JButton getJb() {
+			return jb;
+		}
 
-		Image memberInfoImg = new ImageIcon("Image/arrow.png").getImage().getScaledInstance(40, 35,
-				Image.SCALE_SMOOTH);
-		jb = new JButton();
-		jb.setBorderPainted(false);
-		jb.setContentAreaFilled(false);
-		jb.setIcon(new ImageIcon(memberInfoImg));
-		jb.addActionListener(new ActionListener() {
+		@Override
+		public Object getCellEditorValue() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			// TODO Auto-generated method stub
+			return jb;
+		}
+
+		@Override
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+				int column) {
+			// TODO Auto-generated method stub
+			return jb;
+		}
 	}
-
-	public JButton getJb() {
-		return jb;
-	}
-
-	@Override
-	public Object getCellEditorValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int column) {
-		// TODO Auto-generated method stub
-		return jb;
-	}
-
-	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-		// TODO Auto-generated method stub
-		return jb;
-	}
-
-}
-
 }

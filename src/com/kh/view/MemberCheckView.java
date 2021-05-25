@@ -80,12 +80,11 @@ public class MemberCheckView {
 		adminIdField.setEditable(false);
 
 		// 회원가입 날짜 텍스트필드
-		JTextField umsField = new JTextField("회원 가입 날짜");
+		JTextField umsField = new JTextField("회원가입 날짜");
 		umsField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		umsField.setBounds(100, 350, 450, 30);
 		userMembershipField = new JTextField(user.getuDate());
 		userMembershipField.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		
 		userMembershipField.setBounds(100, 380, 450, 30);
 		userMembershipField.setEditable(false);
 
@@ -110,6 +109,9 @@ public class MemberCheckView {
 		// 회원 삭제 버튼
 		userDeleteButton = new JButton("회원삭제");
 		userDeleteButton.setBounds(260, 750, 100, 30);
+
+		userDeleteButton.setContentAreaFilled(false);
+		
 		dm = new DeleteModal(jf);
 		
 		// 삭제 버튼 클릭시 팝업창 띄우기
